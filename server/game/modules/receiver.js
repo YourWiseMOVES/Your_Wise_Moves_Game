@@ -25,21 +25,29 @@ const discussion = require('./discussion');
 //function adds players to the game
 const join = require('./join')
 
+//function dispatches players results on game end
+const dispatch = require('./dispatch');
+
+
 
 //function receives actions and routes them to their proper handlers
 const receiver = (action, gameId, socket) => {
     switch(action.type) {
         case ('advance'):
             advance(action, gameId, socket);
-        ;
+            break;
         case ('discussion'):
             discussion(action, gameId, socket);
-        ;
+            break;
         case ('journal'):
             journal(action, gameId, socket);
-        ;
+            break;
         case ('join'):
             join(action, gameId, socket);
+            break;
+        case ('dispatch'):
+            dispatch(action, gameId, socket);
+            break;
     }
 }
 
