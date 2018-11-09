@@ -5,7 +5,7 @@ class Discussion extends Component {
 
     //Determine if game proceeds to the next discussion round or to the post game process
     determineRound = () => {
-        if (this.props.state.round.setGameRound < 5) {
+        if (this.props.state.game.game_stateReducer.game_state.round < 5) {
             this.props.dispatch({type: 'PROCEED_TO_NEXT_ROUND'})
             this.props.history.push("/roundintro")
         } else {
@@ -20,7 +20,7 @@ class Discussion extends Component {
       <div>
         <h1>Discussion Phase</h1>
         <h2>Player View</h2>
-        <h2>Round {this.props.state.round.setGameRound}</h2>
+        <h2>Round {this.props.state.game.game_stateReducer.game_state.round}</h2>
         <h3>Players discuss their answers.  Normally, after this screen you will head back to RoundIntro, but for the new round</h3>
         <h3>This will also act as a waiting page while you are waiting for other players to answer their question</h3> 
         <button onClick={this.determineRound}>RoundIntro/FinalReflection (players don't have this option)</button>   
@@ -29,7 +29,7 @@ class Discussion extends Component {
       <div>
         <h1>Discussion Phase</h1>
         <h2>Facilitator View</h2>
-        <h2>Round {this.props.state.round.setGameRound}</h2>
+        <h2>Round {this.props.state.game.game_stateReducer.game_state.round}</h2>
         <h3>Lead discussion of players answers, facilitator will choose the order in which players speak</h3>  
         <button onClick={this.determineRound}>RoundIntro/FinalReflection</button>   
       </div>

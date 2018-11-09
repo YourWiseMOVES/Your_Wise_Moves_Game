@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 
 class IntentionInput extends Component {
 
+
+  
   render() {
     return (
       this.props.state.user.userTypeReducer === 'player'

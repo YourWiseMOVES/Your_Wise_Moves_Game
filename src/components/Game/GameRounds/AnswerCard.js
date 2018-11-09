@@ -10,7 +10,7 @@ class AnswerCard extends Component {
       <div>
         <h1>Answer Card</h1>
         <h2>Player View</h2>
-        <h2>Round {this.props.state.round.setGameRound}</h2>
+        <h2>Round {this.props.state.game.game_stateReducer.game_state.round}</h2>
         <h3>Input your answer to the card you were dealt</h3>  
         <button onClick={() => this.props.history.push("/discussion")}>Discussion</button>   
       </div>
@@ -18,7 +18,7 @@ class AnswerCard extends Component {
       <div>
         <h1>Answer Card</h1>
         <h2>Facilitator View</h2>
-        <h2>Round {this.props.state.round.setGameRound}</h2>
+        <h2>Round {this.props.state.game.game_stateReducer.game_state.round}</h2>
         <h3>Waiting for players to complete their answers</h3>  
         <button onClick={() => this.props.history.push("/discussion")}>Discussion</button>   
       </div>
