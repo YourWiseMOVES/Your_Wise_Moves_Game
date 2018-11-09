@@ -4,7 +4,16 @@
  * Emit an event to the client to signal success and refresh data.
 */
 
-const discussion = () => {
+//the structure for what a discussion action will look like from the client
+const sampleDiscussionAction = {
+    type: 'discussion',
+    data: {
+        playerName: '',
+    },
+    facilitatorId: 0,
+}
+
+const discussion = (action, gameId, socket) => {
     
 }
 
