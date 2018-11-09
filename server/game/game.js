@@ -4,27 +4,51 @@ const start = require('./modules/start');
 //function handles data sent from the clients
 const receiver = require('./modules/receiver');
 
-//function advances game state one stage
-const advance = require('./modules/advance');
-
-//function updates player journals
-const journal = require('./modules/journal');
-
-//function advances discussion phase
-const discussion =  require('./modules/discussion');
-
 //function handles end of games
 const end = require('./modules/end');
 
-const game = async facilitatorID => {
+exports.game = async (facilitatorId, socketInput) => {
+    //enables socket connections (not sure what we will need in the 2nd parentheses)
+    const io = require('socket.io')(socketInput);
     try {
-        await start(facilitatorID);
+        const data = await start(facilitatorId);
+        //split up returned data for readability 
+        let code = data.code;
+        let gameId = data.gameId;
         //start socket here
-
-    } 
+        const link = await 
+        //unique namespace for connection
+        io.of(`/${code}`)
+        //on connection do this:
+        .on('connection', socket => {
+            socket.emit('start', { message: 'Connected to server.', code });
+            //set listener for players joining
+            socket.on('join', data => {
+                const response = await receiver(data, gameId);
+                socket.emit('join', response);
+            })
+            //set listener for game actions
+            socket.on('moves', data => {
+                const response = await receiver(data);
+                socket.emit('moves', response);
+            })
+            //on disconnect send a message
+            socket.on('disconnect', () => {
+                socket.emit('disconnected from server');
+            })
+        })
+    }
     catch (err) {
-
+        console.log('Error in game', err);
     }
 }
 
-module.exports = game;
+exports.end = async () => {
+    try {
+        //may require more than just calling the end function
+        end();
+    } 
+    catch(err) {
+        console.log('Error ending game', err);
+    }
+}
