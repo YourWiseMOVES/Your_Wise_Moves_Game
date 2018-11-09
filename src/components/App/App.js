@@ -4,6 +4,7 @@ import {
   Route,
   Redirect,
   Switch,
+  Link
 } from 'react-router-dom';
 
 import {connect} from 'react-redux';
@@ -16,6 +17,16 @@ import ProtectedRoute from '../ProtectedRoute/ProtectedRoute'
 import AboutPage from '../AboutPage/AboutPage';
 import UserPage from '../UserPage/UserPage';
 import InfoPage from '../InfoPage/InfoPage';
+import Game from '../Game/Game';
+import PlayerLogin from '../Game/PreGame/PlayerLogin';
+import FacilitatorLogin from '../Game/PreGame/FacilitatorLogin';
+import IntentionIntro from '../Game/PreGame/IntentionIntro';
+import IntentionInput from '../Game/PreGame/IntentionInput';
+import RoundIntro from '../Game/GameRounds/RoundIntro';
+import AnswerCard from '../Game/GameRounds/AnswerCard';
+import Discussion from '../Game/GameRounds/Discussion';
+import FinalReflection from '../Game/PostGame/FinalReflection';
+import Results from '../Game/PostGame/Results';
 
 import './App.css';
 
@@ -54,6 +65,48 @@ class App extends Component {
               exact
               path="/info"
               component={InfoPage}
+            />
+            {/* Routes for Game */}
+            <Route
+              path="/game"
+              component={Game}
+            />
+            {/* Routes for player side of the game */}
+            <Route
+              path="/playerlogin"
+              component={PlayerLogin}
+            />
+            <Route
+              path="/facilitatorlogin"
+              component={FacilitatorLogin}
+            />
+            <Route 
+              path="/intentionintro"
+              component={IntentionIntro}
+            />
+            <Route
+              path="/intentioninput"
+              component={IntentionInput}
+            />
+            <Route
+              path="/roundintro"
+              component={RoundIntro}
+            />
+            <Route
+              path="/answercard"
+              component={AnswerCard}
+            />
+            <Route
+              path="/discussion"
+              component={Discussion}
+            />
+            <Route
+              path="/finalreflection"
+              component={FinalReflection}
+            />
+            <Route
+              path="/results"
+              component={Results}
             />
             {/* If none of the other routes matched, we will show a 404. */}
             <Route render={() => <h1>404</h1>} />
