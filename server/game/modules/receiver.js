@@ -8,7 +8,8 @@
 //the structure for what an action will look like from the client
 const sampleAction = {
     type: '',
-    data: {},
+    data: {
+    },
     facilitatorId: 0,
 }
 
