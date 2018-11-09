@@ -23,13 +23,13 @@ exports.game = async (facilitatorId, socketInput) => {
         .on('connection', socket => {
             socket.emit('start', { message: 'Connected to server.', code });
             //set listener for players joining
-            socket.on('join', data => {
-                const response = await receiver(data, gameId);
+            socket.on('join', action => {
+                const response = await receiver(action, gameId, socket);
                 socket.emit('join', response);
             })
             //set listener for game actions
-            socket.on('moves', data => {
-                const response = await receiver(data);
+            socket.on('moves', action => {
+                const response = await receiver(action, gameId, socket);
                 socket.emit('moves', response);
             })
             //on disconnect send a message
