@@ -18,4 +18,48 @@ const receiver = (action) => {
     }
 }
 
+const advance = action => {
+    const reduxAction = {
+        type: 'UPDATE_GAME_STATE',
+        payload: {    
+            newGameState: action.data.newGameState,
+        }
+    }
+    return reduxAction;
+}
+
+const journal = action => {
+    const reduxAction = {
+        type: 'UPDATE_GAME_STATE',
+        payload: {    
+            newGameState: action.data.newGameState,
+        }
+    }
+    return reduxAction;
+}
+
+const join = action => {
+    const reduxAction = {
+        type: 'UPDATE_GAME_STATE',
+        payload: {    
+            newGameState: action.data.newGameState,
+        }
+    }
+    return reduxAction;
+}
+
+const discussion = action => {
+    const reduxAction = {
+        type: 'UPDATE_GAME_STATE',
+        payload: {    
+            newGameState: action.data.newGameState,
+        }
+    }
+    return reduxAction;
+}
+
+
+
+
+
 export default receiver;
