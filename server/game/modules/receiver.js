@@ -32,6 +32,7 @@ const dispatch = require('./dispatch');
 
 //function receives actions and routes them to their proper handlers
 const receiver = (action, gameId, socket) => {
+    console.log('in receiver');
     switch(action.type) {
         case ('advance'):
             advance(action, gameId, socket);

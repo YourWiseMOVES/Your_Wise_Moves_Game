@@ -7,14 +7,14 @@
 
 //function that will send the email with results to the client
 const receiver = require('./receiver');
-const pool = require('pool');
+const pool = require('../../modules/pool');
 
 const end = async (socket, gameId, link, io, code) => {
     try {
-        await socket.on('email', action => {
+        socket.on('email', action => {
             receiver(action, gameId, socket);
         })
-        await pool.query(`DELETE FROM "game" WHERE "game_id"=$1;`, [gameId]);
+        await pool.query(`DELETE FROM "game" WHERE "id"=$1;`, [gameId]);
         try {
             const connectedNameSpaceSockets = Object.keys(link.connected); // Get Object with Connected SocketIds as properties
             connectedNameSpaceSockets.forEach(socketId => {
@@ -30,7 +30,7 @@ const end = async (socket, gameId, link, io, code) => {
     catch (err) {
         console.log('Error ending game', err);
     }
-
+    console.log('Game ended successfully');
 }
 
 
