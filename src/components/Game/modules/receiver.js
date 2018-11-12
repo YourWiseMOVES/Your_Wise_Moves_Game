@@ -30,9 +30,12 @@ const advance = action => {
 
 const journal = action => {
     const reduxAction = {
-        type: 'UPDATE_GAME_STATE',
+        type: 'UPDATE_JOURNAL_QUESTION',
         payload: {    
-            newGameState: action.data.newGameState,
+            question: action.data.question,
+            response: action.data.response,
+            roundNumber: action.data.roundNumber,
+            playerId: action.data.playerId,
         }
     }
     return reduxAction;
@@ -40,9 +43,9 @@ const journal = action => {
 
 const join = action => {
     const reduxAction = {
-        type: 'UPDATE_GAME_STATE',
+        type: 'SET_PLAYER',
         payload: {    
-            newGameState: action.data.newGameState,
+            ...action.data,
         }
     }
     return reduxAction;
@@ -50,9 +53,10 @@ const join = action => {
 
 const discussion = action => {
     const reduxAction = {
-        type: 'UPDATE_GAME_STATE',
+        type: 'UPDATE_DISCUSSION_PHASE',
         payload: {    
-            newGameState: action.data.newGameState,
+            playerNumber: action.data.playerNumber,
+            setTo: action.data.setTo,
         }
     }
     return reduxAction;
