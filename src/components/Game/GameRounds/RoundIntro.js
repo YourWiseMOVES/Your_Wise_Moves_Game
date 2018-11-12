@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import receiver from 'receiver';
+import receiver from '../modules/receiver';
 
 class RoundIntro extends Component {
   advanceStage = (oldGameState) => {
