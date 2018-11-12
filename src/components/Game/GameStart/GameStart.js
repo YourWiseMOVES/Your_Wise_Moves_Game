@@ -1,29 +1,25 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import FinalReflection from './FinalReflection';
-import Results from './Results';
+import IntentionInput from './IntentionInput';
+import IntentionIntro from './IntentionIntro';
 
-class PostGame extends Component {
-
-
-
+class GameRounds extends Component {
     render() {
         return (
             <div>
                 {this.props.state.game.gameState[1] == '0' &&
-                    <FinalReflection />
+                    <IntentionIntro />
                 }
                 {this.props.state.game.gameState[1] == '1' && 
-                    <Results />
+                    <IntentionInput />
                 }
             </div>
         )
     }
 }
 
-
 const mapStateToProps = state => ({
     state
 });
 
-export default connect(mapStateToProps)(PostGame);
+export default connect(mapStateToProps)(GameRounds);

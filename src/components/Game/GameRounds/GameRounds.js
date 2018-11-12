@@ -15,7 +15,7 @@ class GameRounds extends Component {
                 {this.props.state.game.gameState[1] == '0' &&
                     <RoundIntro />
                 }
-                {this.props.state.game.gameState[1] > '1' && 
+                {this.props.state.game.gameState[1] == '1' && 
                     <AnswerCard />
                 }
                 {this.props.state.game.gameState[1] == '2' &&
