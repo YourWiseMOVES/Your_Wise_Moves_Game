@@ -16,6 +16,7 @@ const sampleAdvanceAction = {
 }
 
 const advance =  async (action, gameId, socket) => {
+    console.log('in advance js', socket);
     try {
         //update the database to reflect the new game state
         const gameStage = await pool.query(`UPDATE "game_state" SET "game_stage"=$1 WHERE "game_id"=$2;`, 

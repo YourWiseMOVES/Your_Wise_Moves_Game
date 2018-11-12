@@ -5,6 +5,13 @@ require('dotenv').config();
 const app = express();
 const bodyParser = require('body-parser');
 const sessionMiddleware = require('./modules/session-middleware');
+const server = require('http').Server(app);
+const io = require('socket.io')(server);
+
+app.use(function(req, res, next) {
+  req.io = io;
+  next();
+});
 
 const passport = require('./strategies/user.strategy');
 
@@ -24,8 +31,10 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 /* Routes */
+app.use('/game', require('./game/routes/game.router'));
 app.use('/api/user', userRouter);
 app.use('/api/card', cardRouter)
+
 
 // Serve static files
 app.use(express.static('build'));
@@ -34,6 +43,6 @@ app.use(express.static('build'));
 const PORT = process.env.PORT || 5000;
 
 /** Listen * */
-app.listen(PORT, () => {
+server.listen(PORT, () => {
   console.log(`Listening on port: ${PORT}`);
 });
