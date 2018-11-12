@@ -11,10 +11,11 @@ class Game extends Component {
   render() {
     return (
       <div>
-        {this.props.state.game.game_stateReducer.game_state[0] > '0' && this.props.state.game.game_stateReducer[0] < '6' &&
+        {this.props.state.game.gameState[0]}
+        {this.props.state.game.gameState[0] > 0 && this.props.state.game.gameState[0] < 6 &&
           <GameRounds />
         }
-        {this.props.state.game.game_stateReducer.game_state[0] == '6' &&
+        {this.props.state.game.gameState[0] == '6' &&
           <PostGame />
         }
       </div>
@@ -25,10 +26,6 @@ class Game extends Component {
 
 }
 
-
-// Instead of taking everything from state, we just want the error messages.
-// if you wanted you could write this code like this:
-// const mapStateToProps = ({errors}) => ({ errors });
 const mapStateToProps = state => ({
   state
 });
