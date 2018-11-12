@@ -19,7 +19,7 @@ const sampleDiscussionAction = {
 const discussion = async (action, gameId, socket) => {
     try {
         //update the player to reflect that they have spoken
-        await pool.query(`UPDATE "discussion_phase" SET "player_${action.data.playerNumber}"=$1'`, [action.data.setTo]);
+        await pool.query(`UPDATE "discussion_phase" SET "player_${action.data.playerNumber}"=$1;`, [action.data.setTo]);
         //let all the clients know that this player has spoken
         socket.emit('moves', action);
     }
