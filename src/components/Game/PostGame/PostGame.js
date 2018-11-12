@@ -10,10 +10,10 @@ class PostGame extends Component {
     render() {
         return (
             <div>
-                {this.props.state.game.game_stateReducer[1] == '0' &&
+                {this.props.state.game.gameState[1] == '0' &&
                     <FinalReflection />
                 }
-                {this.props.state.game.game_stateReducer[1] > '1' && 
+                {this.props.state.game.gameState[1] > '1' && 
                     <Results />
                 }
             </div>

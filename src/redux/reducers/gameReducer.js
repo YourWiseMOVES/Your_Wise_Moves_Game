@@ -22,13 +22,10 @@ const gameInfo = (state = {id: '', facilitator_id: '', time_started: ''}, action
     }
 };
 
-const gameState = (state = {game_state: '00'}, action) => {
+const gameState = (state =  '10', action) => {
     switch (action.type) {
         case 'UPDATE_GAME_STATE':
-            return {
-                ...state,
-                game_state: action.payload.newGameState,
-            };
+            return action.payload.newGameState;
         default:
             return state;
     }
