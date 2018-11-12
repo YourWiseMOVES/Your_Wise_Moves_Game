@@ -60,18 +60,35 @@ const game_stateReducer = (state = {
     id: '',
     game_id: '',
     discussion_phase_id: '',
-    game_state: {round: 1, stage: 0},
+    game_state: '00',
 }, action) => {
+    //turn game_state into an integer
+    let game_stateInt = parseInt(state.game_state)
+    //get remainder (the first/single digit)
+    let game_stateRemainder = game_stateInt % 10
+    //subtract remainder (first/single digit) 
+    let newRoundStart = game_stateInt - game_stateRemainder + 10
+    
     switch (action.type) {
+        //ROUND is referring to Mindful Move
         case 'PROCEED_TO_NEXT_ROUND':
             return {
                 ...state,
-                game_state: {round: state.game_state.round + 1, stage: 0}
+                game_state: newRoundStart.toString() //Turn game_state back into a string
             };
+        //STAGE is referring to pieces of Mindful Moves
+        case 'PROCEED_TO_NEXT_STAGE':
+            return {
+                ...state,
+                game_state: (game_stateInt + 1).toString()
+            }
+        
         default:
             return state;
     }
 };
+
+
 
 const journalReducer = (state = {
     id: '',
