@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 //include sub components
-import PlayerLogin from './PreGame/PlayerLogin';
-import FacilitatorLogin from './PreGame/FacilitatorLogin';
-import FacilitatorCreateGame from './PreGame/FacilitatorCreateGame';
+import PlayerLogin from './PlayerLogin';
+import FacilitatorLogin from './FacilitatorLogin';
+import FacilitatorCreateGame from './FacilitatorCreateGame';
 
 class PreGame extends Component {
     state = {

@@ -20,7 +20,7 @@ import InfoPage from '../InfoPage/InfoPage';
 import Game from '../Game/Game';
 
 import './App.css';
-import PreGame from '../Game/PreGame';
+import PreGame from '../Game/PreGame/PreGame';
 
 class App extends Component {
   componentDidMount () {
