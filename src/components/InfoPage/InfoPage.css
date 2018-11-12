@@ -1,0 +1,23 @@
+.preAccordion {
+    padding: 10px;
+    height: 80px;
+    width: 80vw;
+    border: 1px solid #bfefff;
+    box-shadow: 2px 2px 2px #bfefff;
+    /* margin: auto; */
+    margin-bottom: 10px;
+    margin-top: 10px;
+    margin: auto;
+    /* margin-top: 10px;
+    margin-left: 20px; */
+    width: 80vw;
+    color: #000000;
+ 
+}
+
+.accordion {
+    /* font-size: "8px"; */
+    margin: auto;
+    width: 90vw;
+
+}
