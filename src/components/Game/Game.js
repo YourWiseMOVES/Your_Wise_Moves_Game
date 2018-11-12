@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import PreGame from './PreGame/PreGame';
 import GameRounds from './GameRounds/GameRounds';
 import PostGame from './PostGame/PostGame';
 
@@ -12,9 +11,6 @@ class Game extends Component {
   render() {
     return (
       <div>
-        {this.props.state.game.game_stateReducer.game_state[0] == '0' &&
-          <PreGame />
-        }
         {this.props.state.game.game_stateReducer.game_state[0] > '0' && this.props.state.game.game_stateReducer[0] < '6' &&
           <GameRounds />
         }
