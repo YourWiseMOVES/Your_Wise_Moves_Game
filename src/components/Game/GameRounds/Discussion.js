@@ -2,44 +2,47 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 class Discussion extends Component {
-
-    //Determine if game proceeds to the next discussion round or to the post game process
-    determineRound = () => {
-        if (this.props.state.game.game_stateReducer.game_state < 51) {
-            this.props.dispatch({type: 'PROCEED_TO_NEXT_ROUND'})
-            this.props.history.push("/roundintro")
-        } else {
-        this.props.history.push("/finalreflection")
-        }
-    }
-
+ 
   render() {
     return (
-      this.props.state.user.userTypeReducer === 'player'
-      ?
       <div>
         <h1>Discussion Phase</h1>
-        <h2>Player View</h2>
-        <h2>Round {this.props.state.game.game_stateReducer.game_state}</h2>
-        <h3>Players discuss their answers.  Normally, after this screen you will head back to RoundIntro, but for the new round</h3>
-        <h3>This will also act as a waiting page while you are waiting for other players to answer their question</h3> 
-        <button onClick={this.determineRound}>RoundIntro/FinalReflection (players don't have this option)</button>   
-      </div>
-      :
-      <div>
-        <h1>Discussion Phase</h1>
-        <h2>Facilitator View</h2>
-        <h2>Round {this.props.state.game.game_stateReducer.game_state}</h2>
-        <h3>Lead discussion of players answers, facilitator will choose the order in which players speak</h3>  
-        <button onClick={this.determineRound}>RoundIntro/FinalReflection</button>   
+        <h2>Round: {this.props.state.game.roundNumber}</h2>
+        <h3>Yet to speak</h3>
+        <ol>
+          {this.props.state.game.allPlayers.map(player => {
+            if(player.discussed === false) {
+            return(
+              <li key={player.id}>Name: {player.name} Discussed: {player.discussed} <button
+                onClick={() => this.props.selectPlayer(player)}
+              >Select</button></li>
+            );
+            }
+          })}
+        </ol>  
+        <h4>{this.props.state.game.selectedPlayer.name}</h4>
+        <button>Cancel</button>
+        <button
+          onClick={() => this.props.markDone(this.props.state.game.selectedPlayer)}
+        >Mark Complete</button>
+        <h3>Spoken</h3>
+        <ol>
+          {this.props.state.game.allPlayers.map(player => {
+            if(player.discussed === true) {
+            return(
+              <li key={player.id}>Name: {player.name}</li>
+            );
+            }
+          })}
+        </ol>  
+        <button onClick={() => this.props.advanceStage(
+          this.props.calculateNextStage('0'), true
+        )}>Next</button>
       </div>
     );
   }
 }
 
-// Instead of taking everything from state, we just want the error messages.
-// if you wanted you could write this code like this:
-// const mapStateToProps = ({errors}) => ({ errors });
 const mapStateToProps = state => ({
     state
 });

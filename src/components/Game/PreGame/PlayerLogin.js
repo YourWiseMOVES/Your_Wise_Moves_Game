@@ -7,12 +7,13 @@ class PlayerLogin extends Component {
     code: '',
   }
 
-handleChange = (event) => {
-  this.setState({
-    ...this.state,
-    [event.target.name]: event.target.value,
-  })
-}
+  handleChange = (event) => {
+    this.setState({
+      ...this.state,
+      [event.target.name]: event.target.value,
+    })
+  }
+
 
   render() {
     return (
@@ -21,12 +22,12 @@ handleChange = (event) => {
         <h2>Player View</h2>
         <h3>Insert your player name and code from facilitator</h3>
         <label>
-        <input onChange={this.handleChange} placeholder="Name" name="player" value={this.state.player}></input>
+          <input onChange={this.handleChange} placeholder="Name" name="player" value={this.state.player}></input>
         </label>
         <label>
-        <input onChange={this.handleChange} placeholder="Code" name="code" value={this.state.code}></input>
-        </label>    
-        <button onClick={() => this.props.history.push("/intentionintro")}>IntentionIntro</button>   
+          <input onChange={this.handleChange} placeholder="Code" name="code" value={this.state.code}></input>
+        </label>
+        <button onClick={() => this.props.joinGame(this.state.player, this.state.code)}>Join Game</button>
       </div>
     );
   }

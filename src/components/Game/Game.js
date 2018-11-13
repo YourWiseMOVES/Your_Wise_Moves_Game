@@ -1,25 +1,224 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import PreGame from './PreGame/PreGame';
+
+//game component imports
 import GameRounds from './GameRounds/GameRounds';
 import PostGame from './PostGame/PostGame';
+import GameStart from './GameStart/GameStart';
+import PreGame from './PreGame/PreGame';
 
+//game start imports
+import axios from 'axios';
+import io from 'socket.io-client';
+import receiver from './modules/receiver';
+let socket;
 
 class Game extends Component {
 
+  state = {
+    gameCode: '',
+  }
 
+  createGame = () => { //function to create the game, triggers the game start on server
+    console.log('in create game');
+    axios({
+      method: 'POST',
+      data: { id: this.props.state.user.userReducer.id },
+      url: '/game/start',
+    })
+      .then(response => {
+        console.log(response.data);
+        this.setState({
+          gameCode: response.data.code,
+        })
+        this.props.dispatch({ type: 'SET_GAME', payload: response.data.gameId })
+        socket = io.connect(`/${this.state.gameCode}`);
+        //socket will need to be global 
+        socket.on('moves', data => {
+          try {
+            console.log('Back from server with', data);
+            let action = receiver(data);
+            if (action.payload.fetchPlayers) {
+              this.props.dispatch({ type: 'FETCH_PLAYERS', payload: this.props.state.game.gameId })
+            }
+            this.props.dispatch(action);
+          } catch (err) {
+            console.log('Error in moves handler', err);
+          }
+        })
+        socket.on('players', data => {
+          this.props.dispatch({ type: 'FETCH_PLAYERS', payload: this.props.state.game.gameId })
+        })
+      })
+      .catch(err => {
+        console.log(err);
+      })
+  }
+
+  endGame = () => {
+    axios({
+      method: 'POST',
+      data: { id: this.props.state.user.userReducer.id },
+      url: '/game/end',
+    })
+  }
+
+  advanceStage = (newGameState, resetDiscussion) => {
+    socket.emit('moves', {
+      type: 'advance',
+      data: {
+        newGameState,
+        resetDiscussion: resetDiscussion,
+      },
+      facilitatorId: this.props.state.user.userReducer.id,
+    })
+  }
+
+  editJournal = response => {
+    socket.emit('moves', {
+      type: 'journal',
+      intention: false,
+      data: {
+        playerId: this.props.state.game.player.playerId,
+        question: 'this is a hard-coded test question',
+        response: response,
+        roundNumber: this.props.state.game.roundNumber,
+      }
+    })
+  }
+
+  editIntention = intention => {
+    socket.emit('moves', {
+      type: 'journal',
+      intention: true,
+      data: {
+        playerId: this.props.state.game.player.playerId,
+        intention: intention,
+      }
+    })
+  }
+
+  joinGame = (playerName, code) => {
+    //socket stuff here
+    try {
+      socket = io.connect(`/${code}`);
+      socket.on('moves', data => {
+        try {
+          console.log('Back from server with', data);
+          let action = receiver(data);
+          if (data.type === 'advance') {
+            this.props.dispatch({
+              type: 'UPDATE_ROUND_NUMBER',
+              payload: data.data.newGameState[0],
+            })
+          }
+          if (action.payload.fetchPlayers) {
+            this.props.dispatch({ type: 'FETCH_PLAYERS', payload: this.props.state.game.gameId })
+          }
+          this.props.dispatch(action);
+        } catch (err) {
+          console.log('Error in moves handler', err);
+        }
+      })
+      socket.on('join', data => {
+        let actions = receiver(data);
+        this.props.dispatch(actions[0]);
+        this.props.dispatch(actions[1]);
+        console.log('Back from server with', data);
+      })
+      socket.on('players', data => {
+        this.props.dispatch({ type: 'FETCH_PLAYERS', payload: this.props.state.game.gameId })
+      })
+      socket.emit('join', {
+        type: 'join',
+        data: {
+          playerName,
+        },
+      })
+      this.props.dispatch({
+        type: 'SET_CODE',
+        payload: code,
+      })
+    }
+    catch (err) {
+      console.log(err);
+    }
+  }
+
+  calculateNextStage = nextStage => {
+    if (nextStage === '0') {
+      let number = Number(this.props.state.game.roundNumber);
+      console.log(number);
+      number = number + 1
+      console.log(number);
+      let newRound = number.toString();
+      this.props.dispatch({
+        type: 'UPDATE_ROUND_NUMBER',
+        payload: newRound,
+      })
+      return (newRound + nextStage);
+    }
+    return (this.props.state.game.roundNumber + nextStage);
+  }
+
+  selectPlayer = player => {
+    socket.emit('moves', {
+      type: 'discussion',
+      data: {
+        player: player,
+        set: 'next',
+      },
+      facilitatorId: this.props.state.user.userReducer.id,
+    })
+  }
+
+  markDone = player => {
+    socket.emit('moves', {
+      type: 'discussion',
+      data: {
+        player: player,
+        set: 'done',
+      },
+      facilitatorId: this.props.state.user.userReducer.id,
+    })
+    this.props.dispatch({ type: 'CLEAR_SELECTED_PLAYER' })
+  }
 
   render() {
     return (
       <div>
-        {this.props.state.game.game_stateReducer.game_state[0] == '0' &&
-          <PreGame />
+        {this.props.state.game.gameState[0] === '0' &&
+          this.props.state.gameCode !== '' ?
+          <GameStart
+            advanceStage={this.advanceStage}
+            calculateNextStage={this.calculateNextStage}
+            editIntention={this.editIntention}
+          />
+          :
+          this.props.state.game.gameState[0] === '0' ?
+            <PreGame
+              gameCode={this.state.gameCode}
+              createGame={this.createGame}
+              advanceStage={this.advanceStage}
+              joinGame={this.joinGame}
+            />
+            :
+            null
         }
-        {this.props.state.game.game_stateReducer.game_state[0] > '0' && this.props.state.game.game_stateReducer[0] < '6' &&
-          <GameRounds />
+        {this.props.state.game.gameState[0] > 0 && this.props.state.game.gameState[0] < 6 &&
+          <GameRounds
+            advanceStage={this.advanceStage}
+            calculateNextStage={this.calculateNextStage}
+            selectPlayer={this.selectPlayer}
+            markDone={this.markDone}
+            editJournal={this.editJournal}
+          />
         }
-        {this.props.state.game.game_stateReducer.game_state[0] == '6' &&
-          <PostGame />
+        {this.props.state.game.gameState[0] == '6' &&
+          <PostGame
+            advanceStage={this.advanceStage}
+            endGame={this.endGame}
+          />
         }
       </div>
     )
@@ -29,10 +228,6 @@ class Game extends Component {
 
 }
 
-
-// Instead of taking everything from state, we just want the error messages.
-// if you wanted you could write this code like this:
-// const mapStateToProps = ({errors}) => ({ errors });
 const mapStateToProps = state => ({
   state
 });
