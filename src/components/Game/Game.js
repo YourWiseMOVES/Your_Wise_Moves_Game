@@ -38,12 +38,15 @@ class Game extends Component {
           try {
             console.log('Back from server with', data);
             let action = receiver(data);
+            if (action.payload.fetchPlayers){
+              this.props.dispatch({type: 'FETCH_PLAYERS', payload: this.props.state.game.gameId})
+            }
             this.props.dispatch(action);
           } catch (err) {
             console.log('Error in moves handler', err);
           }
         })
-        socket.on('join', data => {
+        socket.on('players', data => {
           this.props.dispatch({ type: 'FETCH_PLAYERS', payload: this.props.state.game.gameId })
         })
       })
@@ -60,11 +63,12 @@ class Game extends Component {
     })
   }
 
-  advanceStage = newGameState => {
+  advanceStage = (newGameState, resetDiscussion) => {
     socket.emit('moves', {
       type: 'advance',
       data: {
         newGameState,
+        resetDiscussion: resetDiscussion,
       },
       facilitatorId: this.props.state.user.userReducer.id,
     })
@@ -84,17 +88,22 @@ class Game extends Component {
               payload: data.data.newGameState[0],
             })
           }
+          if (action.payload.fetchPlayers){
+            this.props.dispatch({type: 'FETCH_PLAYERS', payload: this.props.state.game.gameId})
+          }
           this.props.dispatch(action);
         } catch (err) {
           console.log('Error in moves handler', err);
         }
       })
       socket.on('join', data => {
-        if (data.type === 'join') {
-          let action = receiver(data);
-          this.props.dispatch(action);
-        }
+        let actions = receiver(data);
+        this.props.dispatch(actions[0]);
+        this.props.dispatch(actions[1]);
         console.log('Back from server with', data);
+      })
+      socket.on('players', data => {
+        this.props.dispatch({ type: 'FETCH_PLAYERS', payload: this.props.state.game.gameId })
       })
       socket.emit('join', {
         type: 'join',
@@ -128,6 +137,29 @@ class Game extends Component {
     return (this.props.state.game.roundNumber + nextStage);
   }
 
+  selectPlayer = player => {
+    socket.emit('moves', {
+      type: 'discussion',
+      data: {
+        player: player,
+        set: 'next',
+      },
+      facilitatorId: this.props.state.user.userReducer.id,
+    })
+  }
+
+  markDone = player => {
+    socket.emit('moves', {
+      type: 'discussion',
+      data: {
+        player: player,
+        set: 'done',
+      },
+      facilitatorId: this.props.state.user.userReducer.id,
+    })
+    this.props.dispatch({type:'CLEAR_SELECTED_PLAYER'})
+  }
+
   render() {
     return (
       <div>
@@ -152,6 +184,8 @@ class Game extends Component {
           <GameRounds
             advanceStage={this.advanceStage}
             calculateNextStage={this.calculateNextStage}
+            selectPlayer={this.selectPlayer}
+            markDone={this.markDone}
           />
         }
         {this.props.state.game.gameState[0] == '6' &&

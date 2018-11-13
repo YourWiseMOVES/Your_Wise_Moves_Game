@@ -32,6 +32,8 @@ class GameRounds extends Component {
                     <Discussion
                         advanceStage={this.props.advanceStage}
                         calculateNextStage={this.props.calculateNextStage}
+                        selectPlayer={this.props.selectPlayer}
+                        markDone={this.props.markDone}
                     />
                 }
             </div>

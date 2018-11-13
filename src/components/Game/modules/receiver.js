@@ -19,6 +19,7 @@ const advance = action => {
         type: 'UPDATE_GAME_STATE',
         payload: {    
             newGameState: action.data.newGameState,
+            fetchPlayers: action.data.resetDiscussion,
         }
     }
     return reduxAction;
@@ -38,21 +39,27 @@ const journal = action => {
 }
 
 const join = action => {
-    const reduxAction = {
+    const actions = []
+    const reduxActionOne = {
         type: 'SET_PLAYER',
         payload: {    
             ...action.data,
         }
     }
-    return reduxAction;
+    actions.push(reduxActionOne);
+    const reduxActionTwo = {
+        type: 'SET_GAME',
+        payload: action.game
+    }
+    actions.push(reduxActionTwo);
+    return actions;
 }
 
 const discussion = action => {
     const reduxAction = {
-        type: 'UPDATE_DISCUSSION_PHASE',
+        type: 'SET_SELECTED_PLAYER',
         payload: {    
-            playerNumber: action.data.playerNumber,
-            setTo: action.data.setTo,
+            player: action.data.player,
         }
     }
     return reduxAction;

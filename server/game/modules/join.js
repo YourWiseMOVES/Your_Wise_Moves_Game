@@ -32,8 +32,9 @@ const join =  async (action, gameId, socket) => {
             VALUES ($1,$2,$3,$4) RETURNING "id";`, [action.data.playerName, gameId, journalId, playerNumber]);
         //send the player information back to the client
         playerId = playerId.rows[0].id;
-        socket.emit('join', {...action, data: {playerId, playerNumber} });
-        socket.broadcast.emit('join', {type: 'joinAlert'} )
+        socket.emit('join', {...action, data: {playerId, playerNumber}, game: gameId });
+        socket.broadcast.emit('players', {type: 'done'} )
+        socket.emit('players', {type: 'done'} )
         socket.emit('moves', {
             type: 'advance',
             data: {

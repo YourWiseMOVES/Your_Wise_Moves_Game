@@ -82,6 +82,17 @@ const roundNumber = (state = '0', action) => {
     }
 }
 
+const selectedPlayer = (state = {}, action) => {
+    switch (action.type) {
+        case 'SET_SELECTED_PLAYER':
+            return action.payload.player;
+        case 'CLEAR_SELECTED_PLAYER':
+            return {};
+        default:
+            return state;
+    }
+}
+
 export default combineReducers({
     gameId,
     gameState,
@@ -90,4 +101,5 @@ export default combineReducers({
     journal,
     allPlayers,
     roundNumber,
+    selectedPlayer,
 });
