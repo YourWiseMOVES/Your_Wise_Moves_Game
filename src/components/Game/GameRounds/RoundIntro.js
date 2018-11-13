@@ -8,6 +8,10 @@ class RoundIntro extends Component {
     return (
       <div>
         <h1>Round Introduction</h1>
+        <h2>Round: {this.props.roundNumber}</h2>
+        <button onClick={() => this.props.advanceStage(
+          this.props.calculateNextStage('1')
+        )}>Next</button>
       </div>
     );
   }

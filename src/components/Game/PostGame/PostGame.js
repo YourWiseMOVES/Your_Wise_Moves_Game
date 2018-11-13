@@ -11,10 +11,15 @@ class PostGame extends Component {
         return (
             <div>
                 {this.props.state.game.gameState[1] == '0' &&
-                    <FinalReflection />
+                    <FinalReflection
+                        advanceStage={this.props.advanceStage}
+                    />
                 }
-                {this.props.state.game.gameState[1] == '1' && 
-                    <Results />
+                {this.props.state.game.gameState[1] == '1' &&
+                    <Results
+                        advanceStage={this.props.advanceStage}
+                        endGame={this.props.endGame}
+                    />
                 }
             </div>
         )

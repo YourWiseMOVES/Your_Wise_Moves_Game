@@ -7,6 +7,7 @@ class Results extends Component {
     return (
       <div>
         <h1>Results</h1>
+        <button onClick={this.props.endGame}>Next</button>
       </div>
     );
   }

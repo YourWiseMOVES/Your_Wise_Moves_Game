@@ -4,17 +4,13 @@
 const receiver = (action) => {
     switch(action.type) {
         case ('advance'):
-            advance(action);
-            break;
+            return(advance(action));
         case ('discussion'):
-            discussion(action);
-            break;
+            return(discussion(action));
         case ('journal'):
-            journal(action);
-            break;
+            return(journal(action));
         case ('join'):
-            join(action);
-            break;
+            return(join(action));
     }
 }
 

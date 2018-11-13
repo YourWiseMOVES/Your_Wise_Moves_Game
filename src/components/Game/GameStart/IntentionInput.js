@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Socket } from 'net';
 
 class IntentionInput extends Component {
 
@@ -7,6 +8,7 @@ class IntentionInput extends Component {
     return (
       <div>
         <h1>Intention or Question Input</h1>
+        <button onClick={() => this.props.advanceStage('10')}>Next</button>
       </div>
     );
   }

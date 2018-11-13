@@ -7,6 +7,7 @@ class FinalReflection extends Component {
     return (
       <div>
         <h1>Final Reflection</h1>
+        <button onClick={() => this.props.advanceStage('61')}>Next</button>
       </div>
     );
   }
