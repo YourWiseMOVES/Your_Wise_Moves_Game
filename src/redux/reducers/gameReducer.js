@@ -13,7 +13,7 @@ const discussionPhase = (state = {id: '', player_1: false, player_2: false, play
     }
 };
 
-const gameInfo = (state = {id: '', facilitator_id: '', time_started: ''}, action) => {
+const gameId = (state = '', action) => {
     switch (action.type) {
         case 'SET_GAME':
             return action.payload;
@@ -83,7 +83,7 @@ const roundNumber = (state = '0', action) => {
 }
 
 export default combineReducers({
-    gameInfo,
+    gameId,
     gameState,
     player,
     discussionPhase,
