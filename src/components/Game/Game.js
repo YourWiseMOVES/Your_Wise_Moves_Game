@@ -27,9 +27,11 @@ class Game extends Component {
       url: '/game/start',
     })
       .then(response => {
+        console.log(response.data);
         this.setState({
           gameCode: response.data.code,
         })
+        this.props.dispatch({ type: 'SET_GAME', payload: response.data.gameId })
         socket = io.connect(`/${this.state.gameCode}`);
         //socket will need to be global 
         socket.on('moves', data => {
@@ -42,7 +44,7 @@ class Game extends Component {
           }
         })
         socket.on('join', data => {
-          console.log('Back from server with', data);
+          this.props.dispatch({ type: 'FETCH_PLAYERS', payload: this.props.state.game.gameId })
         })
       })
       .catch(err => {
@@ -88,8 +90,10 @@ class Game extends Component {
         }
       })
       socket.on('join', data => {
-        let action = receiver(data);
-        this.props.dispatch(action);
+        if (data.type === 'join') {
+          let action = receiver(data);
+          this.props.dispatch(action);
+        }
         console.log('Back from server with', data);
       })
       socket.emit('join', {

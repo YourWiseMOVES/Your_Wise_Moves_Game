@@ -46,7 +46,7 @@ exports.begin = async (facilitatorId, io) => {
         console.log('Error in game start', err);
     }
     console.log('game created');
-    return({code});
+    return({code, gameId});
 }
 
 exports.end = async (facilitatorId, io) => {

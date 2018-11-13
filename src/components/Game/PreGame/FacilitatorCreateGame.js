@@ -9,7 +9,14 @@ class FacilitatorCreateGame extends Component {
         <h2>Facilitator View</h2>
         <h3>Facilitator chooses settings for new game</h3>  
         <h2>Your Code: {this.props.gameCode}</h2>
-        <button onClick={this.props.createGame}>Create Game</button>   
+        <button onClick={this.props.createGame}>Create Game</button>
+        <ol>
+          {this.props.state.game.allPlayers.map(player => {
+            return(
+              <li key={player.id}>{player.name}</li>
+            )
+          })}
+        </ol>   
         <button onClick={() => this.props.dispatch({type: 'SET_CODE', payload: this.props.gameCode})}>Proceed to Game</button>
       </div>
     );
