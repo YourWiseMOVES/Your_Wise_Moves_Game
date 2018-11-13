@@ -7,6 +7,7 @@ class IntentionIntro extends Component {
     return (
       <div>
         <h1>Introduction to Intention or Question</h1>
+        <button onClick={() => this.props.advanceStage('01')}>Next</button>
       </div>
     );
   }

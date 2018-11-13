@@ -7,7 +7,11 @@ class AnswerCard extends Component {
     return (
       <div>
         <h1>Answer Card</h1>
-      </div>
+        <h2>Round: {this.props.roundNumber}</h2>
+        <button onClick={() => this.props.advanceStage(
+          this.props.calculateNextStage('2')
+        )}>Next</button>     
+       </div>
     );
   }
 }

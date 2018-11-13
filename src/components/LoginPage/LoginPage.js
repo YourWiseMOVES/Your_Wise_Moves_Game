@@ -83,7 +83,7 @@ class LoginPage extends Component {
             Register
           </button>
           <br></br>
-          <Link to="/pregame">To Game</Link>
+          <Link to="/game">To Game</Link>
         </center>
       </div>
     );

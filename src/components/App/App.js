@@ -53,10 +53,6 @@ class App extends Component {
               path="/game"
               component={Game}
             />
-            <Route
-              path="/pregame"
-              component={PreGame}
-            />
             <Route render={() => <h1>404</h1>} />
           </Switch>
           <Footer />

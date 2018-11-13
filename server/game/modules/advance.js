@@ -16,13 +16,12 @@ const sampleAdvanceAction = {
 }
 
 const advance =  async (action, gameId, socket) => {
-    console.log('in advance js', socket);
     try {
         //update the database to reflect the new game state
         const gameStage = await pool.query(`UPDATE "game_state" SET "game_stage"=$1 WHERE "game_id"=$2;`, 
             [action.data.newGameState, gameId]);
         //send the action to all other users
-        socket.emit('moves', action);
+        socket.emit('moves', {...action});
     }
     catch (err) {
         console.log('Error in advance handler', err);

@@ -42,8 +42,12 @@ class PreGame extends Component {
                 {
                     this.state.userType === 'facilitator' &&
                     <div>
-                        {this.props.user && this.props.user.id ?
-                            <FacilitatorCreateGame />
+                        {this.props.state.user.userReducer && this.props.state.user.userReducer.id ?
+                            <FacilitatorCreateGame
+                                createGame={this.props.createGame}
+                                gameCode={this.props.gameCode}
+                                socket={this.props.socket}
+                            />
                             :
                             <FacilitatorLogin />
                         }

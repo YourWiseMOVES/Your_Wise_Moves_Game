@@ -7,6 +7,10 @@ class Discussion extends Component {
     return (
       <div>
         <h1>Discussion Phase</h1>
+        <h2>Round: {this.props.roundNumber}</h2>
+        <button onClick={() => this.props.advanceStage(
+          this.props.calculateNextStage('0')
+        )}>Next</button>
       </div>
     );
   }
