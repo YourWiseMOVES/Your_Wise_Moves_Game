@@ -36,7 +36,9 @@ class PreGame extends Component {
                 {
                     this.state.userType === 'player' &&
                     <div>
-                        <PlayerLogin />
+                        <PlayerLogin
+                            joinGame={this.props.joinGame}
+                        />
                     </div>
                 }
                 {

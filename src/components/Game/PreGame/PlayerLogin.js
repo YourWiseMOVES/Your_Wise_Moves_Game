@@ -14,9 +14,6 @@ class PlayerLogin extends Component {
     })
   }
 
-  joinGame = () => {
-    //socket stuff here
-  }
 
   render() {
     return (
@@ -30,7 +27,7 @@ class PlayerLogin extends Component {
         <label>
           <input onChange={this.handleChange} placeholder="Code" name="code" value={this.state.code}></input>
         </label>
-        <button onClick={this.joinGame}>Join Game</button>
+        <button onClick={() => this.props.joinGame(this.state.player, this.state.code)}>Join Game</button>
       </div>
     );
   }

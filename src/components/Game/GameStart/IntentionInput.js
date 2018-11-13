@@ -8,7 +8,9 @@ class IntentionInput extends Component {
     return (
       <div>
         <h1>Intention or Question Input</h1>
-        <button onClick={() => this.props.advanceStage('10')}>Next</button>
+        <button onClick={() => this.props.advanceStage(
+           this.props.calculateNextStage('0')
+        )}>Next</button>
       </div>
     );
   }

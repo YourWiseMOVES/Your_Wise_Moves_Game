@@ -33,6 +33,12 @@ const join =  async (action, gameId, socket) => {
         //send the player information back to the client
         playerId = playerId.rows[0].id;
         socket.emit('join', {...action, data: {playerId, playerNumber} });
+        socket.emit('moves', {
+            type: 'advance',
+            data: {
+                newGameState: '00',
+            },
+        })
     }   
     catch (err) {
         console.log('Error in join handler', err);

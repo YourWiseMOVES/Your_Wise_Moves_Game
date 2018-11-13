@@ -22,6 +22,7 @@ const advance =  async (action, gameId, socket) => {
             [action.data.newGameState, gameId]);
         //send the action to all other users
         socket.emit('moves', {...action});
+        socket.broadcast.emit('moves', {...action});
     }
     catch (err) {
         console.log('Error in advance handler', err);
