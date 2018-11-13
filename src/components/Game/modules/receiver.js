@@ -2,61 +2,75 @@
 
 //function receives actions and routes them to their proper handlers
 const receiver = (action) => {
-    switch(action.type) {
+    switch (action.type) {
         case ('advance'):
-            advance(action);
-            break;
+            return (advance(action));
         case ('discussion'):
-            discussion(action);
-            break;
+            return (discussion(action));
         case ('journal'):
-            journal(action);
-            break;
+            return (journal(action));
         case ('join'):
-            join(action);
-            break;
+            return (join(action));
     }
 }
 
 const advance = action => {
     const reduxAction = {
         type: 'UPDATE_GAME_STATE',
-        payload: {    
+        payload: {
             newGameState: action.data.newGameState,
+            fetchPlayers: action.data.resetDiscussion,
         }
     }
     return reduxAction;
 }
 
 const journal = action => {
-    const reduxAction = {
-        type: 'UPDATE_JOURNAL_QUESTION',
-        payload: {    
-            question: action.data.question,
-            response: action.data.response,
-            roundNumber: action.data.roundNumber,
-            playerId: action.data.playerId,
+    let reduxAction;
+    if (action.intention) {
+        reduxAction = {
+            type: 'UPDATE_INTENTION',
+            payload: {
+                intention: action.data.intention,
+            }
+        }
+    }
+    else {
+        reduxAction = {
+            type: 'UPDATE_JOURNAL_QUESTION',
+            payload: {
+                question: action.data.question,
+                response: action.data.response,
+                roundNumber: action.data.roundNumber,
+                playerId: action.data.playerId,
+            }
         }
     }
     return reduxAction;
 }
 
 const join = action => {
-    const reduxAction = {
+    const actions = []
+    const reduxActionOne = {
         type: 'SET_PLAYER',
-        payload: {    
+        payload: {
             ...action.data,
         }
     }
-    return reduxAction;
+    actions.push(reduxActionOne);
+    const reduxActionTwo = {
+        type: 'SET_GAME',
+        payload: action.game
+    }
+    actions.push(reduxActionTwo);
+    return actions;
 }
 
 const discussion = action => {
     const reduxAction = {
-        type: 'UPDATE_DISCUSSION_PHASE',
-        payload: {    
-            playerNumber: action.data.playerNumber,
-            setTo: action.data.setTo,
+        type: 'SET_SELECTED_PLAYER',
+        payload: {
+            player: action.data.player,
         }
     }
     return reduxAction;
