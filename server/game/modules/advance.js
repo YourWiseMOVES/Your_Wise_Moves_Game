@@ -11,16 +11,23 @@ const sampleAdvanceAction = {
     type: 'advance',
     data: {
         newGameState: 00,
+        resetDiscussion: true, //or false
     },
     facilitatorId: 0,
 }
 
 const advance =  async (action, gameId, socket) => {
+    console.log(action);
     try {
         //update the database to reflect the new game state
         const gameStage = await pool.query(`UPDATE "game_state" SET "game_stage"=$1 WHERE "game_id"=$2;`, 
             [action.data.newGameState, gameId]);
         //send the action to all other users
+        if(action.data.resetDiscussion === true) {
+            console.log('here');
+            console.log(gameId);
+            await pool.query(`UPDATE "player" SET "discussed"=$1 WHERE "game_id"=$2;`, [false, gameId])
+        }
         socket.emit('moves', {...action});
         socket.broadcast.emit('moves', {...action});
     }
