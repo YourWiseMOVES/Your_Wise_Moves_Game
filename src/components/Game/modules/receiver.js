@@ -2,22 +2,22 @@
 
 //function receives actions and routes them to their proper handlers
 const receiver = (action) => {
-    switch(action.type) {
+    switch (action.type) {
         case ('advance'):
-            return(advance(action));
+            return (advance(action));
         case ('discussion'):
-            return(discussion(action));
+            return (discussion(action));
         case ('journal'):
-            return(journal(action));
+            return (journal(action));
         case ('join'):
-            return(join(action));
+            return (join(action));
     }
 }
 
 const advance = action => {
     const reduxAction = {
         type: 'UPDATE_GAME_STATE',
-        payload: {    
+        payload: {
             newGameState: action.data.newGameState,
             fetchPlayers: action.data.resetDiscussion,
         }
@@ -26,13 +26,24 @@ const advance = action => {
 }
 
 const journal = action => {
-    const reduxAction = {
-        type: 'UPDATE_JOURNAL_QUESTION',
-        payload: {    
-            question: action.data.question,
-            response: action.data.response,
-            roundNumber: action.data.roundNumber,
-            playerId: action.data.playerId,
+    let reduxAction;
+    if (action.intention) {
+        reduxAction = {
+            type: 'UPDATE_INTENTION',
+            payload: {
+                intention: action.data.intention,
+            }
+        }
+    }
+    else {
+        reduxAction = {
+            type: 'UPDATE_JOURNAL_QUESTION',
+            payload: {
+                question: action.data.question,
+                response: action.data.response,
+                roundNumber: action.data.roundNumber,
+                playerId: action.data.playerId,
+            }
         }
     }
     return reduxAction;
@@ -42,7 +53,7 @@ const join = action => {
     const actions = []
     const reduxActionOne = {
         type: 'SET_PLAYER',
-        payload: {    
+        payload: {
             ...action.data,
         }
     }
@@ -58,7 +69,7 @@ const join = action => {
 const discussion = action => {
     const reduxAction = {
         type: 'SET_SELECTED_PLAYER',
-        payload: {    
+        payload: {
             player: action.data.player,
         }
     }

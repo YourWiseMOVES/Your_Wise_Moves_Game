@@ -38,8 +38,8 @@ class Game extends Component {
           try {
             console.log('Back from server with', data);
             let action = receiver(data);
-            if (action.payload.fetchPlayers){
-              this.props.dispatch({type: 'FETCH_PLAYERS', payload: this.props.state.game.gameId})
+            if (action.payload.fetchPlayers) {
+              this.props.dispatch({ type: 'FETCH_PLAYERS', payload: this.props.state.game.gameId })
             }
             this.props.dispatch(action);
           } catch (err) {
@@ -74,6 +74,30 @@ class Game extends Component {
     })
   }
 
+  editJournal = response => {
+    socket.emit('moves', {
+      type: 'journal',
+      intention: false,
+      data: {
+        playerId: this.props.state.game.player.playerId,
+        question: 'this is a hard-coded test question',
+        response: response,
+        roundNumber: this.props.state.game.roundNumber,
+      }
+    })
+  }
+
+  editIntention = intention => {
+    socket.emit('moves', {
+      type: 'journal',
+      intention: true,
+      data: {
+        playerId: this.props.state.game.player.playerId,
+        intention: intention,
+      }
+    })
+  }
+
   joinGame = (playerName, code) => {
     //socket stuff here
     try {
@@ -88,8 +112,8 @@ class Game extends Component {
               payload: data.data.newGameState[0],
             })
           }
-          if (action.payload.fetchPlayers){
-            this.props.dispatch({type: 'FETCH_PLAYERS', payload: this.props.state.game.gameId})
+          if (action.payload.fetchPlayers) {
+            this.props.dispatch({ type: 'FETCH_PLAYERS', payload: this.props.state.game.gameId })
           }
           this.props.dispatch(action);
         } catch (err) {
@@ -157,7 +181,7 @@ class Game extends Component {
       },
       facilitatorId: this.props.state.user.userReducer.id,
     })
-    this.props.dispatch({type:'CLEAR_SELECTED_PLAYER'})
+    this.props.dispatch({ type: 'CLEAR_SELECTED_PLAYER' })
   }
 
   render() {
@@ -168,6 +192,7 @@ class Game extends Component {
           <GameStart
             advanceStage={this.advanceStage}
             calculateNextStage={this.calculateNextStage}
+            editIntention={this.editIntention}
           />
           :
           this.props.state.game.gameState[0] === '0' ?
@@ -186,6 +211,7 @@ class Game extends Component {
             calculateNextStage={this.calculateNextStage}
             selectPlayer={this.selectPlayer}
             markDone={this.markDone}
+            editJournal={this.editJournal}
           />
         }
         {this.props.state.game.gameState[0] == '6' &&

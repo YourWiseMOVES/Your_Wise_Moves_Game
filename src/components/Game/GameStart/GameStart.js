@@ -17,6 +17,7 @@ class GameRounds extends Component {
                     <IntentionInput
                         advanceStage={this.props.advanceStage}
                         calculateNextStage={this.props.calculateNextStage}
+                        editIntention={this.props.editIntention}
                     />
                 }
             </div>
