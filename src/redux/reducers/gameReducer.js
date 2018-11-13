@@ -43,6 +43,11 @@ const journal = (state = {intention: '', question_one: '', question_two: '', que
                 [question]: action.payload.question,
                 [response]: action.payload.response,
             };
+        case 'UPDATE_INTENTION':
+            return {
+                ...state,
+                intention: action.payload.intention,
+            }
         case 'UPDATE_JOURNAL_INTENTION':
             return {
                 ...state,

@@ -26,6 +26,7 @@ class GameRounds extends Component {
                     <AnswerCard
                         advanceStage={this.props.advanceStage}
                         calculateNextStage={this.props.calculateNextStage}
+                        editJournal={this.props.editJournal}
                     />
                 }
                 {this.props.state.game.gameState[1] == '2' &&

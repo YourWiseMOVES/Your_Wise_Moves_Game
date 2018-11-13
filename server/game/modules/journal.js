@@ -9,38 +9,50 @@ const pool = require('../../modules/pool');
 //the structure for what a journal action will look like from the client
 const sampleJournalAction = {
     type: 'journal',
+    intention: 'true', //or false
     data: {
-        playerName: '',
+        playerId: '',
         question: '',
         response: '',
         roundNumber: 'one',
+    },
+    //or
+    data: {
+        playerId: '',
+        intention: '',
     }
 }
 
 const journal = async (action, gameId, socket) => {
+    console.log(action);
     try {
-        let journalId = await pool.query(`SELECT * FROM "player" WHERE "name"=$1;`, [action.data.playerName]);
+        let journalId = await pool.query(`SELECT * FROM "player" WHERE "id"=$1;`, [action.data.playerId]);
         journalId = journalId.rows[0].journal_id;
-        let query;
-        switch (action.data.roundNumber) {
-            case 'one':
-                query = `UPDATE "journal" set "question_one"=$1, "response_one"=$2 WHERE "id"=$3;`
-                break;
-            case 'two':
-                query = `UPDATE "journal" set "question_two"=$1, "response_two"=$2 WHERE "id"=$3;`
-                break;
-            case 'three':
-                query = `UPDATE "journal" set "question_three"=$1, "response_three"=$2 WHERE "id"=$3;`
-                break;
-            case 'four':
-                query = `UPDATE "journal" set "question_four"=$1, "response_four"=$2 WHERE "id"=$3;`
-                break;
-            case 'five':
-                query = `UPDATE "journal" set "question_five"=$1, "response_five"=$2 WHERE "id"=$3;`
-                break;
+        if(action.intention){
+            await pool.query('UPDATE "journal" SET "intention"=$1 WHERE "id"=$2;', [action.data.intention, journalId])
         }
-        await pool.query(query, [action.data.question, action.data.response, journalId]);
-        socket.emit('moves', { ...action, data: { done: true } });
+        else {
+            let query;
+            switch (action.data.roundNumber) {
+                case '1':
+                    query = `UPDATE "journal" set "question_one"=$1, "response_one"=$2 WHERE "id"=$3;`
+                    break;
+                case '2':
+                    query = `UPDATE "journal" set "question_two"=$1, "response_two"=$2 WHERE "id"=$3;`
+                    break;
+                case '3':
+                    query = `UPDATE "journal" set "question_three"=$1, "response_three"=$2 WHERE "id"=$3;`
+                    break;
+                case '4':
+                    query = `UPDATE "journal" set "question_four"=$1, "response_four"=$2 WHERE "id"=$3;`
+                    break;
+                case '5':
+                    query = `UPDATE "journal" set "question_five"=$1, "response_five"=$2 WHERE "id"=$3;`
+                    break;
+            }
+            await pool.query(query, [action.data.question, action.data.response, journalId]);
+        }
+        socket.emit('moves', { ...action });
     }
     catch (err) {
         console.log('Error in journal handler', err);
