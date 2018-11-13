@@ -10,11 +10,13 @@ class GameRounds extends Component {
                 {this.props.state.game.gameState[1] == '0' &&
                     <IntentionIntro
                         advanceStage={this.props.advanceStage}
+                        calculateNextStage={this.props.calculateNextStage}
                     />
                 }
                 {this.props.state.game.gameState[1] == '1' &&
                     <IntentionInput
                         advanceStage={this.props.advanceStage}
+                        calculateNextStage={this.props.calculateNextStage}
                     />
                 }
             </div>

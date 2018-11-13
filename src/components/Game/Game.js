@@ -19,20 +19,20 @@ class Game extends Component {
     gameCode: '',
   }
 
-  createGame =  () => { //function to create the game, triggers the game start on server
+  createGame = () => { //function to create the game, triggers the game start on server
     console.log('in create game');
     axios({
       method: 'POST',
       data: { id: this.props.state.user.userReducer.id },
       url: '/game/start',
     })
-      .then( response => {
+      .then(response => {
         this.setState({
           gameCode: response.data.code,
         })
         socket = io.connect(`/${this.state.gameCode}`);
         //socket will need to be global 
-        socket.on('moves', async data => {
+        socket.on('moves', data => {
           try {
             console.log('Back from server with', data);
             let action = receiver(data);
@@ -68,8 +68,62 @@ class Game extends Component {
     })
   }
 
+  joinGame = (playerName, code) => {
+    //socket stuff here
+    try {
+      socket = io.connect(`/${code}`);
+      socket.on('moves', data => {
+        try {
+          console.log('Back from server with', data);
+          let action = receiver(data);
+          if (data.type === 'advance') {
+            this.props.dispatch({
+              type: 'UPDATE_ROUND_NUMBER',
+              payload: data.data.newGameState[0],
+            })
+          }
+          this.props.dispatch(action);
+        } catch (err) {
+          console.log('Error in moves handler', err);
+        }
+      })
+      socket.on('join', data => {
+        let action = receiver(data);
+        this.props.dispatch(action);
+        console.log('Back from server with', data);
+      })
+      socket.emit('join', {
+        type: 'join',
+        data: {
+          playerName,
+        },
+      })
+      this.props.dispatch({
+        type: 'SET_CODE',
+        payload: code,
+      })
+    }
+    catch (err) {
+      console.log(err);
+    }
+  }
 
-  advance
+  calculateNextStage = nextStage => {
+    if (nextStage === '0') {
+      let number = Number(this.props.state.game.roundNumber);
+      console.log(number);
+      number = number + 1
+      console.log(number);
+      let newRound = number.toString();
+      this.props.dispatch({
+        type: 'UPDATE_ROUND_NUMBER',
+        payload: newRound,
+      })
+      return (newRound + nextStage);
+    }
+    return (this.props.state.game.roundNumber + nextStage);
+  }
+
   render() {
     return (
       <div>
@@ -77,20 +131,23 @@ class Game extends Component {
           this.props.state.gameCode !== '' ?
           <GameStart
             advanceStage={this.advanceStage}
+            calculateNextStage={this.calculateNextStage}
           />
           :
           this.props.state.game.gameState[0] === '0' ?
-          <PreGame
-            gameCode={this.state.gameCode}
-            createGame={this.createGame}
-            advanceStage={this.advanceStage}
-          />
-          :
-          null
+            <PreGame
+              gameCode={this.state.gameCode}
+              createGame={this.createGame}
+              advanceStage={this.advanceStage}
+              joinGame={this.joinGame}
+            />
+            :
+            null
         }
         {this.props.state.game.gameState[0] > 0 && this.props.state.game.gameState[0] < 6 &&
           <GameRounds
             advanceStage={this.advanceStage}
+            calculateNextStage={this.calculateNextStage}
           />
         }
         {this.props.state.game.gameState[0] == '6' &&

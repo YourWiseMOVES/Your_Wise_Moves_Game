@@ -73,6 +73,15 @@ const allPlayers = (state = [], action) => {
     }
 }
 
+const roundNumber = (state = '0', action) => {
+    switch (action.type) {
+        case 'UPDATE_ROUND_NUMBER':
+            return action.payload;
+        default:
+            return state;
+    }
+}
+
 export default combineReducers({
     gameInfo,
     gameState,
@@ -80,4 +89,5 @@ export default combineReducers({
     discussionPhase,
     journal,
     allPlayers,
+    roundNumber,
 });
