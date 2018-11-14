@@ -49,6 +49,9 @@ const receiver = (action, gameId, socket) => {
         case ('dispatch'):
             dispatch(action, gameId, socket);
             break;
+        case('deal'):
+            deal(action, gameId, socket)
+            break;
     }
 }
 
