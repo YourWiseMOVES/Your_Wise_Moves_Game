@@ -1,3 +1,14 @@
+/** PreGame
+ * module for routing within the pregame stage
+ * first view offers choice of facilitator or player
+ * players
+ * --> join game with code and name
+ * facilitators
+ * --> log in with username and password
+ * --> create game and share code
+ * --> choose to advance to game
+ */
+
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
@@ -7,6 +18,8 @@ import FacilitatorLogin from './FacilitatorLogin';
 import FacilitatorCreateGame from './FacilitatorCreateGame';
 
 class PreGame extends Component {
+
+    //user type for routing through pregame binary paths
     state = {
         userType: '',
     }
@@ -37,6 +50,7 @@ class PreGame extends Component {
                     this.state.userType === 'player' &&
                     <div>
                         <PlayerLogin
+                            //sub component requires
                             joinGame={this.props.joinGame}
                         />
                     </div>
@@ -46,9 +60,9 @@ class PreGame extends Component {
                     <div>
                         {this.props.state.user.userReducer && this.props.state.user.userReducer.id ?
                             <FacilitatorCreateGame
+                                //sub component requires 
                                 createGame={this.props.createGame}
                                 gameCode={this.props.gameCode}
-                                socket={this.props.socket}
                             />
                             :
                             <FacilitatorLogin />
