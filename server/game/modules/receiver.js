@@ -25,9 +25,6 @@ const discussion = require('./discussion');
 //function adds players to the game
 const join = require('./join')
 
-//function dispatches players results on game end
-const dispatch = require('./dispatch');
-
 //function deals cards to players
 const deal = require('./deal');
 
@@ -46,9 +43,6 @@ const receiver = (action, gameId, socket) => {
             break;
         case ('join'):
             join(action, gameId, socket);
-            break;
-        case ('dispatch'):
-            dispatch(action, gameId, socket);
             break;
         case('deal'):
             deal(action, gameId, socket)
