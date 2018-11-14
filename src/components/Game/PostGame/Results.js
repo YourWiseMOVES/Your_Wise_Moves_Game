@@ -1,3 +1,8 @@
+/** Results
+ * facilitator can end game
+ * player can enter email and press button to get their results emailed
+ */
+
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
