@@ -26,7 +26,7 @@ class IntentionInput extends Component {
             this.props.calculateNextStage('0')
           )}>Next</button>
           :
-          <form>
+          <div>
             <input
               type="text"
               placeholder="Set your Intention or Question"
@@ -37,7 +37,7 @@ class IntentionInput extends Component {
             >
               Save Intention
             </button>
-          </form>
+          </div>
         }
       </div>
     );
