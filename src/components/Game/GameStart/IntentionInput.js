@@ -21,19 +21,24 @@ class IntentionInput extends Component {
     return (
       <div>
         <h1>Intention or Question Input</h1>
-        <input
-          type="text"
-          placeholder="Set your Intention or Question"
-          onChange={this.handleChange}
-        />
-        <button
-          onClick={() => this.props.editIntention(this.state.intention)}
-        >
-          Save Intention
-        </button>
-        <button onClick={() => this.props.advanceStage(
-           this.props.calculateNextStage('0')
-        )}>Next</button>
+        {this.props.state.user.userReducer && this.props.state.user.userReducer.id ?
+          <button onClick={() => this.props.advanceStage(
+            this.props.calculateNextStage('0')
+          )}>Next</button>
+          :
+          <form>
+            <input
+              type="text"
+              placeholder="Set your Intention or Question"
+              onChange={this.handleChange}
+            />
+            <button
+              onClick={() => this.props.editIntention(this.state.intention)}
+            >
+              Save Intention
+            </button>
+          </form>
+        }
       </div>
     );
   }

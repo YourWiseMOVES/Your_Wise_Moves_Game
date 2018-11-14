@@ -14,20 +14,22 @@ class RoundIntro extends Component {
       <div>
         <h1>Round Introduction</h1>
         <h2>Round: {this.props.state.game.roundNumber}</h2>
-        <button onClick={() => {
-        //deal cards
-        this.props.dealCards();
-        //advance game
-        this.props.advanceStage(this.props.calculateNextStage('1'))
+        {this.props.state.user.userReducer && this.props.state.user.userReducer.id &&
+          <button onClick={() => {
+            //deal cards
+            this.props.dealCards();
+            //advance game
+            this.props.advanceStage(this.props.calculateNextStage('1'))
+          }
+          }>Deal Cards</button>
         }
-        }>Deal Cards</button>
       </div>
     );
   }
 }
 
 const mapStateToProps = state => ({
-    state
+  state
 });
 
 export default connect(mapStateToProps)(RoundIntro);
