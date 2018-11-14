@@ -19,6 +19,8 @@ const mailOptionsConfigurator = (userEmail, content) => {
         to: userEmail, // list of receivers
         subject: `Your Wise Moves Reflections from ${today}`, // Subject line
         text: 'reflections:', // plain text body
+        //html below needs further styling
+        //the content object given to this function will supply the content.*whatever* in the html below
         html: `<!DOCTYPE html>
         <html lang="en">
         
@@ -61,7 +63,7 @@ const mailOptionsConfigurator = (userEmail, content) => {
                 <br/>
                 <section class="intention">
                     <h5 class="section-header">Your intention or Question:</h5>
-                    // <p>${content.intention}</p>
+                    <p>${content.intention}</p>
                 </section>
                 <section class="question">
                     <h5 class="section-header">Your Map Movement:</h5>
