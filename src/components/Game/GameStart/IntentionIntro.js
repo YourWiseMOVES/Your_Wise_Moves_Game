@@ -1,3 +1,8 @@
+/** IntentionIntro
+ * waiting view *
+ * facilitator can advance to next game state
+ */
+
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 

@@ -1,3 +1,9 @@
+/** IntentionInput
+ * player can input an intention and dispatch it to server
+ * facilitator can see which players have submitted their intention
+ * facilitator can advance to next game state
+ */
+
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
