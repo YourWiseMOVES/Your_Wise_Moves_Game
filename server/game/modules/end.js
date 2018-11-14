@@ -20,7 +20,7 @@ const end = async (socket, gameId, link, io, code) => {
             let journalResponse = await pool.query('SELECT * FROM "journal" WHERE "id"=$1;', [player.journal_id])
             journal = journalResponse.rows[0];
             pool.query(`INSERT INTO "result"
-            ("game_id", player_id", "intention", "question_one", "response_one", "question_two", "response_two",
+            ("game_id", "player_id", "intention", "question_one", "response_one", "question_two", "response_two",
             "question_three", "response_three", "question_four", "response_four", "question_five", "response_five"
             )
             VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13);
