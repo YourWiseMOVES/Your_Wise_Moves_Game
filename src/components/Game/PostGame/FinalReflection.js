@@ -1,3 +1,8 @@
+/** FinalReflection
+ * waiting view
+ * facilitator can advance to game end
+ */
+
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
