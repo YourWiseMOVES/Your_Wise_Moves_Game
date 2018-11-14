@@ -37,6 +37,8 @@ const deal =  async (action, gameId, socket) => {
        let deck =  new Deck(cards);
        //set selected deck by round number
        deck.subSelect(Number(action.data.roundNumber));
+        //shuffle so first players card is random
+        deck.shuffle();
        for (let player of players) {
            let draw = deck.draw(); //draw a card
            //set the players card in the database

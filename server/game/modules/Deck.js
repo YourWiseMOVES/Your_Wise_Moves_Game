@@ -35,7 +35,7 @@ class Deck {
         return this.cards
     }
 
-    //get a random card
+    //get the top card
     draw(){
         this.selectedCard = this.cards.pop()
         this.drawnCards.push(this.selectedCard)
