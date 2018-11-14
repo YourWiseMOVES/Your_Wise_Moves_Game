@@ -1,7 +1,7 @@
 class Deck {
     /*
-    this class constructer takes in an array of cards objects
-    with stage_id properties for filtering's sake
+    this class constructor takes in an array of cards objects
+    with stage_id properties for filtering
     */
     constructor(arrayOfCardsInDeck) {
         this.initialCards = arrayOfCardsInDeck
