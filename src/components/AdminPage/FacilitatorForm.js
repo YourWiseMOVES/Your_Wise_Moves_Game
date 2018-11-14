@@ -258,15 +258,15 @@ class FacilitatorForm extends Component {
 
                     {/* Row 4 */}
                     <div className="row">
-                        <div>Are you a Facilitator?
+                        <div>Facilitator?
                             <label>
                                 <Select
-                                    title={"Is Facilitator?"}
+                                    // title={"Facilitator"}
                                     name={"is_facilitator"}
                                     options={this.state.is_facilitator_options}
                                     value={this.state.newFacilitator.is_facilitator}
                                     placeholder={"True or False"}
-                                    onChange={this.handleInput}
+                                    handleChange={this.handleInput}
                                 />
                             </label>
                         </div>
@@ -274,10 +274,10 @@ class FacilitatorForm extends Component {
 
                     {/* Row 5 */}
                     <div className="row">
-                        <div>Are you and Aministrator?
+                        <div>Administrator?
                             <label>
                             <Select
-                                title={"Is Admin?"}
+                                // title={"Administrator"}
                                 name={"is_admin"}
                                 options={this.state.is_admin_options}
                                 value={this.state.newFacilitator.is_admin}
