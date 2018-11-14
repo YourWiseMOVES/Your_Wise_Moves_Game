@@ -30,7 +30,7 @@ class AdminPage extends Component {
 
 
   getFacilitatorInfo = () => {
-    axios.get('/api/register/')
+    axios.get('/api/user/register/')
       .then((response) => {
         console.log('this is the response for facilitators', response);
         this.setState({ ...this.state, data: response.data }); // master list of all facilitators
@@ -47,12 +47,12 @@ class AdminPage extends Component {
         <AccordionItem>
           {/* style={{ border: '1px solid lightgray', color: 'gray', width: '70vw', align: 'center' }} */}
           <AccordionItemTitle >
-            <h4>{this.state.data.first_name} {this.state.data.last_name}</h4>
+            <h4>{facilitator.first_name} {facilitator.last_name}</h4>
           </AccordionItemTitle>
           <AccordionItemBody>
             <FacilitatorForm
               action="edit"  // updates the question form based on this function or add
-              newFacilitator={this.state.data}  // javascript variable in html code
+              facilitator={facilitator}  // javascript variable in html code
             />
           </AccordionItemBody>
         </AccordionItem>
@@ -62,8 +62,9 @@ class AdminPage extends Component {
   
 
   render() {
-    let facilitatorCards = this.state.data.map(facilitator => this.createHtmlForPanel(facilitator)) // card created outside of the render
-
+    let facilitatorPanels = this.state.data.map(facilitator => this.createHtmlForPanel(facilitator)) // panel created outside of the render
+console.log('HELLOOOOOO!!!!!!!!!!!!!!!!!!')
+    console.log(this.state.data);
     return (
 
       <div>
@@ -81,11 +82,11 @@ class AdminPage extends Component {
           </div>
         <div className="accordion">
           <Accordion>
-            {facilitatorCards}
+            {facilitatorPanels}
           </Accordion>
         </div>
         <div>
-            
+
           
           
         </div>

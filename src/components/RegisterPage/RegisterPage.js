@@ -19,15 +19,11 @@ class RegisterPage extends Component {
     is_facilitator: '', 
     is_admin: '',
 
-    // const options = [
-    //   { value: 'true', label: 'True' },
-    //   { value: 'false', label: 'False' }
-    // ],
 
-    // is_facilitator: [
-    //   { value: false, label: 'False' },
-    //   { value: true, label: 'True' },
-    // ],
+    is_facilitator_options: [
+      { value: false, label: 'False' },
+      { value: true, label: 'True' },
+    ],
     is_admin_options: [
       { value: false, label: 'False' },
       { value: true, label: 'True' },
@@ -167,7 +163,7 @@ class RegisterPage extends Component {
             <Select
                 title={"Facilitator"}
                 name={"is_facilitator"}
-                options={this.state.is_admin_options}
+                options={this.state.is_facilitator_options}
                 value={this.state.is_facilitator}
                 placeholder={"True or False"}
                 handleChange={this.handleInputChangeFor('is_facilitator')}
