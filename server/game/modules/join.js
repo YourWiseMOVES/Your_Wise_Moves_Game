@@ -32,7 +32,21 @@ const join =  async (action, gameId, socket) => {
             VALUES ($1,$2,$3,$4) RETURNING "id";`, [action.data.playerName, gameId, journalId, playerNumber]);
         //send the player information back to the client
         playerId = playerId.rows[0].id;
-        socket.emit('join', {...action, data: {playerId, playerNumber} });
+
+        /* socket emissions */
+        //set player that joined's redux state on client
+        socket.emit('join', {...action, data: {id: playerId, playerNumber}, game: gameId });
+        //tell all players to update their player record
+        socket.broadcast.emit('players', {type: 'done'} )
+        //tell inbound player to update their players record
+        socket.emit('players', {type: 'done'} )
+        //tell inbound player to update their game state
+        socket.emit('moves', {
+            type: 'advance',
+            data: {
+                newGameState: '00',
+            },
+        })
     }   
     catch (err) {
         console.log('Error in join handler', err);

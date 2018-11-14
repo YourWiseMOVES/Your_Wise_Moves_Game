@@ -13,7 +13,7 @@ const discussionPhase = (state = {id: '', player_1: false, player_2: false, play
     }
 };
 
-const gameInfo = (state = {id: '', facilitator_id: '', time_started: ''}, action) => {
+const gameId = (state = '', action) => {
     switch (action.type) {
         case 'SET_GAME':
             return action.payload;
@@ -22,13 +22,10 @@ const gameInfo = (state = {id: '', facilitator_id: '', time_started: ''}, action
     }
 };
 
-const gameState = (state = {game_state: '00'}, action) => {
+const gameState = (state =  '00', action) => {
     switch (action.type) {
         case 'UPDATE_GAME_STATE':
-            return {
-                ...state,
-                game_state: action.payload.newGameState,
-            };
+            return action.payload.newGameState;
         default:
             return state;
     }
@@ -46,6 +43,11 @@ const journal = (state = {intention: '', question_one: '', question_two: '', que
                 [question]: action.payload.question,
                 [response]: action.payload.response,
             };
+        case 'UPDATE_INTENTION':
+            return {
+                ...state,
+                intention: action.payload.intention,
+            }
         case 'UPDATE_JOURNAL_INTENTION':
             return {
                 ...state,
@@ -56,7 +58,7 @@ const journal = (state = {intention: '', question_one: '', question_two: '', que
     }
 };
 
-const player = (state = {id: '', name: '', journal_id: '', game_id: '', player_number: ''}, action) => {
+const player = (state = {}, action) => {
     switch (action.type) {
         case 'SET_PLAYER':
             return {
@@ -76,11 +78,33 @@ const allPlayers = (state = [], action) => {
     }
 }
 
+const roundNumber = (state = '0', action) => {
+    switch (action.type) {
+        case 'UPDATE_ROUND_NUMBER':
+            return action.payload;
+        default:
+            return state;
+    }
+}
+
+const selectedPlayer = (state = {}, action) => {
+    switch (action.type) {
+        case 'SET_SELECTED_PLAYER':
+            return action.payload.player;
+        case 'CLEAR_SELECTED_PLAYER':
+            return {};
+        default:
+            return state;
+    }
+}
+
 export default combineReducers({
-    gameInfo,
+    gameId,
     gameState,
     player,
     discussionPhase,
     journal,
     allPlayers,
+    roundNumber,
+    selectedPlayer,
 });

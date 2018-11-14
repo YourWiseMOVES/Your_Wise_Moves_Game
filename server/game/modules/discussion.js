@@ -10,22 +10,43 @@ const pool = require('../../modules/pool');
 const sampleDiscussionAction = {
     type: 'discussion',
     data: {
-        playerNumber: 0,
-        setTo: true,
+        player: {},
+        set: 'next', //or 'done'
     },
     facilitatorId: 0,
 }
 
 const discussion = async (action, gameId, socket) => {
-    try {
-        //update the player to reflect that they have spoken
-        await pool.query(`UPDATE "discussion_phase" SET "player_${action.data.playerNumber}"=$1;`, [action.data.setTo]);
-        //let all the clients know that this player has spoken
-        socket.emit('moves', action);
+
+    //update player to reflect that they have spoken their turn in the discussion phase
+    if (action.data.set === 'done') {
+        try {
+            //update the player to reflect that they have spoken
+            await pool.query(`UPDATE "player" SET "discussed"=$1 WHERE "id"=$2;`, [true, action.data.player.id]);
+            //let all the clients know that this player has spoken
+            socket.emit('players', {type: 'done'});
+            socket.broadcast.emit('players', {type: 'done'})
+        }
+        catch (err) {
+            console.log('Error in discussion handler', err);
+        }
     }
-    catch (err) {
-        console.log('Error in discussion handler', err);
+    //update all clients on which player is selected to speak
+    if (action.data.set === 'next') {
+        try {
+            //let all the clients know that this player is selected
+            socket.emit('moves', {type: 'discussion', data: {
+                player: action.data.player,
+            }});
+            socket.broadcast.emit('moves', {type: 'discussion', data: {
+                player: action.data.player,
+            }});
+        }
+        catch (err) {
+            console.log('Error in discussion handler', err);
+        }
     }
+   
 }
 
 
