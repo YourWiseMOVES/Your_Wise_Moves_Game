@@ -65,6 +65,10 @@ class Game extends Component {
           //trigger saga to refresh players
           this.props.dispatch({ type: 'FETCH_PLAYERS', payload: this.props.state.game.gameId })
         })
+        socket.on('player', data => { //set event handler for 'player' events
+          //trigger saga to refresh single player
+          this.props.dispatch({ type: 'FETCH_PLAYER', payload: this.props.state.game.player.playerId })
+        })
       })
       .catch(err => {
         console.log(err);

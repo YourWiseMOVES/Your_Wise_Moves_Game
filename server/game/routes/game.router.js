@@ -25,6 +25,17 @@ router.get('/players', (req, res) => {
     })
 })
 
+//get route for player in a specific game, no auth required
+router.get('/player', (req, res) => {
+    pool.query(`SELECT * FROM "player" WHERE "player_id"=$1;`, [req.query.id])
+    .then(results => {
+        res.send(results.rows[0]);
+    })
+    .catch(err => {
+        console.log('Error in player get', err);
+    })
+})
+
 //post route for getting results emailed after the game 
 router.post('/get/results', (req, res) => {
     //send results to player
