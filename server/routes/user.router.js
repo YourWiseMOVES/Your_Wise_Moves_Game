@@ -53,17 +53,15 @@ router.put('/register', (req, res) => {
   console.log(req.body);
   pool.query(`UPDATE person
   SET "username" = $1,
-  "password" = $2,
-  "first_name" = $3, 
-  "last_name" = $4, 
-  "email" = $5, 
-  "organization" = $6, 
-  "phone_number" = $7, 
-  "is_facilitator" = $8, 
-  "is_admin" = $9
-  WHERE "id"=$10`,
+  "first_name" = $2, 
+  "last_name" = $3, 
+  "email" = $4, 
+  "organization" = $5, 
+  "phone_number" = $6, 
+  "is_facilitator" = $7, 
+  "is_admin" = $8
+  WHERE "id"=$9`,
     [req.body.username,
-    req.body.password,
     req.body.first_name,
     req.body.last_name,
     req.body.email,
@@ -90,5 +88,19 @@ router.get('/register', (req, res) => {
       res.sendStatus(500);
     })
 });
+
+router.delete('/register', (req, res) => {
+  pool.query(`DELETE FROM "person"
+  WHERE "first_name"=$1 AND "last_name"=$2;`,
+      [req.body.first_name,
+      req.body.last_name])
+      .then((results) => {
+          res.sendStatus(200)
+      }).catch((error) => {
+          console.log('Error with server-side DELETE:', error);
+          res.sendStatus(500);
+      })
+});
+
 
 module.exports = router;
