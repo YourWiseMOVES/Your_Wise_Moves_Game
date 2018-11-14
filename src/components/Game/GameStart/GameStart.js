@@ -1,5 +1,5 @@
-/** PostGame
- * module routes between final views of game 
+/** GameStart
+ * module routes between first views of game 
  * sub components conditionally rendered based on game state in redux
  */
 
@@ -7,25 +7,24 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 //import sub components
-import FinalReflection from './FinalReflection';
-import Results from './Results';
+import IntentionInput from './IntentionInput';
+import IntentionIntro from './IntentionIntro';
 
-class PostGame extends Component {
-
-
-
+class GameRounds extends Component {
     render() {
         return (
             <div>
                 {this.props.state.game.gameState[1] == '0' &&
-                    <FinalReflection
+                    <IntentionIntro
                         advanceStage={this.props.advanceStage}
+                        calculateNextStage={this.props.calculateNextStage}
                     />
                 }
                 {this.props.state.game.gameState[1] == '1' &&
-                    <Results
+                    <IntentionInput
                         advanceStage={this.props.advanceStage}
-                        endGame={this.props.endGame} //facilitator ends game from this component
+                        calculateNextStage={this.props.calculateNextStage}
+                        editIntention={this.props.editIntention} //player enters in intention in this component
                     />
                 }
             </div>
@@ -33,9 +32,8 @@ class PostGame extends Component {
     }
 }
 
-
 const mapStateToProps = state => ({
     state
 });
 
-export default connect(mapStateToProps)(PostGame);
+export default connect(mapStateToProps)(GameRounds);

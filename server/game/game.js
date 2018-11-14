@@ -25,7 +25,6 @@ exports.begin = async (facilitatorId, io) => {
             io.of(`/${code}`)
                 //on connection do this:
                 .on('connection', socket => {
-                    console.log(socket);
                     socket.emit('start', { message: 'Connected to server.', code });
                     //set listener for players joining
                     socket.on('join', action => {
@@ -46,7 +45,8 @@ exports.begin = async (facilitatorId, io) => {
     catch (err) {
         console.log('Error in game start', err);
     }
-    return({code});
+    console.log('game created');
+    return({code, gameId});
 }
 
 exports.end = async (facilitatorId, io) => {

@@ -11,18 +11,25 @@ const sampleAdvanceAction = {
     type: 'advance',
     data: {
         newGameState: 00,
+        resetDiscussion: true, //or false
     },
     facilitatorId: 0,
 }
 
 const advance =  async (action, gameId, socket) => {
-    console.log('in advance js', socket);
+    console.log(action);
     try {
         //update the database to reflect the new game state
-        const gameStage = await pool.query(`UPDATE "game_state" SET "game_stage"=$1 WHERE "game_id"=$2;`, 
+        await pool.query(`UPDATE "game_state" SET "game_stage"=$1 WHERE "game_id"=$2;`, 
             [action.data.newGameState, gameId]);
+
+        //if this action is the start of a new round, clear player discussion booleans
+        if(action.data.resetDiscussion === true) {
+            await pool.query(`UPDATE "player" SET "discussed"=$1 WHERE "game_id"=$2;`, [false, gameId])
+        }
         //send the action to all other users
-        socket.emit('moves', action);
+        socket.emit('moves', {...action});
+        socket.broadcast.emit('moves', {...action});
     }
     catch (err) {
         console.log('Error in advance handler', err);
