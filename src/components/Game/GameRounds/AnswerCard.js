@@ -24,7 +24,7 @@ class AnswerCard extends Component {
         <h1>Answer Card</h1>
         <h2>Round: {this.props.state.game.roundNumber}</h2>
         <h2>Your Intention: {this.props.state.game.player.intention}</h2>
-        <h2>Your Question: {this.props.state.game.player.current_question}</h2>
+        <h2>Your Question: {this.props.state.game.player.current_card}</h2>
         <input
           type="text"
           placeholder="Answer the question please"

@@ -27,7 +27,7 @@ router.get('/players', (req, res) => {
 
 //get route for player in a specific game, no auth required
 router.get('/player', (req, res) => {
-    pool.query(`SELECT * FROM "player" WHERE "player_id"=$1;`, [req.query.id])
+    pool.query(`SELECT * FROM "player" WHERE "id"=$1;`, [req.query.id])
     .then(results => {
         res.send(results.rows[0]);
     })

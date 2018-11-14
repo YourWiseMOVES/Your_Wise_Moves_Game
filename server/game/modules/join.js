@@ -35,7 +35,7 @@ const join =  async (action, gameId, socket) => {
 
         /* socket emissions */
         //set player that joined's redux state on client
-        socket.emit('join', {...action, data: {playerId, playerNumber}, game: gameId });
+        socket.emit('join', {...action, data: {id: playerId, playerNumber}, game: gameId });
         //tell all players to update their player record
         socket.broadcast.emit('players', {type: 'done'} )
         //tell inbound player to update their players record
