@@ -1,6 +1,11 @@
+/** RoundIntro
+ * waiting view *
+ * facilitator can advance to next game state
+ * advancing to next game state also deals cards to players
+ */
+
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import receiver from '../modules/receiver';
 
 class RoundIntro extends Component {
 
@@ -9,16 +14,22 @@ class RoundIntro extends Component {
       <div>
         <h1>Round Introduction</h1>
         <h2>Round: {this.props.state.game.roundNumber}</h2>
-        <button onClick={() => this.props.advanceStage(
-          this.props.calculateNextStage('1')
-        )}>Next</button>
+        {this.props.state.user.userReducer && this.props.state.user.userReducer.id &&
+          <button onClick={() => {
+            //deal cards
+            this.props.dealCards();
+            //advance game
+            this.props.advanceStage(this.props.calculateNextStage('1'))
+          }
+          }>Deal Cards</button>
+        }
       </div>
     );
   }
 }
 
 const mapStateToProps = state => ({
-    state
+  state
 });
 
 export default connect(mapStateToProps)(RoundIntro);
