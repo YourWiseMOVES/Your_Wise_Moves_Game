@@ -26,7 +26,10 @@ class Discussion extends Component {
             );
             }
           })}
-        </ol>  
+        </ol> 
+        <h3>Selected Player</h3>
+        <h3>Selected Player Intention {this.props.state.game.selectPlayer.intention}</h3>
+        <h3>Selected Player Question {this.props.state.game.selectPlayer.current_question}</h3>
         <h4>{this.props.state.game.selectedPlayer.name}</h4>
         <button>Cancel</button>
         <button

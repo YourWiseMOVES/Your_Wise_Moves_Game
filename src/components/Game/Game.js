@@ -84,7 +84,7 @@ class Game extends Component {
   }
 
   advanceStage = (newGameState, resetDiscussion) => { //function emits an 'advance' action
-  //function is passed as props to sub-components
+    //function is passed as props to sub-components
     socket.emit('moves', {
       type: 'advance',
       data: {
@@ -101,7 +101,7 @@ class Game extends Component {
       intention: false, //boolean server uses to process editIntention function's emission
       data: {
         playerId: this.props.state.game.player.playerId,
-        question: 'this is a hard-coded test question', //will use player stored question after 'deal' integration
+        question: this.props.state.game.player.current_question, 
         response: response, //user input
         roundNumber: this.props.state.game.roundNumber,
       }
@@ -128,12 +128,12 @@ class Game extends Component {
           if (data.type === 'advance') { //if it is an advance action
             this.props.dispatch({ //update the round number in redux state
               type: 'UPDATE_ROUND_NUMBER',
-              payload: data.data.newGameState[0], 
+              payload: data.data.newGameState[0],
             }) //game state is a string of two numbers '00', index 0 is the round number, index 1 is step number within round
           }
           if (action.payload.fetchPlayers) { //if the action directs to refresh players
             //trigger fetch players saga
-            this.props.dispatch({ type: 'FETCH_PLAYERS', payload: this.props.state.game.gameId }) 
+            this.props.dispatch({ type: 'FETCH_PLAYERS', payload: this.props.state.game.gameId })
           }
           this.props.dispatch(action); //dispatch the redux action
         } catch (err) {
@@ -209,6 +209,16 @@ class Game extends Component {
     this.props.dispatch({ type: 'CLEAR_SELECTED_PLAYER' }) //clears the selected player in redux state
   }
 
+  dealCards = () => { //function emits action to deal cards to all players
+    socket.emit('moves', {
+      type: 'deal',
+      data: {
+        roundNumber: this.props.state.game.roundNumber,
+      },
+      facilitatorId: this.props.state.user.userReducer.id,
+    })
+  }
+
   render() {
     return (
       <div>
@@ -237,6 +247,7 @@ class Game extends Component {
             selectPlayer={this.selectPlayer} //function to select which player is going to speak next
             markDone={this.markDone} //function to mark a player as done speaking
             editJournal={this.editJournal} //function for player to input their answers to provided questions
+            dealCards={this.dealCards} //function for facilitator to deal cards to all players
           />
         }
         {this.props.state.game.gameState[0] == '6' &&

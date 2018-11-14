@@ -14,9 +14,13 @@ class RoundIntro extends Component {
       <div>
         <h1>Round Introduction</h1>
         <h2>Round: {this.props.state.game.roundNumber}</h2>
-        <button onClick={() => this.props.advanceStage(
-          this.props.calculateNextStage('1')
-        )}>Next</button>
+        <button onClick={() => {
+        //deal cards
+        this.props.dealCards();
+        //advance game
+        this.props.advanceStage(this.props.calculateNextStage('1'))
+        }
+        }>Deal Cards</button>
       </div>
     );
   }
