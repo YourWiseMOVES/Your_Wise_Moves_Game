@@ -1,6 +1,7 @@
 /**  Function Should:
  * Run on game ending by facilitator
- * set up event listener for emails from users that dispatches them their results
+ * should store this game's results in a separate temporary results table
+ * schedule an action to clear that table in however long
  * clear all data with cascading delete
  * close socket connections after all users have responded to the results prompt
 */
@@ -10,12 +11,16 @@ const pool = require('../../modules/pool');
 
 const end = async (socket, gameId, link, io, code) => {
     try {
-        //set up event listener to collect emails to dispatch accumulated journal data via email
-        socket.on('email', action => {
-            receiver(action, gameId, socket);
-        })
+        //store this game's results in a separate temporary results table
+
+
+        //schedule an action to clear that table in however long
+    
+        
         //cascading delete on all temporary game data
         await pool.query(`DELETE FROM "game" WHERE "id"=$1;`, [gameId]);
+
+        //end the socket connection
         try {
             const connectedNameSpaceSockets = Object.keys(link.connected); // Get Object with Connected SocketIds as properties
             connectedNameSpaceSockets.forEach(socketId => {
