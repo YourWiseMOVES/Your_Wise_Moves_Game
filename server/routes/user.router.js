@@ -15,7 +15,7 @@ router.get('/', rejectUnauthenticated, (req, res) => {
 // Handles POST request with new user data
 // The only thing different from this and every other post we've seen
 // is that the password gets encrypted before being inserted
-router.post('/register', (req, res, next) => {  
+router.post('/register', (req, res, next) => {
   const username = req.body.username;
   const password = encryptLib.encryptPassword(req.body.password);
   const first_name = req.body.first_name;
@@ -45,6 +45,50 @@ router.post('/logout', (req, res) => {
   // Use passport's built-in method to log out the user
   req.logout();
   res.sendStatus(200);
+});
+
+router.put('/register', (req, res) => {
+  const updatedFacilitator = req.body;
+  console.log('in the edit function');
+  console.log(req.body);
+  pool.query(`UPDATE person
+  SET "username" = $1,
+  "password" = $2,
+  "first_name" = $3, 
+  "last_name" = $4, 
+  "email" = $5, 
+  "organization" = $6, 
+  "phone_number" = $7, 
+  "is_facilitator" = $8, 
+  "is_admin" = $9
+  WHERE "id"=$10`,
+    [req.body.username,
+    req.body.password,
+    req.body.first_name,
+    req.body.last_name,
+    req.body.email,
+    req.body.organization,
+    req.body.phone_number,
+    req.body.is_facilitator,
+    req.body.is_admin,
+    req.body.id])
+    .then((results) => {
+      res.send(200)
+    }).catch((error) => {
+      console.log('Error with server-side PUT:', error);
+      res.send(500);
+    })
+})
+
+router.get('/register', (req, res) => {
+  console.log('get facilitators');
+  pool.query(`SELECT * FROM "person";`)
+    .then((results) => {
+      res.send(results.rows)
+    }).catch((error) => {
+      console.log('Error GET /members', error);
+      res.sendStatus(500);
+    })
 });
 
 module.exports = router;

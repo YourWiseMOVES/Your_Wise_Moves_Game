@@ -3,9 +3,9 @@ import axios from "axios";
 
 /* Import Components */
 
-// import Input from "./Input";
-// import Select from "./Select";
-// import Button from "./Button";
+import Input from "../InfoPage/Input";
+import Select from "../InfoPage/Select";
+import Button from "../InfoPage/Button";
 import swal from 'sweetalert';
 
 
@@ -27,15 +27,15 @@ class FacilitatorForm extends Component {
                 is_admin: '',
             },
 
-            // is_facilitator: [
-            //     { value: true, label: 'True' },
-            //     { value: false, label: 'False' }
-            // ],
+            is_facilitator_options: [
+                { value: true, label: 'True' },
+                { value: false, label: 'False' }
+            ],
 
-            // is_admin: [
-            //     { value: true, label: 'True' },
-            //     { value: false, label: 'False' }
-            // ],
+            is_admin_options: [
+                { value: true, label: 'True' },
+                { value: false, label: 'False' }
+            ],
 
         };
 
@@ -83,7 +83,7 @@ class FacilitatorForm extends Component {
     handleFormSubmit(e) {
         e.preventDefault();
         console.log(this.state.newFacilitator);
-        axios.post('/api/register', { "facilitators": this.state.newFacilitator }) // newFacilitator includes all the db fields
+        axios.post('/api/user/register', { "facilitators": this.state.newFacilitator }) // newFacilitator includes all the db fields
             .then((response) => {
                 console.log('this is the response for add facilitator', response.status);
                 if (response.status === 200) {
@@ -126,7 +126,7 @@ class FacilitatorForm extends Component {
         })
             .then((willDelete) => {
                 if (willDelete) {
-                    axios.delete('/api/register', { data: { first_name: fName, last_name: lName } })//in axios delete, in order to send a body, need to include body as the value of the data key
+                    axios.delete('/api/user/register', { data: { first_name: fName, last_name: lName } })//in axios delete, in order to send a body, need to include body as the value of the data key
                         .then((response) => {
                             if (response.status === 200) {
 
@@ -149,11 +149,10 @@ class FacilitatorForm extends Component {
     handleUpdate(e) {
         e.preventDefault();
         console.log(this.state.newFacilitator);
-        axios.put('/api/register', this.state.newFacilitator) // newFacilitator includes all the db fields
+        axios.put('/api/user/register', this.state.newFacilitator) // newFacilitator includes all the db fields
             .then((response) => {
                 console.log('this is the response for update facilitator', response.status);
                 if (response.status === 200) {
-                    // this.props.updateParent()
                     swal("Your facilitator was updated in the database!", "success");
                 }
             }).catch((error) => {
@@ -173,9 +172,9 @@ class FacilitatorForm extends Component {
                             <label>
                                 <input
                                     type="text"
-                                    value={this.state.newFacilitator.username}
-                                    handleChange={this.handleInput} // onChange={this.handleInput}?
                                     name="username"
+                                    value={this.state.newFacilitator.username}
+                                    onChange={this.handleInput} // onChange={this.handleInput}?
                                     placeholder="Username"
                                 />
                             </label>
@@ -184,9 +183,9 @@ class FacilitatorForm extends Component {
                             <label>
                                 <input
                                     type="text"
-                                    value={this.state.newFacilitator.password}
-                                    handleChange={this.handleInput}
                                     name="password"
+                                    value={this.state.newFacilitator.password}
+                                    onChange={this.handleInput}
                                     placeholder="Password"
                                 />
                             </label>
@@ -198,9 +197,9 @@ class FacilitatorForm extends Component {
                             <label>
                                 <input
                                     type="text"
-                                    value={this.state.newFacilitator.first_name}
-                                    handleChange={this.handleInput}
                                     name="first_name"
+                                    value={this.state.newFacilitator.first_name}
+                                    onChange={this.handleInput}
                                     placeholder="First Name"
                                 />
                             </label>
@@ -210,9 +209,9 @@ class FacilitatorForm extends Component {
                             <label>
                                 <input
                                     type="text"
-                                    value={this.state.newFacilitator.last_name}
-                                    handleChange={this.handleInput}
                                     name="last_name"
+                                    value={this.state.newFacilitator.last_name}
+                                    onChange={this.handleInput}
                                     placeholder="Last Name"
                                 />
                             </label>
@@ -226,9 +225,9 @@ class FacilitatorForm extends Component {
                             <label>
                                 <input
                                     type="text"
-                                    value={this.state.newFacilitator.email}
-                                    handleChange={this.handleInput}
                                     name="email"
+                                    value={this.state.newFacilitator.email}
+                                    onChange={this.handleInput}
                                     placeholder="Email"
                                 />
                             </label>
@@ -237,9 +236,9 @@ class FacilitatorForm extends Component {
                             <label>
                                 <input
                                     type="text"
-                                    value={this.state.newFacilitator.organization}
-                                    handleChange={this.handleInput}
                                     name="organization"
+                                    value={this.state.newFacilitator.organization}
+                                    onChange={this.handleInput}
                                     placeholder="Organization"
                                 />
                             </label>
@@ -247,10 +246,10 @@ class FacilitatorForm extends Component {
                         <div>
                             <label>
                                 <input
-                                    type="number"
-                                    value={this.state.newFacilitator.phone_number}
-                                    handleChange={this.handleInput}
+                                    type="text"
                                     name="phone_number"
+                                    value={this.state.newFacilitator.phone_number}
+                                    onChange={this.handleInput}
                                     placeholder="Phone Number"
                                 />
                             </label>
@@ -260,74 +259,56 @@ class FacilitatorForm extends Component {
                     {/* Row 4 */}
                     <div className="row">
                         <div>Are you a Facilitator?
-                            <select
-                                title={"Is Facilitator?"}
-                                name={"is_facilitator"}
-                                value={this.state.newFacilitator.is_facilitator}
-                                handleChange={this.handleInput} >
-                                <option id="true">True</option>
-                                <option id="false">False</option>
-
-
-                                {/* <option value="true">True</option>
-                                <option selected value="false">False</option> */}
-
-                                {/* 
-                                options={this.state.is_facilitator
-                                placeholder={"Facilitator?"}
-                                >
-                                 */}
-                            </select>
+                            <label>
+                                <Select
+                                    title={"Is Facilitator?"}
+                                    name={"is_facilitator"}
+                                    options={this.state.is_facilitator_options}
+                                    value={this.state.newFacilitator.is_facilitator}
+                                    placeholder={"True or False"}
+                                    onChange={this.handleInput}
+                                />
+                            </label>
                         </div>
                     </div>
 
                     {/* Row 5 */}
                     <div className="row">
                         <div>Are you and Aministrator?
-                            <select
-                                // title={"Is Admin?"}
+                            <label>
+                            <Select
+                                title={"Is Admin?"}
                                 name={"is_admin"}
+                                options={this.state.is_admin_options}
                                 value={this.state.newFacilitator.is_admin}
-                                handleChange={this.handleInput}>
-                                <option id="true">True</option>
-                                <option id="false">False</option>
-                            </select>
+                                placeholder={"True or False"}
+                                handleChange={this.handleInput}
+                            />
+                            </label>
                         </div>
                     </div>
 
 
-                    <button
-                        type={"submit"}
-                        value="Submit"
-                        action={this.props.action === 'add' ? this.handleFormSubmit : this.handleUpdate}
+                    <Button
+                        action={this.props.action === 'add' ? this.handleFormSubmit : this.handleUpdate} //if the action is add, the function called will be handleFormSubmit
+                        type={"primary"}
                         title={this.props.action === 'add' ? "Submit" : "Update"} //if this.props.action = add, then show the submit button
-                    // style={buttonStyle}         //add is on the AdminPage
+                        style={buttonStyle}         //add is on the InfoPage -- if not add, it will be edit
                     />{" "}
-
                     {/*Submit */}
-                    <button onClick="handleFormSubmit()"
-                    // type={"clear"}
-                    // value="Clear"
-                    // action={this.handleClearForm}
-                    // title={"Clear"}
-                    // style={buttonStyle}
-                    >Submit</button>{" "}
-
-                    <button onClick="handleClearForm(e)">Clear</button>
+                    <Button
+                        action={this.handleClearForm}
+                        type={"secondary"}
+                        title={"Clear"}
+                        style={buttonStyle}
+                    />{" "}
                     {/* Clear the form */}
-
-
-                    <button onClick="handleUpdate(e)">Update</button>
-
-
-
                     {this.props.action === 'edit' ? //if this.props.action == 'edit', then the delete button will also show
-                        <button
-                            type={"delete"}
-                            value="Delete"
-                            action={this.handleDeleteMember}
+                        <Button
+                            action={this.handleDeleteFacilitator}
+                            type={"secondary"}
                             title={"Delete"}
-                        // style={buttonStyle}
+                            style={buttonStyle}
                         />      // if this.props.action is anything else, (add), then show null/nothing
                         : null}
                 </form>
