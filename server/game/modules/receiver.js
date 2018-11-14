@@ -28,7 +28,8 @@ const join = require('./join')
 //function dispatches players results on game end
 const dispatch = require('./dispatch');
 
-
+//function deals cards to players
+const deal = require('./deal');
 
 //function receives actions and routes them to their proper handlers
 const receiver = (action, gameId, socket) => {

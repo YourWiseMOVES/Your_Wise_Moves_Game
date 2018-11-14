@@ -17,6 +17,8 @@ const sampleDiscussionAction = {
 }
 
 const discussion = async (action, gameId, socket) => {
+
+    //update player to reflect that they have spoken their turn in the discussion phase
     if (action.data.set === 'done') {
         try {
             //update the player to reflect that they have spoken
@@ -29,6 +31,7 @@ const discussion = async (action, gameId, socket) => {
             console.log('Error in discussion handler', err);
         }
     }
+    //update all clients on which player is selected to speak
     if (action.data.set === 'next') {
         try {
             //let all the clients know that this player is selected
