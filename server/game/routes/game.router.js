@@ -37,8 +37,13 @@ router.get('/player', (req, res) => {
 })
 
 //post route for getting results emailed after the game 
-router.post('/get/results', (req, res) => {
-    //send results to player
+router.post('/get/results', async (req, res) => {
+    //get results based on player id    
+    let resultResponse = await pool.query(`SELECT * FROM "result" WHERE "player_id"=$1;`, [req.body.id])
+    let response = resultResponse.rows[0];
+    //will then pass the response and req.body.email into mailOptions
+    //then dispatch the email with transporter module
+    res.sendStatus(201);
 })
 
 //post route (will require facilitator auth) to end game
