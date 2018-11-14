@@ -12,7 +12,9 @@ class Results extends Component {
     return (
       <div>
         <h1>Results</h1>
-        <button onClick={this.props.endGame}>Next</button>
+        {this.props.state.user.userReducer && this.props.state.user.userReducer.id &&
+        <button onClick={this.props.endGame}>End Game</button>
+        }
       </div>
     );
   }
