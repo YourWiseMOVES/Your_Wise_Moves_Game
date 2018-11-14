@@ -22,6 +22,7 @@ class GameRounds extends Component {
                     <RoundIntro
                         advanceStage={this.props.advanceStage}
                         calculateNextStage={this.props.calculateNextStage}
+                        dealCards={this.props.dealCards} // facilitator deals cards to players
                     />
                 }
                 {this.props.state.game.gameState[1] == '1' &&
