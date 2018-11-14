@@ -1,5 +1,12 @@
+/** PostGame
+ * module routes between final views of game 
+ * sub components conditionally rendered based on game state in redux
+ */
+
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+
+//import sub components
 import FinalReflection from './FinalReflection';
 import Results from './Results';
 
@@ -18,7 +25,7 @@ class PostGame extends Component {
                 {this.props.state.game.gameState[1] == '1' &&
                     <Results
                         advanceStage={this.props.advanceStage}
-                        endGame={this.props.endGame}
+                        endGame={this.props.endGame} //facilitator ends game from this component
                     />
                 }
             </div>

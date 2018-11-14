@@ -1,5 +1,12 @@
+/** GameStart
+ * module routes between first views of game 
+ * sub components conditionally rendered based on game state in redux
+ */
+
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+
+//import sub components
 import IntentionInput from './IntentionInput';
 import IntentionIntro from './IntentionIntro';
 
@@ -17,7 +24,7 @@ class GameRounds extends Component {
                     <IntentionInput
                         advanceStage={this.props.advanceStage}
                         calculateNextStage={this.props.calculateNextStage}
-                        editIntention={this.props.editIntention}
+                        editIntention={this.props.editIntention} //player enters in intention in this component
                     />
                 }
             </div>

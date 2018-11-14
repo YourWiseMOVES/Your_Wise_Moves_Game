@@ -8,6 +8,8 @@ const sessionMiddleware = require('./modules/session-middleware');
 const server = require('http').Server(app);
 const io = require('socket.io')(server);
 
+
+//middleware allows io to be accessed in game router
 app.use(function(req, res, next) {
   req.io = io;
   next();

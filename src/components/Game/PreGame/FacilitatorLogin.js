@@ -1,3 +1,8 @@
+/** FacilitatorLogIn
+ * carbon copy of log in page
+ * facilitator logs in and are redirected to the create game view
+ */
+
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 

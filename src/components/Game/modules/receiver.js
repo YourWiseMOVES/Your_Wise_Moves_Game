@@ -1,7 +1,10 @@
-//case/switch on action.type call a seperate function depending of the type it is
+/** receiver.js
+ * module for converting custom actions to redux actions
+ * case switch calls appropriate subfunction based on action type
+ */
 
 //function receives actions and routes them to their proper handlers
-const receiver = (action) => {
+const receiver = (action) => { //receiver must return a redux action
     switch (action.type) {
         case ('advance'):
             return (advance(action));
@@ -14,7 +17,7 @@ const receiver = (action) => {
     }
 }
 
-const advance = action => {
+const advance = action => { //returns redux action to advance game state
     const reduxAction = {
         type: 'UPDATE_GAME_STATE',
         payload: {
@@ -25,17 +28,17 @@ const advance = action => {
     return reduxAction;
 }
 
-const journal = action => {
+const journal = action => { //returns redux action to update intention or journal
     let reduxAction;
-    if (action.intention) {
+    if (action.intention) { //if intention boolean is set to true
         reduxAction = {
-            type: 'UPDATE_INTENTION',
+            type: 'UPDATE_INTENTION', //update journal intention
             payload: {
                 intention: action.data.intention,
             }
         }
     }
-    else {
+    else { //else update the journal body
         reduxAction = {
             type: 'UPDATE_JOURNAL_QUESTION',
             payload: {
@@ -49,14 +52,16 @@ const journal = action => {
     return reduxAction;
 }
 
-const join = action => {
-    const actions = []
+const join = action => { //returns array of two actions to handle join actions
+    const actions = [];
+    //action one sets the joining players info into redux
     const reduxActionOne = {
         type: 'SET_PLAYER',
         payload: {
             ...action.data,
         }
     }
+    //action two sets the game id into redux state
     actions.push(reduxActionOne);
     const reduxActionTwo = {
         type: 'SET_GAME',
@@ -66,7 +71,7 @@ const join = action => {
     return actions;
 }
 
-const discussion = action => {
+const discussion = action => { //returns action that sets selected player in redux state (for display)
     const reduxAction = {
         type: 'SET_SELECTED_PLAYER',
         payload: {
@@ -75,9 +80,5 @@ const discussion = action => {
     }
     return reduxAction;
 }
-
-
-
-
 
 export default receiver;
