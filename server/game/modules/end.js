@@ -5,15 +5,16 @@
  * close socket connections after all users have responded to the results prompt
 */
 
-//function that will send the email with results to the client
 const receiver = require('./receiver');
 const pool = require('../../modules/pool');
 
 const end = async (socket, gameId, link, io, code) => {
     try {
+        //set up event listener to collect emails to dispatch accumulated journal data via email
         socket.on('email', action => {
             receiver(action, gameId, socket);
         })
+        //cascading delete on all temporary game data
         await pool.query(`DELETE FROM "game" WHERE "id"=$1;`, [gameId]);
         try {
             const connectedNameSpaceSockets = Object.keys(link.connected); // Get Object with Connected SocketIds as properties
