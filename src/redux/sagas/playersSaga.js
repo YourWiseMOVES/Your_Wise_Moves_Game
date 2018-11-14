@@ -11,9 +11,10 @@ function* fetchPlayers(action) {
 }
 
 function* fetchPlayer(action) {
+  console.log('in saga');
   try {
     const response = yield call(axios, {method: 'GET', url: '/game/player', params: {id: action.payload}})
-    yield put({ type: 'SEt_PLAYER', payload: response.data });
+    yield put({ type: 'SET_PLAYER', payload: response.data });
   } catch (error) {
     console.log('player get request failed', error);
   }

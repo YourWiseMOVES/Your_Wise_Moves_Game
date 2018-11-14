@@ -65,10 +65,6 @@ class Game extends Component {
           //trigger saga to refresh players
           this.props.dispatch({ type: 'FETCH_PLAYERS', payload: this.props.state.game.gameId })
         })
-        socket.on('player', data => { //set event handler for 'player' events
-          //trigger saga to refresh single player
-          this.props.dispatch({ type: 'FETCH_PLAYER', payload: this.props.state.game.player.playerId })
-        })
       })
       .catch(err => {
         console.log(err);
@@ -100,8 +96,8 @@ class Game extends Component {
       type: 'journal',
       intention: false, //boolean server uses to process editIntention function's emission
       data: {
-        playerId: this.props.state.game.player.playerId,
-        question: this.props.state.game.player.current_question, 
+        playerId: this.props.state.game.player.id,
+        question: this.props.state.game.player.current_card, 
         response: response, //user input
         roundNumber: this.props.state.game.roundNumber,
       }
@@ -113,7 +109,7 @@ class Game extends Component {
       type: 'journal',
       intention: true, //boolean set to true for server process
       data: {
-        playerId: this.props.state.game.player.playerId,
+        playerId: this.props.state.game.player.id,
         intention: intention, //user input
       }
     })
@@ -150,6 +146,10 @@ class Game extends Component {
         //trigger fetch players saga
         this.props.dispatch({ type: 'FETCH_PLAYERS', payload: this.props.state.game.gameId })
       })
+      socket.on('player', data => { //set event handler for 'player' events
+      //trigger saga to refresh single player
+      this.props.dispatch({ type: 'FETCH_PLAYER', payload: this.props.state.game.player.id })
+    })
       socket.emit('join', { //emit an action to join game on server
         type: 'join',
         data: {
