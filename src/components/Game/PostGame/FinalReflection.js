@@ -1,5 +1,5 @@
 /** FinalReflection
- * waiting view
+ * waiting view *
  * facilitator can advance to game end
  */
 
