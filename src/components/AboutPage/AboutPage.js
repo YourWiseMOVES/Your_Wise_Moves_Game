@@ -1,3 +1,14 @@
+/** About Page
+ * ****** WARNING *******
+ * this page is for testing the server and socket connections
+ * it is deprecated 
+ * this test UI worked with the first version of the server code
+ * **********************
+ * 
+ * This page remains here for any necessary reference
+ * 
+ */
+
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 //set up a socket to test if the socket's are working
