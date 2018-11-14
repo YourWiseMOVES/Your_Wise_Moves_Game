@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 // import Input from '../InfoPage/Input';
-// import Select from "../InfoPage/Select";
+import Select from "../InfoPage/Select";
 // import Button from "../InfoPage/Button";
 
 
@@ -28,10 +28,10 @@ class RegisterPage extends Component {
     //   { value: false, label: 'False' },
     //   { value: true, label: 'True' },
     // ],
-    // is_admin: [
-    //   { value: false, label: 'False' },
-    //   { value: true, label: 'True' },
-    // ]
+    is_admin_options: [
+      { value: false, label: 'False' },
+      { value: true, label: 'True' },
+    ]
   };
 
   registerUser = (event) => {
@@ -164,14 +164,13 @@ class RegisterPage extends Component {
           <div>
 
             <label htmlFor="is_facilitator">
-              Are you a Facilitator?
-            <select
-                type="text"
-                name="is_facilitator"
-                options={this.state.is_admin}
-                value={this.state.is_facilitator.boolean}
-                Placeholder={"True or False"}
-                onChange={this.handleInputChangeFor('is_facilitator')}
+            <Select
+                title={"Facilitator"}
+                name={"is_facilitator"}
+                options={this.state.is_admin_options}
+                value={this.state.is_facilitator}
+                placeholder={"True or False"}
+                handleChange={this.handleInputChangeFor('is_facilitator')}
               />
             </label>
 
@@ -180,15 +179,15 @@ class RegisterPage extends Component {
           <div>
 
             <label htmlFor="is_admin">
-              Are you an administrator?
-            <select
-                type="text"
-                name="is_admin"
-                options={this.state.is_admin}
-                value={this.state.is_admin.boolean}
-                Placeholder={"True or False"}
-                onChange={this.handleInputChangeFor('is_admin')}
+            <Select
+                title={"Administrator"}
+                name={"is_admin"}
+                options={this.state.is_admin_options}
+                value={this.state.is_admin}
+                placeholder={"True or False"}
+                handleChange={this.handleInputChangeFor('is_admin')}
               />
+             
             </label>
 
           </div>

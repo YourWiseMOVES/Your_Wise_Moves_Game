@@ -12,6 +12,7 @@ import swal from 'sweetalert';
 class FacilitatorForm extends Component {
     constructor(props) {
         super(props);
+        this.state = { value: 'false' };
 
         this.state = {
             newFacilitator: {
@@ -26,15 +27,15 @@ class FacilitatorForm extends Component {
                 is_admin: '',
             },
 
-            is_facilitator: [
-                { value: true, label: 'True' },
-                { value: false, label: 'False' }
-            ],
+            // is_facilitator: [
+            //     { value: true, label: 'True' },
+            //     { value: false, label: 'False' }
+            // ],
 
-            is_admin: [
-                { value: true, label: 'True' },
-                { value: false, label: 'False' }
-            ],
+            // is_admin: [
+            //     { value: true, label: 'True' },
+            //     { value: false, label: 'False' }
+            // ],
 
         };
 
@@ -170,50 +171,51 @@ class FacilitatorForm extends Component {
                     <div className="row">
                         <div>
                             <label>
-                                Username:
-                            <input type="text" name="username" placeholder="Username"
-                                // inputType={"text"}
-                                // name={"username"}
-                                // title={"User Name"}
-                                // value={this.state.newFacilitator.username}
-                                // placeholder={"User Name"}
-                                // handleChange={this.handleInput}
-                            />
+                                <input
+                                    type="text"
+                                    value={this.state.newFacilitator.username}
+                                    handleChange={this.handleInput} // onChange={this.handleInput}?
+                                    name="username"
+                                    placeholder="Username"
+                                />
                             </label>
                         </div>
                         <div>
-                            <input type="text" name="password" placeholder="Password"
-                                // inputType={"text"}
-                                // name={"password"}
-                                // title={"Password"}
-                                // value={this.state.newFacilitator.password}
-                                // placeholder={"Email"}
-                                // handleChange={this.handleInput}
-                            />
+                            <label>
+                                <input
+                                    type="text"
+                                    value={this.state.newFacilitator.password}
+                                    handleChange={this.handleInput}
+                                    name="password"
+                                    placeholder="Password"
+                                />
+                            </label>
                         </div>
                     </div>
 
                     <div className="row">
                         <div>
-                            <input type="text" name="first_name" placeholder="First Name"
-                                // inputType={"text"}
-                                // title={"First Name"}
-                                // name={"first_name"}
-                                // value={this.state.newFacilitator.first_name}
-                                // placeholder={"First name"}
-                                // handleChange={this.handleInput}
-                            />{" "}
+                            <label>
+                                <input
+                                    type="text"
+                                    value={this.state.newFacilitator.first_name}
+                                    handleChange={this.handleInput}
+                                    name="first_name"
+                                    placeholder="First Name"
+                                />
+                            </label>
                         </div>
-                        {/* Name of the user */}
+
                         <div>
-                            <input type="text" name="last_name" placeholder="Last Name"
-                                // inputType={"text"}
-                                // name={"last_name"}
-                                // title={"Last Name"}
-                                // value={this.state.newFacilitator.last_name}
-                                // placeholder={"Last name"}
-                                // handleChange={this.handleInput}
-                            />{" "}
+                            <label>
+                                <input
+                                    type="text"
+                                    value={this.state.newFacilitator.last_name}
+                                    handleChange={this.handleInput}
+                                    name="last_name"
+                                    placeholder="Last Name"
+                                />
+                            </label>
                         </div>
                     </div>
 
@@ -221,34 +223,37 @@ class FacilitatorForm extends Component {
                     {/* Row 2 */}
                     <div className="row">
                         <div>
-                            <input type="text" name="email" placeholder="Email"
-                                // inputType={"text"}
-                                // name={"email"}
-                                // title={"Email"}
-                                // value={this.state.newFacilitator.email}
-                                // placeholder={"Email"}
-                                // handleChange={this.handleInput}
-                            />
+                            <label>
+                                <input
+                                    type="text"
+                                    value={this.state.newFacilitator.email}
+                                    handleChange={this.handleInput}
+                                    name="email"
+                                    placeholder="Email"
+                                />
+                            </label>
                         </div>
                         <div>
-                            <input type="text" name="organization" placeholder="Organization"
-                                // inputType={"text"}
-                                // name={"organization"}
-                                // title={"Organization"}
-                                // value={this.state.newFacilitator.organization}
-                                // placeholder={"Organization"}
-                                // handleChange={this.handleInput}
-                            />
+                            <label>
+                                <input
+                                    type="text"
+                                    value={this.state.newFacilitator.organization}
+                                    handleChange={this.handleInput}
+                                    name="organization"
+                                    placeholder="Organization"
+                                />
+                            </label>
                         </div>
                         <div>
-                            <input type="number" name="phone_number" placeholder="Phone Number"
-                                // inputType={"number"}
-                                // name={"phone_number"}
-                                // title={"Phone Number"}
-                                // value={this.state.newFacilitator.phone_number}
-                                // placeholder={"Phone Number"}
-                                // handleChange={this.handleInput}
-                            />
+                            <label>
+                                <input
+                                    type="number"
+                                    value={this.state.newFacilitator.phone_number}
+                                    handleChange={this.handleInput}
+                                    name="phone_number"
+                                    placeholder="Phone Number"
+                                />
+                            </label>
                         </div>
                     </div>
 
@@ -258,13 +263,20 @@ class FacilitatorForm extends Component {
                             <select
                                 title={"Is Facilitator?"}
                                 name={"is_facilitator"}
-                                // options={this.state.is_facilitator}
-                                // value={this.state.newFacilitator.is_facilitator}
-                                // placeholder={"Facilitator?"}
-                                // handleChange={this.handleInput}
-                            >Are you a Facilitator?
+                                value={this.state.newFacilitator.is_facilitator}
+                                handleChange={this.handleInput} >
                                 <option id="true">True</option>
                                 <option id="false">False</option>
+
+
+                                {/* <option value="true">True</option>
+                                <option selected value="false">False</option> */}
+
+                                {/* 
+                                options={this.state.is_facilitator
+                                placeholder={"Facilitator?"}
+                                >
+                                 */}
                             </select>
                         </div>
                     </div>
@@ -272,9 +284,11 @@ class FacilitatorForm extends Component {
                     {/* Row 5 */}
                     <div className="row">
                         <div>Are you and Aministrator?
-                            <select 
-                                title={"Is Admin?"}
-                                name={"is_admin"}>
+                            <select
+                                // title={"Is Admin?"}
+                                name={"is_admin"}
+                                value={this.state.newFacilitator.is_admin}
+                                handleChange={this.handleInput}>
                                 <option id="true">True</option>
                                 <option id="false">False</option>
                             </select>
@@ -292,10 +306,10 @@ class FacilitatorForm extends Component {
 
                     {/*Submit */}
                     <button onClick="handleFormSubmit()"
-                        // type={"clear"}
-                        // value="Clear"
-                        // action={this.handleClearForm}
-                        // title={"Clear"}
+                    // type={"clear"}
+                    // value="Clear"
+                    // action={this.handleClearForm}
+                    // title={"Clear"}
                     // style={buttonStyle}
                     >Submit</button>{" "}
 
