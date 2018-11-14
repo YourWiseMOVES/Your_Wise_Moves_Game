@@ -31,8 +31,12 @@ const journal = async (action, gameId, socket) => {
         journalId = journalId.rows[0].journal_id;
         //if the action is to update the intention
         if(action.intention){
-            //update the intention
+            //update the intention in journal table
             await pool.query('UPDATE "journal" SET "intention"=$1 WHERE "id"=$2;', [action.data.intention, journalId])
+            //update the intention in player table
+            await pool.query('UPDATE "player" SET "intention"=$1 WHERE "id"=$2;', [action.data.intention, action.data.playerId])
+            //tell the specific player to update redux state
+            socket.emit('player', {done: true})
         }
         //else the action is to update the journal body
         else {

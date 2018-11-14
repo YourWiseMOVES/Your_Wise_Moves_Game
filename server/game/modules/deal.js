@@ -46,7 +46,7 @@ const deal =  async (action, gameId, socket) => {
        //emit players event to trigger client player updates
        socket.emit('players', {type: 'done'});
        socket.broadcast.emit('players', {type: 'done'})
-       socket.broadcast.emit('moves', {type: 'updatePlayer'})
+       socket.broadcast.emit('player', {done: true})
     }   
     catch (err) {
         console.log('Error in deal handler', err);
