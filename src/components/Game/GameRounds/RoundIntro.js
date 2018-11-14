@@ -1,6 +1,11 @@
+/** RoundIntro
+ * waiting view *
+ * facilitator can advance to next game state
+ * advancing to next game state also deals cards to players
+ */
+
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import receiver from '../modules/receiver';
 
 class RoundIntro extends Component {
 

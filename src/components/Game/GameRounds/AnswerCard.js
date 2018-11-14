@@ -1,3 +1,9 @@
+/** AnswerCard
+ * player can input an answer to the question and dispatch it to server
+ * facilitator can see which players have submitted their response
+ * facilitator can advance to next game state
+ */
+
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 

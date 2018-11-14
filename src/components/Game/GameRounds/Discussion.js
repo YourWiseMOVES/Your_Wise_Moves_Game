@@ -1,3 +1,10 @@
+/** Discussion
+ * facilitator can see which players have spoken and which haven't
+ * facilitator can select a player to speak
+ * facilitator can mark a player as done speaking
+ * facilitator can advance to next game state
+ */
+
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
