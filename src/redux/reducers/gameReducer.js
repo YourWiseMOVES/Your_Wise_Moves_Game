@@ -58,7 +58,7 @@ const journal = (state = {intention: '', question_one: '', question_two: '', que
     }
 };
 
-const player = (state = {id: '', name: '', journal_id: '', game_id: '', player_number: ''}, action) => {
+const player = (state = {}, action) => {
     switch (action.type) {
         case 'SET_PLAYER':
             return {
