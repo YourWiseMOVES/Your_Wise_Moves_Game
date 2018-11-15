@@ -10,7 +10,7 @@ router.get('/', (req, res) => {
         .then((results) => {
             res.send(results.rows)
         }).catch((error) => {
-            console.log('Error GET /deck', error);
+            console.log('Error with deck GET', error);
             res.sendStatus(500);
         })
 });
@@ -23,7 +23,7 @@ router.get('/cards', (req, res) => {
         .then((results) => {
             res.send(results.rows)
         }).catch((error) => {
-            console.log('Error GET /deck', error);
+            console.log('Error with cards in deck GET', error);
             res.sendStatus(500);
         })
 });
@@ -31,16 +31,15 @@ router.get('/cards', (req, res) => {
 
 // POST a new deck, takes an array of cards that make up the deck, and the description of the deck
 router.post('/', (req, res) => {
-    let query = pool.query(`INSERT INTO "deck"( "cards_in_deck","description" )
+    pool.query(`INSERT INTO "deck"( "cards_in_deck","description" )
     VALUES (ARRAY [${req.body.cards_in_deck}], $1);`,
         [req.body.description])
-    console.log(query)
-    query.then((results) => {
-        res.sendStatus(200)
-    }).catch((error) => {
-        console.log('Error with server-side POST:', error);
-        res.sendStatus(500);
-    })
+        .then((results) => {
+            res.sendStatus(200)
+        }).catch((error) => {
+            console.log('Error with  POST:', error);
+            res.sendStatus(500);
+        })
 });
 
 
@@ -52,15 +51,13 @@ router.delete('/:id', (req, res) => {
         .then((results) => {
             res.sendStatus(200)
         }).catch((error) => {
-            console.log('Error with server-side DELETE:', error);
+            console.log('Error with deck DELETE:', error);
             res.sendStatus(500);
         })
 });
 
 // PUT to edit a question
 router.put('/', (req, res) => {
-    console.log('in the edit function');
-    console.log(req.body);
     pool.query(`UPDATE "deck"
     SET "cards_in_deck" = ARRAY [${req.body.cards_in_deck}],
     "description" = $1
@@ -70,7 +67,7 @@ router.put('/', (req, res) => {
         .then((results) => {
             res.sendStatus(200)
         }).catch((error) => {
-            console.log('Error with server-side PUT:', error);
+            console.log('Error with deck PUT:', error);
             res.sendStatus(500);
         })
 })
