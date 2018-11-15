@@ -83,21 +83,20 @@ class FacilitatorForm extends Component {
     handleFormSubmit(e) {
         e.preventDefault();
         console.log(this.state.newFacilitator);
-        axios.post('/api/user/register', { "facilitators": this.state.newFacilitator }) // newFacilitator includes all the db fields
+        axios.post('/api/user/register', { ...this.state.newFacilitator }) // newFacilitator includes all the db fields
             .then((response) => {
                 console.log('this is the response for add facilitator', response.status);
-                if (response.status === 200) {
-
-                    this.handleClearForm(e)
+                if (response.status === 201) {
+                 this.handleClearForm()
                     swal("Good job!", "Your facilitator was added to the database!", "success");
                 }
             }).catch((error) => {
                 console.log('error making get', error);
             });
+        
     }
 
-    handleClearForm(e) {
-        e.preventDefault();
+    handleClearForm() {
         this.setState({
             newFacilitator: {
                 username: '',
@@ -148,8 +147,8 @@ class FacilitatorForm extends Component {
 
     handleUpdate(e) {
         e.preventDefault();
-        console.log(this.state.newFacilitator);
-        axios.put('/api/user/register', this.state.newFacilitator) // newFacilitator includes all the db fields
+        console.log({...this.state.newFacilitator, id: this.props.facilitator.id});
+        axios.put('/api/user/register/', {...this.state.newFacilitator, id: this.props.facilitator.id}) // newFacilitator includes all the db fields
             .then((response) => {
                 console.log('this is the response for update facilitator', response.status);
                 if (response.status === 200) {
@@ -168,7 +167,7 @@ class FacilitatorForm extends Component {
                     {/* Row 1 */}
 
                     <div className="row">
-                        <div>
+                        <div>Username:
                             <label>
                                 <input
                                     type="text"
@@ -179,7 +178,7 @@ class FacilitatorForm extends Component {
                                 />
                             </label>
                         </div>
-                        <div>
+                        <div>Password (not editable):
                             <label>
                                 <input
                                     type="text"
@@ -193,7 +192,7 @@ class FacilitatorForm extends Component {
                     </div>
 
                     <div className="row">
-                        <div>
+                        <div>First Name:
                             <label>
                                 <input
                                     type="text"
@@ -205,7 +204,7 @@ class FacilitatorForm extends Component {
                             </label>
                         </div>
 
-                        <div>
+                        <div>Last Name:
                             <label>
                                 <input
                                     type="text"
@@ -221,7 +220,7 @@ class FacilitatorForm extends Component {
 
                     {/* Row 2 */}
                     <div className="row">
-                        <div>
+                        <div>Email:
                             <label>
                                 <input
                                     type="text"
@@ -232,7 +231,7 @@ class FacilitatorForm extends Component {
                                 />
                             </label>
                         </div>
-                        <div>
+                        <div>Organization:
                             <label>
                                 <input
                                     type="text"
@@ -243,7 +242,7 @@ class FacilitatorForm extends Component {
                                 />
                             </label>
                         </div>
-                        <div>
+                        <div>Phone Number:
                             <label>
                                 <input
                                     type="text"
