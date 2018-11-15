@@ -11,9 +11,6 @@ class Deck {
     }
     //subSelect is for narrowing the current cards down to cards of one type
     subSelect(stage_id) {
-        if(!stage_id){
-            throw new Error('No stage_id argument given')
-        }
         let subSelection = []
         for (let card of this.cards) {
             if (card.stage_id === stage_id) {
@@ -23,7 +20,6 @@ class Deck {
             }
         }
         this.cards = subSelection;
-        return subSelection
     }
 
     //shuffle cards (for fun)
@@ -32,14 +28,12 @@ class Deck {
             const j = Math.floor(Math.random() * (i + 1));
             [this.cards[i], this.cards[j]] = [this.cards[j], this.cards[i]];
         }
-        return this.cards
     }
 
     //get the top card
     draw(){
         this.selectedCard = this.cards.pop()
         this.drawnCards.push(this.selectedCard)
-        return this.selectedCard
     }
 
     //set the deck back to its initial state
@@ -47,7 +41,6 @@ class Deck {
         this.cards = this.initialCards
         this.drawnCards = []
         this.selectedCard = {}
-        return this
     }
 }
 
