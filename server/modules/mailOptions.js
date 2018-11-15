@@ -1,4 +1,4 @@
-const mailOptionsConfigurator = (userEmail, content) => {
+const mailOptionsConfig = (userEmail, content) => {
     let today = new Date();
     let dd = today.getDate();
     let mm = today.getMonth() + 1; //January is 0!
@@ -111,4 +111,4 @@ const mailOptionsConfigurator = (userEmail, content) => {
     return mailOptions
 }
 
-module.exports = mailOptionsConfigurator
+module.exports = mailOptionsConfig

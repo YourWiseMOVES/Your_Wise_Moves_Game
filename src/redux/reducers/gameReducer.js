@@ -78,7 +78,7 @@ const allPlayers = (state = [], action) => {
     }
 }
 
-const roundNumber = (state = '0', action) => {
+const roundNumber = (state = '5', action) => {
     switch (action.type) {
         case 'UPDATE_ROUND_NUMBER':
             return action.payload;
