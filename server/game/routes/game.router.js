@@ -3,9 +3,8 @@ const router = require('express').Router();
 const game = require('../game');
 const pool = require('../../modules/pool');
 
-// later requires for email router
-// const transporter = require('../../modules/transporter');
-// const mailOptions = require('../../modules/mailOptions');
+const transporter = require('../../modules/transporter');
+const mailOptions = require('../../modules/mailOptions');
 
 //post route (will require facilitator auth) to start game
 router.post('/start', async (req, res) => {
@@ -43,7 +42,14 @@ router.post('/get/results', async (req, res) => {
     let response = resultResponse.rows[0];
     //will then pass the response and req.body.email into mailOptions
     //then dispatch the email with transporter module
-    res.sendStatus(201);
+    transporter.sendMail(mailOptions(req.body.email, response))
+    .then(done => {
+        res.sendStatus(201);
+    })
+    .catch(err => {
+        console.log('error sending mail', err);
+    })
+    
 })
 
 //post route (will require facilitator auth) to end game

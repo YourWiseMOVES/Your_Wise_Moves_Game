@@ -35,9 +35,8 @@ exports.begin = async (facilitatorId, io) => {
                         console.log('received');
                         receiver(action, gameId, socket);
                     })
-                    //on disconnect send a message
-                    socket.on('disconnect', () => {
-                        socket.emit('disconnected from server');
+                    socket.on('end', action => {
+                        socket.broadcast.emit('end', {done: true})
                     })
                     game_socket = socket;
                 })
@@ -51,8 +50,9 @@ exports.begin = async (facilitatorId, io) => {
 
 exports.end = async (facilitatorId, io) => {
     try {
-        //may require more than just calling the end function
-        end(game_socket, gameId, link, io, code);
+        setTimeout(() => {
+            end(game_socket, gameId, link, io, code);
+        }, 3000)
     }
     catch (err) {
         console.log('Error ending game', err);
