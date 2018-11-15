@@ -20,6 +20,7 @@ const passport = require('./strategies/user.strategy');
 // Route includes
 const userRouter = require('./routes/user.router');
 const cardRouter = require('./routes/card.router');
+const deckRouter = require('./routes/deck.router');
 
 // Body parser middleware
 app.use(bodyParser.json());
@@ -36,6 +37,7 @@ app.use(passport.session());
 app.use('/game', require('./game/routes/game.router'));
 app.use('/api/user', userRouter);
 app.use('/api/card', cardRouter)
+app.use('/api/deck', deckRouter)
 
 
 // Serve static files
