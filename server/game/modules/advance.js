@@ -25,7 +25,7 @@ const advance =  async (action, gameId, socket) => {
 
         //if this action is the start of a new round, clear player discussion booleans
         if(action.data.resetDiscussion === true) {
-            await pool.query(`UPDATE "player" SET "discussed"=$1 WHERE "game_id"=$2;`, [false, gameId])
+            await pool.query(`UPDATE "player" SET "discussed"=$1, "in_discussion"=$1, "selected"=$1 WHERE "game_id"=$2;`, [false, gameId])
         }
         //send the action to all other users
         socket.emit('moves', {...action});
