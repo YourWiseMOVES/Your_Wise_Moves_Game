@@ -20,7 +20,7 @@ import InfoPage from '../InfoPage/InfoPage';
 import Game from '../Game/Game';
 
 import './App.css';
-import PreGame from '../Game/PreGame/PreGame';
+import ResultsPage from '../ResultsPage/ResultsPage';
 
 class App extends Component {
   componentDidMount () {
@@ -52,6 +52,10 @@ class App extends Component {
             <Route
               path="/game"
               component={Game}
+            />
+            <Route
+              path="/results"
+              component={ResultsPage}
             />
             <Route render={() => <h1>404</h1>} />
           </Switch>

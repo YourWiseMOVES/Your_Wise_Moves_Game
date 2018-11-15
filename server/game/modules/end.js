@@ -45,7 +45,7 @@ const end = async (socket, gameId, link, io, code) => {
 
         //cascading delete on all temporary game data
         await pool.query(`DELETE FROM "game" WHERE "id"=$1;`, [gameId]);
-
+        
         //end the socket connection
         try {
             const connectedNameSpaceSockets = Object.keys(link.connected); // Get Object with Connected SocketIds as properties
