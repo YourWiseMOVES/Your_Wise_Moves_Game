@@ -24,9 +24,18 @@ class AnswerCard extends Component {
         <h1>Answer Card</h1>
         <h2>Round: {this.props.state.game.roundNumber}</h2>
         {this.props.state.user.userReducer && this.props.state.user.userReducer.id ?
-          <button onClick={() => this.props.advanceStage(
-            this.props.calculateNextStage('2')
-          )}>Next</button>
+          <div className="facilitator">
+            <ol>
+              {this.props.state.game.allPlayers.map(player => {
+                return(
+                <li key={player.id}>{player.name} ready: {player.in_discussion ? <p>yes</p> : <p>no</p>}</li>
+                )
+              })}
+            </ol>
+            <button onClick={() => this.props.advanceStage(
+              this.props.calculateNextStage('2')
+            )}>Next</button>
+          </div>
           :
           <div>
             <h2>Your Intention: {this.props.state.game.player.intention}</h2>
@@ -41,7 +50,7 @@ class AnswerCard extends Component {
             >
               Save
         </button>
-        <button
+            <button
               onClick={() => {
                 this.props.editJournal(this.state.response)
                 this.props.advanceToDiscussion(this.props.state.game.player.id);
