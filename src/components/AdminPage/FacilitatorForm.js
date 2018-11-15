@@ -87,13 +87,13 @@ class FacilitatorForm extends Component {
             .then((response) => {
                 console.log('this is the response for add facilitator', response.status);
                 if (response.status === 201) {
-                 this.handleClearForm()
+                    this.handleClearForm()
                     swal("Good job!", "Your facilitator was added to the database!", "success");
                 }
             }).catch((error) => {
                 console.log('error making get', error);
             });
-        
+
     }
 
     handleClearForm() {
@@ -147,8 +147,8 @@ class FacilitatorForm extends Component {
 
     handleUpdate(e) {
         e.preventDefault();
-        console.log({...this.state.newFacilitator, id: this.props.facilitator.id});
-        axios.put('/api/user/register/', {...this.state.newFacilitator, id: this.props.facilitator.id}) // newFacilitator includes all the db fields
+        console.log({ ...this.state.newFacilitator, id: this.props.facilitator.id });
+        axios.put('/api/user/register/', { ...this.state.newFacilitator, id: this.props.facilitator.id }) // newFacilitator includes all the db fields
             .then((response) => {
                 console.log('this is the response for update facilitator', response.status);
                 if (response.status === 200) {
@@ -173,12 +173,13 @@ class FacilitatorForm extends Component {
                                     type="text"
                                     name="username"
                                     value={this.state.newFacilitator.username}
-                                    onChange={this.handleInput} // onChange={this.handleInput}?
+                                    onChange={this.handleInput}
                                     placeholder="Username"
                                 />
                             </label>
                         </div>
-                        <div>Password (not editable):
+                        {this.props.action === 'add' && 
+                        <div>Password:
                             <label>
                                 <input
                                     type="text"
@@ -189,6 +190,7 @@ class FacilitatorForm extends Component {
                                 />
                             </label>
                         </div>
+                        }
                     </div>
 
                     <div className="row">
@@ -275,14 +277,14 @@ class FacilitatorForm extends Component {
                     <div className="row">
                         <div>Administrator?
                             <label>
-                            <Select
-                                // title={"Administrator"}
-                                name={"is_admin"}
-                                options={this.state.is_admin_options}
-                                value={this.state.newFacilitator.is_admin}
-                                placeholder={"True or False"}
-                                handleChange={this.handleInput}
-                            />
+                                <Select
+                                    // title={"Administrator"}
+                                    name={"is_admin"}
+                                    options={this.state.is_admin_options}
+                                    value={this.state.newFacilitator.is_admin}
+                                    placeholder={"True or False"}
+                                    handleChange={this.handleInput}
+                                />
                             </label>
                         </div>
                     </div>
