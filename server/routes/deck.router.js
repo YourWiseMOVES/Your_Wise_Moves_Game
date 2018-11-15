@@ -3,9 +3,9 @@ const pool = require('../modules/pool');
 const router = express.Router();
 
 
-// GET info on all questions from the card table
+// GET a list of all decks
 router.get('/', (req, res) => {
-    console.log('get card');
+    console.log('get all decks');
     pool.query(`SELECT * FROM "decks";`)
         .then((results) => {
             res.send(results.rows)
@@ -14,12 +14,12 @@ router.get('/', (req, res) => {
             res.sendStatus(500);
         })
 });
-router.get('/deckcards', (req, res) => {
+// GET all the cards in a given deck
+router.get('/cards', (req, res) => {
     console.log('get card');
-    let initailArray=[1,2,4,5,6,7,8,]
-    let queryArray = initailArray.join(', ')
     pool.query(`SELECT * FROM "card"
-                WHERE "id" in(${queryArray});`)
+    WHERE "id" 
+    IN (SELECT unnest("cards_in_deck") FROM "decks" WHERE "id" = $1);`, [req.query.id])
         .then((results) => {
             res.send(results.rows)
         }).catch((error) => {
@@ -29,7 +29,7 @@ router.get('/deckcards', (req, res) => {
 });
 
 
-// POST for adding a new question to the card table in the database
+// POST a new deck, takes an array of cards that make up the deck, and the description of the deck
 router.post('/', (req, res) => {
     let query = pool.query(`INSERT INTO "decks"( "cards_in_deck","description" )
     VALUES (ARRAY [${req.body.cards_in_deck}], $1);`,
@@ -44,7 +44,7 @@ router.post('/', (req, res) => {
 });
 
 
-// DELETE question from card database
+// DELETE a whole deck
 router.delete('/:id', (req, res) => {
     pool.query(`DELETE FROM "decks"
     WHERE "id"=$1;`,
@@ -59,21 +59,19 @@ router.delete('/:id', (req, res) => {
 
 // PUT to edit a question
 router.put('/', (req, res) => {
-    const updatedCard = req.body;
     console.log('in the edit function');
     console.log(req.body);
-    pool.query(`UPDATE card
-    SET "text" = $1,
-    "stage_id" = $2
-    WHERE "id" = $3`,
-        [req.body.text,
-        req.body.stage_id,
+    pool.query(`UPDATE "decks"
+    SET "cards_in_deck" = ARRAY [${req.body.cards_in_deck}],
+    "description" = $1
+    WHERE "id" = $2`,
+        [req.body.description,
         req.body.id])
         .then((results) => {
-            res.send(200)
+            res.sendStatus(200)
         }).catch((error) => {
             console.log('Error with server-side PUT:', error);
-            res.send(500);
+            res.sendStatus(500);
         })
 })
 
