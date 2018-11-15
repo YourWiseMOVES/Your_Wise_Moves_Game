@@ -10,7 +10,7 @@ router.get('/', (req, res) => {
         .then((results) => {
             res.send(results.rows)
         }).catch((error) => {
-            console.log('Error GET /decks', error);
+            console.log('Error GET /deck', error);
             res.sendStatus(500);
         })
 });
@@ -19,11 +19,11 @@ router.get('/cards', (req, res) => {
     console.log('get card');
     pool.query(`SELECT * FROM "card"
     WHERE "id" 
-    IN (SELECT unnest("cards_in_deck") FROM "decks" WHERE "id" = $1);`, [req.query.id])
+    IN (SELECT unnest("cards_in_deck") FROM "deck" WHERE "id" = $1);`, [req.query.id])
         .then((results) => {
             res.send(results.rows)
         }).catch((error) => {
-            console.log('Error GET /decks', error);
+            console.log('Error GET /deck', error);
             res.sendStatus(500);
         })
 });
