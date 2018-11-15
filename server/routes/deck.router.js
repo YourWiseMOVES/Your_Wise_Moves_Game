@@ -6,7 +6,7 @@ const router = express.Router();
 // GET a list of all decks
 router.get('/', (req, res) => {
     console.log('get all decks');
-    pool.query(`SELECT * FROM "decks";`)
+    pool.query(`SELECT * FROM "deck";`)
         .then((results) => {
             res.send(results.rows)
         }).catch((error) => {
@@ -31,7 +31,7 @@ router.get('/cards', (req, res) => {
 
 // POST a new deck, takes an array of cards that make up the deck, and the description of the deck
 router.post('/', (req, res) => {
-    let query = pool.query(`INSERT INTO "decks"( "cards_in_deck","description" )
+    let query = pool.query(`INSERT INTO "deck"( "cards_in_deck","description" )
     VALUES (ARRAY [${req.body.cards_in_deck}], $1);`,
         [req.body.description])
     console.log(query)
@@ -46,7 +46,7 @@ router.post('/', (req, res) => {
 
 // DELETE a whole deck
 router.delete('/:id', (req, res) => {
-    pool.query(`DELETE FROM "decks"
+    pool.query(`DELETE FROM "deck"
     WHERE "id"=$1;`,
         [req.params.id])
         .then((results) => {
@@ -61,7 +61,7 @@ router.delete('/:id', (req, res) => {
 router.put('/', (req, res) => {
     console.log('in the edit function');
     console.log(req.body);
-    pool.query(`UPDATE "decks"
+    pool.query(`UPDATE "deck"
     SET "cards_in_deck" = ARRAY [${req.body.cards_in_deck}],
     "description" = $1
     WHERE "id" = $2`,
