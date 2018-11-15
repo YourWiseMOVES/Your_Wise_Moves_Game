@@ -33,7 +33,7 @@ class App extends Component {
         <div>
           <Nav />
           <Switch>
-            <Redirect exact from="/" to="/home" />
+            <Redirect exact from="/" to="/game" />
             <Route
               exact
               path="/about"
