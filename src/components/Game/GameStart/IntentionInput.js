@@ -22,9 +22,20 @@ class IntentionInput extends Component {
       <div>
         <h1>Intention or Question Input</h1>
         {this.props.state.user.userReducer && this.props.state.user.userReducer.id ?
-          <button onClick={() => this.props.advanceStage(
-            this.props.calculateNextStage('0')
-          )}>Next</button>
+          <div className="facilitator">
+            <ol>
+              {
+                this.props.state.game.allPlayers.map(player => {
+                  return (
+                    <li key={player.id}>{player.name} Intention:{player.intention ? <p>done</p> : <p>Not done</p>}</li>
+                  )
+                })
+              }
+            </ol>
+            <button onClick={() => this.props.advanceStage(
+              this.props.calculateNextStage('0')
+            )}>Next</button>
+          </div>
           :
           <div>
             <input
