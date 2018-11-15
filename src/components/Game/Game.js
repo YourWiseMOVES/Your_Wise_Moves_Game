@@ -15,6 +15,7 @@
 
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 
 //game component imports
 import GameRounds from './GameRounds/GameRounds';
@@ -72,6 +73,8 @@ class Game extends Component {
   }
 
   endGame = () => { //function triggers game end on server
+    //emit socket to trigger player redirects
+    socket.emit('end', {done: true});
     axios({
       method: 'POST',
       data: { id: this.props.state.user.userReducer.id },
@@ -97,7 +100,7 @@ class Game extends Component {
       intention: false, //boolean server uses to process editIntention function's emission
       data: {
         playerId: this.props.state.game.player.id,
-        question: this.props.state.game.player.current_card, 
+        question: this.props.state.game.player.current_card,
         response: response, //user input
         roundNumber: this.props.state.game.roundNumber,
       }
@@ -142,14 +145,18 @@ class Game extends Component {
         this.props.dispatch(actions[0]); //dispatch first
         this.props.dispatch(actions[1]); //dispatch second
       })
+      socket.on('end', () => { //set event handler for game end
+        console.log('in end handler');
+        this.props.history.push('/results'); //redirect players at game end
+      })
       socket.on('players', data => { //set players event handler
         //trigger fetch players saga
         this.props.dispatch({ type: 'FETCH_PLAYERS', payload: this.props.state.game.gameId })
       })
       socket.on('player', data => { //set event handler for 'player' events
-      //trigger saga to refresh single player
-      this.props.dispatch({ type: 'FETCH_PLAYER', payload: this.props.state.game.player.id })
-    })
+        //trigger saga to refresh single player
+        this.props.dispatch({ type: 'FETCH_PLAYER', payload: this.props.state.game.player.id })
+      })
       socket.emit('join', { //emit an action to join game on server
         type: 'join',
         data: {
@@ -227,7 +234,7 @@ class Game extends Component {
         set: 'ready',
       }
     })
-    this.props.dispatch({type: 'UPDATE_GAME_STATE', payload: {newGameState: this.calculateNextStage('2')}})
+    this.props.dispatch({ type: 'UPDATE_GAME_STATE', payload: { newGameState: this.calculateNextStage('2') } })
   }
 
   render() {
@@ -280,4 +287,4 @@ const mapStateToProps = state => ({
   state
 });
 
-export default connect(mapStateToProps)(Game);
+export default withRouter(connect(mapStateToProps)(Game));
