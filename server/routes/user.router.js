@@ -47,15 +47,15 @@ router.post('/logout', (req, res) => {
   res.sendStatus(200);
 });
 
-router.put('/register', (req, res) => {
-  const updatedFacilitator = req.body;
+router.put('/register', (req, res) => { // will leave "password" as editable until we have set up 
+  const updatedFacilitator = req.body;  // functionality for facilitator to change own password
   console.log('in the edit function');
   console.log(req.body);
   pool.query(`UPDATE person
   SET "username" = $1,
   "first_name" = $2, 
-  "last_name" = $3, 
-  "email" = $4, 
+  "last_name" = $3,  
+  "email" = $4,
   "organization" = $5, 
   "phone_number" = $6, 
   "is_facilitator" = $7, 
@@ -71,7 +71,7 @@ router.put('/register', (req, res) => {
     req.body.is_admin,
     req.body.id])
     .then((results) => {
-      res.send(200)
+      res.sendStatus(200)
     }).catch((error) => {
       console.log('Error with server-side PUT:', error);
       res.send(500);
@@ -80,11 +80,12 @@ router.put('/register', (req, res) => {
 
 router.get('/register', (req, res) => {
   console.log('get facilitators');
-  pool.query(`SELECT * FROM "person";`)
+  pool.query(`SELECT "username", "first_name", "last_name", "email", "organization", "phone_number", "is_facilitator", "is_admin", "id"
+  FROM "person";`)
     .then((results) => {
       res.send(results.rows)
     }).catch((error) => {
-      console.log('Error GET /members', error);
+      console.log('Error GET /facilitators', error);
       res.sendStatus(500);
     })
 });

@@ -35,6 +35,7 @@ class AdminPage extends Component {
         console.log('this is the response for facilitators', response);
         this.setState({ ...this.state, data: response.data }); // master list of all facilitators
         console.log(this.state);
+        console.log('I am here');
       }).catch((error) => {
         console.log('error making get', error);
       });
