@@ -17,6 +17,7 @@ import ProtectedRoute from '../ProtectedRoute/ProtectedRoute'
 import AboutPage from '../AboutPage/AboutPage';
 import UserPage from '../UserPage/UserPage';
 import InfoPage from '../InfoPage/InfoPage';
+import AdminPage from '../AdminPage/AdminPage';
 import Game from '../Game/Game';
 
 import './App.css';
@@ -49,6 +50,12 @@ class App extends Component {
               path="/info"
               component={InfoPage}
             />
+            <ProtectedRoute
+              exact
+              path="/admin"
+              component={AdminPage}
+            />
+            {/* Routes for Game */}
             <Route
               path="/game"
               component={Game}
