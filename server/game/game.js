@@ -11,24 +11,16 @@ const end = require('./modules/end');
 let game_socket;
 let code;
 let gameId;
+let link;
 
-exports.begin = async (facilitatorId) => {
-    //enables socket connections 
-    const io = require('socket.io')(process.env.PORT || 5000, {
-        path: `game${facilitatorId}`, //use facilitator Id to make a unique path
-        serveClient: false,
-        // below are engine.IO options
-        pingInterval: 10000, //we can set these to the proper numbers later
-        pingTimeout: 5000,
-        cookie: false,
-    });
+exports.begin = async (facilitatorId, io) => {    
     try {
         const data = await start(facilitatorId);
         //split up returned data for readability 
         code = data.code;
         gameId = data.gameId;
         //start socket here
-        let link = await
+        link = await
             //unique namespace for connection
             io.of(`/${code}`)
                 //on connection do this:
@@ -40,6 +32,7 @@ exports.begin = async (facilitatorId) => {
                     })
                     //set listener for game actions
                     socket.on('moves', action => {
+                        console.log('received');
                         receiver(action, gameId, socket);
                     })
                     //on disconnect send a message
@@ -52,9 +45,11 @@ exports.begin = async (facilitatorId) => {
     catch (err) {
         console.log('Error in game start', err);
     }
+    console.log('game created');
+    return({code, gameId});
 }
 
-exports.end = async () => {
+exports.end = async (facilitatorId, io) => {
     try {
         //may require more than just calling the end function
         end(game_socket, gameId, link, io, code);
