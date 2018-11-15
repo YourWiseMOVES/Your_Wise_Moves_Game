@@ -30,6 +30,7 @@ class GameRounds extends Component {
                         advanceStage={this.props.advanceStage}
                         calculateNextStage={this.props.calculateNextStage}
                         editJournal={this.props.editJournal} // player edits journal in this sub component
+                        advanceToDiscussion={this.props.advanceToDiscussion}
                     />
                 }
                 {this.props.state.game.gameState[1] == '2' &&

@@ -39,7 +39,15 @@ class AnswerCard extends Component {
             <button
               onClick={() => this.props.editJournal(this.state.response)}
             >
-              Save response
+              Save
+        </button>
+        <button
+              onClick={() => {
+                this.props.editJournal(this.state.response)
+                this.props.advanceToDiscussion(this.props.state.game.player.id);
+              }}
+            >
+              Save and continue
         </button>
           </div>
         }

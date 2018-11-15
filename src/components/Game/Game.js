@@ -219,6 +219,17 @@ class Game extends Component {
     })
   }
 
+  advanceToDiscussion = player => {
+    socket.emit('moves', {
+      type: 'discussion',
+      data: {
+        player: player,
+        set: 'ready',
+      }
+    })
+    this.props.dispatch({type: 'UPDATE_GAME_STATE', payload: {newGameState: this.calculateNextStage('2')}})
+  }
+
   render() {
     return (
       <div>
@@ -248,6 +259,7 @@ class Game extends Component {
             markDone={this.markDone} //function to mark a player as done speaking
             editJournal={this.editJournal} //function for player to input their answers to provided questions
             dealCards={this.dealCards} //function for facilitator to deal cards to all players
+            advanceToDiscussion={this.advanceToDiscussion}//single player can advance from answer stage to discussion phase
           />
         }
         {this.props.state.game.gameState[0] == '6' &&
