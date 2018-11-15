@@ -31,17 +31,19 @@ const end = async (socket, gameId, link, io, code) => {
 
         //schedule an action to clear that table in however long
         let deleteResults = gameId => {
+            console.log('deleting results');
             pool.query(`DELETE FROM "result" WHERE "game_id"=$1;`, [gameId]);
         }
 
         //configure date object to be one day from when game ends
         let date = moment();
+        console.log(date);
         let day = date.date();
         let newDay = day + 1;
-        let scheduled = date.date(newDay);
-
+        let scheduleDate = date.date(newDay);
+        scheduleDate = scheduleDate.toDate();
         //schedule the delete task
-        schedule.scheduleJob(scheduled, () => deleteResults(gameId));
+        let task = schedule.scheduleJob(scheduleDate, () => deleteResults(gameId))
 
         //cascading delete on all temporary game data
         await pool.query(`DELETE FROM "game" WHERE "id"=$1;`, [gameId]);
