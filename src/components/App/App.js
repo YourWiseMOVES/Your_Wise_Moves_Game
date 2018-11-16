@@ -37,13 +37,8 @@ class App extends Component {
             <Redirect exact from="/" to="/home" />
             <Route
               exact
-              path="/about"
-              component={AboutPage}
-            />
-            <ProtectedRoute
-              exact
               path="/home"
-              component={UserPage}
+              component={Game}
             />
             <ProtectedRoute
               exact
@@ -54,11 +49,6 @@ class App extends Component {
               exact
               path="/admin"
               component={AdminPage}
-            />
-            {/* Routes for Game */}
-            <Route
-              path="/game"
-              component={Game}
             />
             <Route
               path="/results"
