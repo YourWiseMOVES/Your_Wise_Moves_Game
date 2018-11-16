@@ -6,7 +6,10 @@ const router = express.Router();
 // GET info on all questions from the card table
 router.get('/', (req, res) => {
     console.log('get card');
-    pool.query(`SELECT * FROM "card";`)
+    pool.query(`
+    SELECT "card"."id","card"."text","stage_id","stage_type"."type" FROM "card"
+    JOIN "stage_type"
+    ON "card"."stage_id"="stage_type"."id";`)
         .then((results) => {
             res.send(results.rows)
         }).catch((error) => {
