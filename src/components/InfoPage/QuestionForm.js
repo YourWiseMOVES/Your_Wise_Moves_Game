@@ -1,6 +1,5 @@
 import React, { Component } from "react";
-import axios from "axios";
-
+import {connect} from 'react-redux'
 /* Import Components */
 
 import Input from "./Input";
@@ -29,15 +28,10 @@ class QuestionForm extends Component {
             ]
 
         };
-
-        if (props.action === 'edit') {
-            this.state.newQuestion = props.question  // pre-populates the newQuestion in the state with the data that I pass in through the question prop
-        }       // the question prop is on the InfoPage
-
-        this.handleUpdate = this.handleUpdate.bind(this);
-        this.handleDeleteQuestion = this.handleDeleteQuestion.bind(this);
+        // this.handleUpdate = this.handleUpdate.bind(this);
+        // this.handleDeleteQuestion = this.handleDeleteQuestion.bind(this);
         this.handleFormSubmit = this.handleFormSubmit.bind(this);
-        this.handleClearForm = this.handleClearForm.bind(this);
+        // this.handleClearForm = this.handleClearForm.bind(this);
         this.handleInput = this.handleInput.bind(this);
     }
 
@@ -57,76 +51,17 @@ class QuestionForm extends Component {
         );
     }
 
-    handleFormSubmit(e) {
-        e.preventDefault();
-        console.log(this.state.newQuestion);
-        axios.post('/api/card', this.state.newQuestion) 
-            .then((response) => {
-                console.log('this is the response for add question', response.status);
-                if (response.status === 200) {
-                    this.handleClearForm(e)
-                    swal("Success!", "Your question was added to the database.");
-                }
-            }).catch((error) => {
-                console.log('error making get', error);
-            });
-    }
-
-    handleClearForm(e) {
-        e.preventDefault();
+    handleFormSubmit(event) {
+        event.preventDefault();
+        this.props.dispatch({type:'ADD_CARD', payload:this.state.newQuestion})
         this.setState({
             newQuestion: {
                 text: '',
                 stage_id: ''
             }
         });
+        swal('card added!')
     }
-
-    handleDeleteQuestion(e) {
-
-        swal({
-            title: "Are you sure?",
-            text: "You will not be able to recover this file.",
-            icon: "warning",
-            buttons: true,
-            dangerMode: true,
-        })
-            .then((willDelete) => {
-                if (willDelete) {
-                    axios.delete('/api/card/' + this.state.newQuestion.id)
-                        .then((response) => {
-                            if (response.status === 200) {
-                                swal("Your file has been deleted.", {
-                                    icon: "success",
-                                });
-                            }
-                            console.log('this is the response for the question info', response);
-                        }).catch((error) => {
-                            console.log('error deleting question', error);
-                        });
-
-                } else {
-                    swal("Your file is safe!");
-                }
-            });
-        e.preventDefault();
-    }
-
-    handleUpdate(e) {
-        e.preventDefault();
-        console.log(this.state.newQuestion);
-        axios.put('/api/card', this.state.newQuestion) // newQuestion includes all the db fields
-            .then((response) => {
-                console.log('this is the response for update member', response.status);
-                if (response.status === 200) {
-                    swal("Your question was updated in the database.");
-                }
-            }).catch((error) => {
-                console.log('error making update', error);
-            });
-    }
-
-
     render() {
         return (
             <div>
@@ -159,9 +94,9 @@ class QuestionForm extends Component {
 
 
                     <Button
-                        action={this.props.action === 'add' ? this.handleFormSubmit : this.handleUpdate} //if the action is add, the function called will be handleFormSubmit
+                        action={this.handleFormSubmit} //if the action is add, the function called will be handleFormSubmit
                         type={"primary"}
-                        title={this.props.action === 'add' ? "Submit" : "Update"} //if this.props.action = add, then show the submit button
+                        title={'add'} //if this.props.action = add, then show the submit button
                         style={buttonStyle}         //add is on the InfoPage -- if not add, it will be edit
                     />{" "}
                     {/*Submit */}
@@ -190,4 +125,4 @@ const buttonStyle = {
     margin: "10px 10px 10px 10px"
 };
 
-export default QuestionForm;
+export default connect () (QuestionForm);
