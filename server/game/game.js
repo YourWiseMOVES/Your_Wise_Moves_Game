@@ -7,15 +7,18 @@ const receiver = require('./modules/receiver');
 //function handles end of games
 const end = require('./modules/end');
 
+//function marks a player as not in game
+const removePlayer = require('./modules/removePlayer');
+
 //define variables that will be needed throughout functions
 let game_socket;
 let code;
 let gameId;
 let link;
 
-exports.begin = async (facilitatorId, io) => {    
+exports.begin = async (facilitatorId, name, io) => {    
     try {
-        const data = await start(facilitatorId);
+        const data = await start(facilitatorId, name);
         //split up returned data for readability 
         code = data.code;
         gameId = data.gameId;
@@ -37,6 +40,13 @@ exports.begin = async (facilitatorId, io) => {
                     })
                     socket.on('end', action => {
                         socket.broadcast.emit('end', {done: true})
+                    })
+                    socket.on('leave', action => {
+                        console.log('in leave');
+                        removePlayer(action, gameId, socket);
+                    } )
+                    socket.on('disconnect', data => {
+                        console.log('a client has disconnected');
                     })
                     game_socket = socket;
                 })

@@ -16,26 +16,19 @@ const sampleJoinAction = {
 
 const join =  async (action, gameId, socket) => {
     try {
-        //get the number (1-5) that a player will be assigned for the discussion phase purposes
-        let playerNumber = await pool.query(`SELECT "current_player_number" from "game" WHERE "id"=$1;`, [gameId]);
-        playerNumber  = playerNumber.rows[0].current_player_number
-        //increment the player number by one
-        let next = playerNumber + 1;
-        //update the game table so that the next player's number will be the next number
-        await pool.query(`UPDATE "game" SET "current_player_number"=$1 WHERE "id"=$2;`, [next, gameId]);
         //As each player joins create a journal row
         let journalId = await pool.query(`INSERT INTO "journal" ("game_id") VALUES ($1)
             RETURNING "id";`, [gameId]);
         journalId = journalId.rows[0].id;
         //create the player's row in the table
-        let playerId = await pool.query(`INSERT INTO "player" ("name", "game_id", "journal_id", "player_number")
-            VALUES ($1,$2,$3,$4) RETURNING "id";`, [action.data.playerName, gameId, journalId, playerNumber]);
+        let playerId = await pool.query(`INSERT INTO "player" ("name", "game_id", "journal_id", "in_game")
+            VALUES ($1,$2,$3,$4) RETURNING "id";`, [action.data.playerName, gameId, journalId, true]);
         //send the player information back to the client
         playerId = playerId.rows[0].id;
 
         /* socket emissions */
         //set player that joined's redux state on client
-        socket.emit('join', {...action, data: {id: playerId, playerNumber}, game: gameId });
+        socket.emit('join', {...action, data: {id: playerId}, game: gameId });
         //tell all players to update their player record
         socket.broadcast.emit('players', {type: 'done'} )
         //tell inbound player to update their players record
