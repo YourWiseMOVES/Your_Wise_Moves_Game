@@ -51,6 +51,19 @@ router.get('/games', (req, res) => {
         })
 })
 
+
+//post route for rejoining active games
+router.post('/rejoin', (req, res) => { 
+    game.rejoin(req.body.type, req.body.identifier, req.body.name)
+    .then(response => {
+        res.send(response);
+    })
+    .catch(err => {
+        console.log('error rejoining game', err);
+    })
+})
+
+
 //post route for getting results emailed after the game 
 router.post('/get/results', async (req, res) => {
     //get results based on player id    

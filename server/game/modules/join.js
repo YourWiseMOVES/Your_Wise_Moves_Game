@@ -10,7 +10,7 @@ const pool = require('../../modules/pool');
 const sampleJoinAction = {
     type: 'join',
     data: {
-        playerName: '',
+        name: '',
     },
 }
 
@@ -22,7 +22,7 @@ const join =  async (action, gameId, socket) => {
         journalId = journalId.rows[0].id;
         //create the player's row in the table
         let playerId = await pool.query(`INSERT INTO "player" ("name", "game_id", "journal_id", "in_game")
-            VALUES ($1,$2,$3,$4) RETURNING "id";`, [action.data.playerName, gameId, journalId, true]);
+            VALUES ($1,$2,$3,$4) RETURNING "id";`, [action.data.name, gameId, journalId, true]);
         //send the player information back to the client
         playerId = playerId.rows[0].id;
 
@@ -31,8 +31,6 @@ const join =  async (action, gameId, socket) => {
         socket.emit('join', {...action, data: {id: playerId}, game: gameId });
         //tell all players to update their player record
         socket.broadcast.emit('players', {type: 'done'} )
-        //tell inbound player to update their players record
-        socket.emit('players', {type: 'done'} )
         //tell inbound player to update their game state
         socket.emit('moves', {
             type: 'advance',
