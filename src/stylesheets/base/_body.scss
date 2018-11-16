@@ -1,0 +1,19 @@
+$font-stack:    Helvetica, sans-serif;
+
+$primary-color: rgb(228, 207, 207);
+
+#react-root {
+  height: 100vh; 
+  width: 100vw;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+body {
+    font: 100% $font-stack;
+    color: $primary-color;
+    background-color: black;
+    font-size: 10px;
+    text-align: center;
+  }

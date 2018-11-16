@@ -2,12 +2,15 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import LogOutButton from '../LogOutButton/LogOutButton';
-import './Nav.css';
 
 const Nav = (props) => (
   <div className="nav">
     <Link to="/home">
-      <h2 className="nav-title">Your Wise Moves Game</h2>
+
+      <h2 className="nav-title">Your Wise Moves</h2>
+
+      
+
     </Link>
     <div className="nav-right">
       {/* Show the link to the info page and the logout button if the user is logged in */}
