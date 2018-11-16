@@ -22,7 +22,7 @@ const gameId = (state = '', action) => {
     }
 };
 
-const gameState = (state =  '01', action) => {
+const gameState = (state =  '00', action) => {
     switch (action.type) {
         case 'UPDATE_GAME_STATE':
             return action.payload.newGameState;
