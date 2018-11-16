@@ -22,6 +22,7 @@ import GameRounds from './GameRounds/GameRounds';
 import PostGame from './PostGame/PostGame';
 import GameStart from './GameStart/GameStart';
 import PreGame from './PreGame/PreGame';
+import Journal from './Journal';
 
 //game start imports
 import axios from 'axios';
@@ -74,7 +75,7 @@ class Game extends Component {
 
   endGame = () => { //function triggers game end on server
     //emit socket to trigger player redirects
-    socket.emit('end', {done: true});
+    socket.emit('end', { done: true });
     axios({
       method: 'POST',
       data: { id: this.props.state.user.userReducer.id },
@@ -240,6 +241,7 @@ class Game extends Component {
   render() {
     return (
       <div className="game">
+        <Journal />
         {this.props.state.game.gameState[0] === '0' &&
           this.props.state.gameCode !== '' ?
           <GameStart

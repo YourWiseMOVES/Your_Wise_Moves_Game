@@ -18,15 +18,11 @@ import AboutPage from '../AboutPage/AboutPage';
 import UserPage from '../UserPage/UserPage';
 import InfoPage from '../InfoPage/InfoPage';
 import AdminPage from '../AdminPage/AdminPage';
+import ResultsPage from '../ResultsPage/ResultsPage';
 import Game from '../Game/Game';
 
-<<<<<<< HEAD
 import '../../stylesheets/main.css';
 import PreGame from '../Game/PreGame/PreGame';
-=======
-import './App.css';
-import ResultsPage from '../ResultsPage/ResultsPage';
->>>>>>> master
 
 class App extends Component {
   componentDidMount () {
@@ -36,7 +32,8 @@ class App extends Component {
   render() {
     return (
       <Router>
-        <div>
+        <div className="backgroundPlaceholderParent">
+        <div className="backgroundPlaceholder"></div>
           <Nav />
           <Switch>
             <Redirect exact from="/" to="/game" />
@@ -55,7 +52,8 @@ class App extends Component {
               path="/info"
               component={InfoPage}
             />
-            <ProtectedRoute
+            {/* Change this back to protected// */}
+            <Route
               exact
               path="/admin"
               component={AdminPage}
