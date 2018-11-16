@@ -19,7 +19,7 @@ import UserPage from '../UserPage/UserPage';
 import InfoPage from '../InfoPage/InfoPage';
 import Game from '../Game/Game';
 
-import './App.css';
+import '../../stylesheets/main.css';
 import PreGame from '../Game/PreGame/PreGame';
 
 class App extends Component {

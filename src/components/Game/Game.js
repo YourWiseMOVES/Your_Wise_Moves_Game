@@ -232,7 +232,7 @@ class Game extends Component {
 
   render() {
     return (
-      <div>
+      <div className="game">
         {this.props.state.game.gameState[0] === '0' &&
           this.props.state.gameCode !== '' ?
           <GameStart
