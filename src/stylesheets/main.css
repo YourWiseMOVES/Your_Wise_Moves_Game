@@ -1,0 +1,185 @@
+.sidebar {
+  height: 80vh;
+  /* Full-height: remove this if you want "auto" height */
+  width: 20vw;
+  /* Set the width of the sidebar */
+  position: absolute;
+  /* Fixed Sidebar (stay in place on scroll) */
+  z-index: 1;
+  /* Stay on top */
+  top: 13vh;
+  /* Stay at the top */
+  left: 0;
+  background-color: white;
+  /* Black */
+  text-align: left;
+  border-top-right-radius: 1rem;
+  border-bottom-right-radius: 1rem;
+}
+
+.sidebar h3 {
+  color: black;
+  margin-left: .4rem;
+  font-size: 2rem;
+  margin-bottom: 5px;
+}
+
+.sidebar h3:hover {
+  color: grey;
+  cursor: default;
+}
+
+.sidebar p {
+  color: black;
+  margin-left: .4rem;
+  font-size: 1.4rem;
+}
+
+.sidebar p:hover {
+  color: grey;
+  cursor: default;
+}
+
+.sidebarButton {
+  position: absolute;
+  top: 0vh;
+  left: 71vw;
+  z-index: 1;
+  visibility: hidden;
+}
+
+@media (max-width: 950px) {
+  .sidebar {
+    margin-left: -70vw;
+    width: 70vw;
+  }
+  .showSidebar {
+    -webkit-transition: .8s;
+    transition: .8s;
+    margin-left: 0vw;
+  }
+  .hideSidebar {
+    -webkit-transition: .8s;
+    transition: .8s;
+    margin-left: -70vw;
+  }
+  .sidebarButton {
+    visibility: visible;
+  }
+  .moveSidebarButton {
+    -webkit-transition: .8s;
+    transition: .8s;
+    top: 2vh;
+    left: 60vw;
+  }
+  .moveSidebarButtonBack {
+    -webkit-transition: .8s;
+    transition: .8s;
+    top: 0;
+    left: 71vw;
+  }
+}
+
+#react-root {
+  height: 100vh;
+  width: 100vw;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+body {
+  font: 100% Helvetica, sans-serif;
+  color: #e4cfcf;
+  background-color: black;
+  font-size: 10px;
+  text-align: center;
+}
+
+footer {
+  position: absolute;
+  bottom: 0;
+  right: 10px;
+}
+
+.nav-title {
+  font-size: 2rem;
+  font-weight: 700;
+  display: inline-block;
+  color: #f2f2f2;
+  padding-left: 10px;
+}
+
+.nav {
+  overflow: hidden;
+  height: 10vh;
+  width: 100vw;
+  background-image: url("../images/yourwisemovesbanner.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+
+.nav-link {
+  float: left;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 24px 10px;
+  text-decoration: none;
+  font-size: 15px;
+  /* these last two make the logout button in
+  the nav bar look like another link */
+  border: none;
+  cursor: pointer;
+  outline: 0;
+}
+
+.nav-right {
+  float: right;
+}
+
+.game {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.backgroundPlaceholderParent {
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+}
+
+.backgroundPlaceholder {
+  position: absolute;
+  margin-left: 25vw;
+  height: 70vh;
+  width: 70vh;
+  max-height: 800px;
+  max-width: 800px;
+  margin-top: 14vh;
+  background-color: lightblue;
+  -webkit-clip-path: circle(50% at 50% 50%);
+  clip-path: circle(50% at 50% 50%);
+  z-index: -1;
+}
+
+@media (max-width: 950px) {
+  .backgroundPlaceholder {
+    width: 80%;
+    height: 80%;
+    max-width: 80vw;
+    max-height: 80vw;
+    margin-left: 10%;
+  }
+}
+
+@media (min-width: 1400px) {
+  .backgroundPlaceholder {
+    margin-left: 40vw;
+  }
+}
+/*# sourceMappingURL=main.css.map */
