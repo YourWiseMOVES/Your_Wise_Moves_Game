@@ -26,6 +26,7 @@ class PlayerLogin extends Component {
     return (
       <div>
         <h1>Player Login</h1>
+        <button onClick={this.props.facilitator}>Log in as facilitator</button>
         <h2>Player View</h2>
         <h3>Insert your player name and code from facilitator</h3>
         <label>
@@ -35,7 +36,9 @@ class PlayerLogin extends Component {
           <input onChange={this.handleChange} placeholder="Code" name="code" value={this.state.code}></input>
         </label>
         {/* user join game function from props to emit socket event */}
-        <button onClick={() => this.props.joinGame(this.state.player, this.state.code)}>Join Game</button>
+        <button onClick={() => this.props.joinGame(this.state.player, this.state.code, false)}>Join Game</button>
+        <button onClick={() => this.props.joinGame(this.state.player, this.state.code, true)}>Re-Join Game</button>
+
       </div>
     );
   }

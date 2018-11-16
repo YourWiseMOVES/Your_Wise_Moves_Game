@@ -16,7 +16,6 @@ class IntentionIntro extends Component {
         <button onClick={() => {this.props.advanceStage(
            this.props.calculateNextStage('1')
         )
-        console.log(this.props.calculateNextStage('1'));
         }
       }>Next</button>
     }
