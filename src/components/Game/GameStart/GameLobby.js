@@ -18,9 +18,6 @@ class GameLobby extends Component {
         })
     }
 
-    componentDidMount() {
-        this.props.dispatch({ type: 'FETCH_PLAYERS', payload: this.props.state.game.gameId });
-    }
     render() {
         return (
             <div>

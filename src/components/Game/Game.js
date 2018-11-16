@@ -70,6 +70,7 @@ class Game extends Component {
     socket.on('game', data => {
       this.props.dispatch({ type: 'FETCH_GAMES' });
     })
+    this.props.dispatch({type: 'REJOIN_GAME_FACILITATOR', payload: game.id})
     this.props.dispatch({ type: 'SET_CODE', payload: game.code })
   }
 
@@ -119,7 +120,7 @@ class Game extends Component {
     })
   }
 
-  joinGame = (playerName, code) => {
+  joinGame = (name, code, reJoin) => {
     try {
       socket = io.connect(`/${code}`); //connect to socket based on user input
       socket.on('moves', data => { // set event handler for 'moves' events
@@ -133,6 +134,7 @@ class Game extends Component {
           }
           if (action.payload.fetchPlayers) { //if the action directs to refresh players
             //trigger fetch players saga
+            console.log('im running');
             this.props.dispatch({ type: 'FETCH_PLAYERS', payload: this.props.state.game.gameId })
           }
           this.props.dispatch(action); //dispatch the redux action
@@ -148,6 +150,7 @@ class Game extends Component {
         //receiver returns an array of two actions
         this.props.dispatch(actions[0]); //dispatch first
         this.props.dispatch(actions[1]); //dispatch second
+        this.props.dispatch(actions[2]); //dispatch second
       })
       socket.on('end', () => { //set event handler for game end
         console.log('in end handler');
@@ -161,12 +164,17 @@ class Game extends Component {
         //trigger saga to refresh single player
         this.props.dispatch({ type: 'FETCH_PLAYER', payload: this.props.state.game.player.id })
       })
-      socket.emit('join', { //emit an action to join game on server
-        type: 'join',
-        data: {
-          playerName,
-        },
-      })
+      if (!reJoin) {
+        socket.emit('join', { //emit an action to join game on server
+          type: 'join',
+          data: {
+            name,
+          },
+        })
+      }
+      else if (reJoin) {
+        this.props.dispatch({type:'REJOIN_GAME_PLAYER', payload: {code, name}})
+      }
       this.props.dispatch({ //set the game code in redux state (for view redirect)
         type: 'SET_CODE',
         payload: code,

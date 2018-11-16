@@ -68,6 +68,12 @@ const join = action => { //returns array of two actions to handle join actions
         payload: action.game
     }
     actions.push(reduxActionTwo);
+    //action three gets all of the other players
+    const reduxActionThree = {
+        type: 'FETCH_PLAYERS',
+        payload: action.game
+    }
+    actions.push(reduxActionThree);
     return actions;
 }
 
