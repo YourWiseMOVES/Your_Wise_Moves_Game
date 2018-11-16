@@ -5,6 +5,7 @@ import user from './userReducer';
 import game from './gameReducer';
 import gameCode from './codeReducer';
 import cards from './cardReducer'
+import games from './gamesReducer';
 
 // rootReducer is the primary reducer for our entire project
 // It bundles up all of the other reducers so our project can use them.
@@ -19,6 +20,7 @@ const rootReducer = combineReducers({
   game, //stores all game state data for client
   gameCode,
   cards,
+  games,
 });
 
 export default rootReducer;
