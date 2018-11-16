@@ -24,27 +24,40 @@ class PreGame extends Component {
         userType: '',
     }
 
+    componentDidMount(){
+        setTimeout(
+            () => {
+                if(this.props.state.user.userReducer.id){
+                    this.setState({
+                        userType: 'facilitator',
+                    })
+                } else {
+                    this.setState({
+                        userType: 'player',
+                    })
+                }
+            }, 100
+        )
+    }
+
+    facilitator = () => {
+        this.setState({
+            userType: 'facilitator',
+        })
+    }
+
+    player = () => {
+        this.setState({
+            userType: 'player',
+        })
+    }
+
     render() {
         return (
             <div>
                 {
                     this.state.userType === '' &&
-                    <div>
-                        <button onClick={() => {
-                            this.setState({
-                                userType: 'player',
-                            })
-                        }}>
-                            Player
-                    </button>
-                        <button onClick={() => {
-                            this.setState({
-                                userType: 'facilitator',
-                            })
-                        }}>
-                            Facilitator
-                    </button>
-                    </div>
+                    null
                 }
                 {
                     this.state.userType === 'player' &&
@@ -52,6 +65,7 @@ class PreGame extends Component {
                         <PlayerLogin
                             //sub component requires
                             joinGame={this.props.joinGame}
+                            facilitator={this.facilitator}
                         />
                     </div>
                 }
@@ -65,7 +79,9 @@ class PreGame extends Component {
                                 gameCode={this.props.gameCode}
                             />
                             :
-                            <FacilitatorLogin />
+                            <FacilitatorLogin
+                                player={this.player}
+                            />
                         }
                     </div>
                 }
