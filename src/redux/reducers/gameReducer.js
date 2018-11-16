@@ -1,18 +1,5 @@
 import { combineReducers } from 'redux';
 
-const discussionPhase = (state = {id: '', player_1: false, player_2: false, player_3: false, player_4: false, player_5: false}, action) => {
-    switch (action.type) {
-        case 'UPDATE_DISCUSSION_PHASE':
-            let propName = `player_${action.payload.playerNumber}`
-            return {
-                ...state,
-                [propName]: action.payload.setTo,
-            };
-        default:
-            return state;
-    }
-};
-
 const gameId = (state = '', action) => {
     switch (action.type) {
         case 'SET_GAME':
@@ -102,7 +89,6 @@ export default combineReducers({
     gameId,
     gameState,
     player,
-    discussionPhase,
     journal,
     allPlayers,
     roundNumber,
