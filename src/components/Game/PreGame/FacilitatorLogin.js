@@ -39,6 +39,7 @@ class FacilitatorLogin extends Component {
     return (
       <div>
         <h1>Login View</h1>
+        <button onClick={this.props.player}>Player Login</button>
         <h2>Facilitator View</h2>
         <h3>Input your user name and password</h3>  
         <form onSubmit={this.login}>

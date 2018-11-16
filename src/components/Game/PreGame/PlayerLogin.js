@@ -26,6 +26,7 @@ class PlayerLogin extends Component {
     return (
       <div>
         <h1>Player Login</h1>
+        <button onClick={this.props.facilitator}>Log in as facilitator</button>
         <h2>Player View</h2>
         <h3>Insert your player name and code from facilitator</h3>
         <label>
