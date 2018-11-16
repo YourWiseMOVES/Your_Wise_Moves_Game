@@ -15,12 +15,19 @@ router.get('/', rejectUnauthenticated, (req, res) => {
 // Handles POST request with new user data
 // The only thing different from this and every other post we've seen
 // is that the password gets encrypted before being inserted
-router.post('/register', (req, res, next) => {  
+router.post('/register', (req, res, next) => {
   const username = req.body.username;
   const password = encryptLib.encryptPassword(req.body.password);
+  const first_name = req.body.first_name;
+  const last_name = req.body.last_name;
+  const email = req.body.email;
+  const organization = req.body.organization;
+  const phone_number = req.body.phone_number;
+  const is_facilitator = req.body.is_facilitator;
+  const is_admin = req.body.is_admin;
 
-  const queryText = 'INSERT INTO person (username, password) VALUES ($1, $2) RETURNING id';
-  pool.query(queryText, [username, password])
+  const queryText = 'INSERT INTO person (username, password, first_name, last_name, email, organization, phone_number, is_facilitator, is_admin) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING id';
+  pool.query(queryText, [username, password, first_name, last_name, email, organization, phone_number, is_facilitator, is_admin])
     .then(() => { res.sendStatus(201); })
     .catch((err) => { next(err); });
 });
@@ -39,5 +46,62 @@ router.post('/logout', (req, res) => {
   req.logout();
   res.sendStatus(200);
 });
+
+router.put('/register', (req, res) => { // will leave "password" as editable until we have set up 
+  const updatedFacilitator = req.body;  // functionality for facilitator to change own password
+  console.log('in the edit function');
+  console.log(req.body);
+  pool.query(`UPDATE person
+  SET "username" = $1,
+  "first_name" = $2, 
+  "last_name" = $3,  
+  "email" = $4,
+  "organization" = $5, 
+  "phone_number" = $6, 
+  "is_facilitator" = $7, 
+  "is_admin" = $8
+  WHERE "id"=$9`,
+    [req.body.username,
+    req.body.first_name,
+    req.body.last_name,
+    req.body.email,
+    req.body.organization,
+    req.body.phone_number,
+    req.body.is_facilitator,
+    req.body.is_admin,
+    req.body.id])
+    .then((results) => {
+      res.sendStatus(200)
+    }).catch((error) => {
+      console.log('Error with server-side PUT:', error);
+      res.send(500);
+    })
+})
+
+router.get('/register', (req, res) => {
+  console.log('get facilitators');
+  pool.query(`SELECT "username", "first_name", "last_name", "email", "organization", "phone_number", "is_facilitator", "is_admin", "id"
+  FROM "person";`)
+    .then((results) => {
+      res.send(results.rows)
+    }).catch((error) => {
+      console.log('Error GET /facilitators', error);
+      res.sendStatus(500);
+    })
+});
+
+router.delete('/register', (req, res) => {
+  pool.query(`DELETE FROM "person"
+  WHERE "first_name"=$1 AND "last_name"=$2;`,
+      [req.body.first_name,
+      req.body.last_name])
+      .then((results) => {
+          res.sendStatus(200)
+      }).catch((error) => {
+          console.log('Error with server-side DELETE:', error);
+          res.sendStatus(500);
+      })
+});
+
 
 module.exports = router;
