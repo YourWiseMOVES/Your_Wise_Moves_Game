@@ -8,7 +8,7 @@ const mailOptions = require('../../modules/mailOptions');
 
 //post route (will require facilitator auth) to start game
 router.post('/start', async (req, res) => {
-    const data = await game.begin(req.body.id, req.io);
+    const data = await game.begin(req.body.id, req.body.name, req.io);
     res.send(data);
 })
 
@@ -16,24 +16,53 @@ router.post('/start', async (req, res) => {
 //get route for players in a specific game, no auth required
 router.get('/players', (req, res) => {
     pool.query(`SELECT * FROM "player" WHERE "game_id"=$1;`, [req.query.id])
-    .then(results => {
-        res.send(results.rows);
-    })
-    .catch(err => {
-        console.log('Error in players get', err);
-    })
+        .then(results => {
+            res.send(results.rows);
+        })
+        .catch(err => {
+            console.log('Error in players get', err);
+        })
 })
 
 //get route for player in a specific game, no auth required
 router.get('/player', (req, res) => {
     pool.query(`SELECT * FROM "player" WHERE "id"=$1;`, [req.query.id])
-    .then(results => {
-        res.send(results.rows[0]);
+        .then(results => {
+            res.send(results.rows[0]);
+        })
+        .catch(err => {
+            console.log('Error in player get', err);
+        })
+})
+
+//get route for facilitator to get all of their active games
+router.get('/games', (req, res) => {
+    pool.query(`SELECT "game"."id", "game"."name" as "name", "game"."code" as "code", COUNT("player"."id") as "players", COUNT("player"."in_game"=true) as "active" FROM "game"
+    FULL OUTER JOIN "player" ON "game"."id"="player"."game_id" 
+    WHERE "game"."facilitator_id"=$1
+    GROUP BY "game"."id";
+ `, [req.user.id])
+        .then(results => {
+            res.send(results.rows);
+        })
+        .catch(err => {
+            console.log('Error in games get', err);
+            res.sendStatus(500);
+        })
+})
+
+
+//post route for rejoining active games
+router.post('/rejoin', (req, res) => { 
+    game.rejoin(req.body.type, req.body.identifier, req.body.name)
+    .then(response => {
+        res.send(response);
     })
     .catch(err => {
-        console.log('Error in player get', err);
+        console.log('error rejoining game', err);
     })
 })
+
 
 //post route for getting results emailed after the game 
 router.post('/get/results', async (req, res) => {
@@ -43,20 +72,20 @@ router.post('/get/results', async (req, res) => {
     //will then pass the response and req.body.email into mailOptions
     //then dispatch the email with transporter module
     transporter.sendMail(mailOptions(req.body.email, response))
-    .then(done => {
-        res.sendStatus(201);
-    })
-    .catch(err => {
-        console.log('error sending mail', err);
-    })
-    
+        .then(done => {
+            res.sendStatus(201);
+        })
+        .catch(err => {
+            console.log('error sending mail', err);
+        })
+
 })
 
 //post route (will require facilitator auth) to end game
 router.post('/end', (req, res) => {
     game.end(req.body.id, req.io)
-    .then(() => res.sendStatus(200));
+        .then(() => res.sendStatus(200));
 })
-    
+
 
 module.exports = router;

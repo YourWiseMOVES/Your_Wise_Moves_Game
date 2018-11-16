@@ -7,15 +7,23 @@ const receiver = require('./modules/receiver');
 //function handles end of games
 const end = require('./modules/end');
 
+//function marks a player as not in game
+const removePlayer = require('./modules/removePlayer');
+
+//functions allow players and facilitators to rejoin
+const rejoinPlayer = require('./modules/rejoinPlayer');
+const rejoinFacilitator = require('./modules/rejoinFacilitator');
+
+
 //define variables that will be needed throughout functions
 let game_socket;
 let code;
 let gameId;
 let link;
 
-exports.begin = async (facilitatorId, io) => {    
+exports.begin = async (facilitatorId, name, io) => {
     try {
-        const data = await start(facilitatorId);
+        const data = await start(facilitatorId, name);
         //split up returned data for readability 
         code = data.code;
         gameId = data.gameId;
@@ -36,7 +44,14 @@ exports.begin = async (facilitatorId, io) => {
                         receiver(action, gameId, socket);
                     })
                     socket.on('end', action => {
-                        socket.broadcast.emit('end', {done: true})
+                        socket.broadcast.emit('end', { done: true })
+                    })
+                    socket.on('leave', action => {
+                        console.log('in leave');
+                        removePlayer(action, gameId, socket);
+                    })
+                    socket.on('disconnect', data => {
+                        console.log('a client has disconnected');
                     })
                     game_socket = socket;
                 })
@@ -45,7 +60,29 @@ exports.begin = async (facilitatorId, io) => {
         console.log('Error in game start', err);
     }
     console.log('game created');
-    return({code, gameId});
+    return ({ code, gameId });
+}
+
+exports.rejoin = async (type, identifier, name) => {
+    console.log(type);
+    if (type === 'player') {
+        try { 
+            let response = await rejoinPlayer(identifier, name); 
+            return response;
+        }
+        catch (err) {
+            console.log(err);
+        }
+    }
+    else if (type === 'facilitator') {
+        try { 
+            let response = await rejoinFacilitator(identifier);
+            return response;
+        }
+        catch (err) {
+            console.log(err);
+        }
+    }
 }
 
 exports.end = async (facilitatorId, io) => {
