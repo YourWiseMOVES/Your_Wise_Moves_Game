@@ -30,14 +30,18 @@ class QuestionForm extends Component {
         return (
             <div>
                 <form onSubmit={this.handleSubmit}>
-                    <select onChange={this.handleChangeFor('stage_id')} value={this.state.newContent.stage_id}>
+                <h6>Add a question</h6>
+                    <label htmlFor="select">Select a movement: </label>
+                    <select name="select" onChange={this.handleChangeFor('stage_id')} value={this.state.newContent.stage_id}>
                         <option value="1">Map</option>
                         <option value="2">Open</option>
                         <option value="3">Visualize</option>
                         <option value="4">Engage</option>
                         <option value="5">Sustain</option>
                     </select>
-                    <input type="text" onChange={this.handleChangeFor('text')} value={this.state.newContent.text} />
+                    <br />
+                    <label htmlFor="text">Type a question: </label>
+                    <input name="text" type="text" onChange={this.handleChangeFor('text')} value={this.state.newContent.text} />
                     <input type="submit" />
                 </form>
             </div>
