@@ -1,0 +1,47 @@
+body {
+  font: 100% Helvetica, sans-serif;
+  color: #e4cfcf;
+  background-color: black;
+  font-size: 10px;
+}
+
+footer {
+  position: absolute;
+  bottom: 0;
+}
+
+.nav-title {
+  font-size: 2rem;
+  font-weight: 700;
+  display: inline-block;
+  color: #f2f2f2;
+  padding-left: 10px;
+}
+
+.nav {
+  overflow: hidden;
+  height: 10vh;
+  background-image: url("../images/yourwisemovesbanner.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+
+.nav-link {
+  float: left;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 24px 10px;
+  text-decoration: none;
+  font-size: 15px;
+  /* these last two make the logout button in
+  the nav bar look like another link */
+  border: none;
+  cursor: pointer;
+  outline: 0;
+}
+
+.nav-right {
+  float: right;
+}
+/*# sourceMappingURL=main.css.map */
