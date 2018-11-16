@@ -31,50 +31,52 @@ let socket;
 
 class Game extends Component {
 
-  state = {
-    gameCode: '',
-  }
-
-  createGame = () => { //function to create the game, triggers the game start on server
+  createGame = name => { //function to create the game, triggers the game start on server
     axios({
       method: 'POST',
-      data: { id: this.props.state.user.userReducer.id }, //pass facilitator id to be added to game table
+      data: { id: this.props.state.user.userReducer.id, name: name }, //pass facilitator id to be added to game table
       url: '/game/start',
     })
       .then(response => {
-        this.setState({
-          gameCode: response.data.code, //server generated game code used as socket namespace
-        })
-        this.props.dispatch({ type: 'SET_GAME', payload: response.data.gameId }) //sets the gameId in redux state
-        socket = io.connect(`/${this.state.gameCode}`); //connecting to socket namespace with code
-        socket.on('moves', data => { //set event handler for 'moves' events
-          try {
-            //pass the custom action object to receiver to be formatted into a redux action
-            let action = receiver(data);
-            //if the action includes a fetchPlayers directive
-            if (action.payload.fetchPlayers) {
-              //trigger a saga that fetches the players from the database
-              this.props.dispatch({ type: 'FETCH_PLAYERS', payload: this.props.state.game.gameId })
-            }
-            //dispatch the returned redux action
-            this.props.dispatch(action);
-          } catch (err) {
-            console.log('Error in moves handler', err);
-          }
-        })
-        socket.on('players', data => { //set event handler for 'players' events
-          //trigger saga to refresh players
-          this.props.dispatch({ type: 'FETCH_PLAYERS', payload: this.props.state.game.gameId })
-        })
+        this.props.dispatch({ type: 'FETCH_GAMES' });
       })
       .catch(err => {
         console.log(err);
       })
   }
 
+  facilitatorJoinGame = game => {
+    this.props.dispatch({ type: 'SET_GAME', payload: game.id }) //sets the gameId in redux state
+    socket = io.connect(`/${game.code}`); //connecting to socket namespace with code
+    socket.on('moves', data => { //set event handler for 'moves' events
+      try {
+        //pass the custom action object to receiver to be formatted into a redux action
+        let action = receiver(data);
+        //if the action includes a fetchPlayers directive
+        if (action.payload.fetchPlayers) {
+          //trigger a saga that fetches the players from the database
+          this.props.dispatch({ type: 'FETCH_PLAYERS', payload: this.props.state.game.gameId })
+        }
+        //dispatch the returned redux action
+        this.props.dispatch(action);
+      } catch (err) {
+        console.log('Error in moves handler', err);
+      }
+    })
+    socket.on('players', data => { //set event handler for 'players' events
+      //trigger saga to refresh players
+      this.props.dispatch({ type: 'FETCH_PLAYERS', payload: this.props.state.game.gameId })
+    })
+    socket.on('game', data => {
+      this.props.dispatch({ type: 'FETCH_GAMES' });
+    })
+    this.props.dispatch({type: 'REJOIN_GAME_FACILITATOR', payload: game.id})
+    this.props.dispatch({ type: 'SET_CODE', payload: game.code })
+  }
+
   endGame = () => { //function triggers game end on server
     //emit socket to trigger player redirects
-    socket.emit('end', {done: true});
+    socket.emit('end', { done: true });
     axios({
       method: 'POST',
       data: { id: this.props.state.user.userReducer.id },
@@ -118,7 +120,7 @@ class Game extends Component {
     })
   }
 
-  joinGame = (playerName, code) => {
+  joinGame = (name, code, reJoin) => {
     try {
       socket = io.connect(`/${code}`); //connect to socket based on user input
       socket.on('moves', data => { // set event handler for 'moves' events
@@ -132,6 +134,7 @@ class Game extends Component {
           }
           if (action.payload.fetchPlayers) { //if the action directs to refresh players
             //trigger fetch players saga
+            console.log('im running');
             this.props.dispatch({ type: 'FETCH_PLAYERS', payload: this.props.state.game.gameId })
           }
           this.props.dispatch(action); //dispatch the redux action
@@ -139,11 +142,15 @@ class Game extends Component {
           console.log('Error in moves handler', err);
         }
       })
+      socket.on('start', data => {
+        console.log(data);
+      })
       socket.on('join', data => { //set join event handler
         let actions = receiver(data); //pass data to receiver
         //receiver returns an array of two actions
         this.props.dispatch(actions[0]); //dispatch first
         this.props.dispatch(actions[1]); //dispatch second
+        this.props.dispatch(actions[2]); //dispatch second
       })
       socket.on('end', () => { //set event handler for game end
         console.log('in end handler');
@@ -157,12 +164,17 @@ class Game extends Component {
         //trigger saga to refresh single player
         this.props.dispatch({ type: 'FETCH_PLAYER', payload: this.props.state.game.player.id })
       })
-      socket.emit('join', { //emit an action to join game on server
-        type: 'join',
-        data: {
-          playerName,
-        },
-      })
+      if (!reJoin) {
+        socket.emit('join', { //emit an action to join game on server
+          type: 'join',
+          data: {
+            name,
+          },
+        })
+      }
+      else if (reJoin) {
+        this.props.dispatch({type:'REJOIN_GAME_PLAYER', payload: {code, name}})
+      }
       this.props.dispatch({ //set the game code in redux state (for view redirect)
         type: 'SET_CODE',
         payload: code,
@@ -237,6 +249,20 @@ class Game extends Component {
     this.props.dispatch({ type: 'UPDATE_GAME_STATE', payload: { newGameState: this.calculateNextStage('2') } })
   }
 
+  componentDidMount() {
+    window.addEventListener('beforeunload', this.disconnectSocket);
+  }
+
+  disconnectSocket = async event => {
+    if (!this.props.state.user.userReducer.id) {
+      event.preventDefault();
+      await socket.emit('leave', {
+        id: this.props.state.game.player.id,
+      })
+    }
+    window.removeEventListener('beforeunload', this.disconnectSocket)
+  }
+
   render() {
     return (
       <div>
@@ -250,10 +276,10 @@ class Game extends Component {
           :
           this.props.state.game.gameState[0] === '0' ?
             <PreGame
-              gameCode={this.state.gameCode} //game code used in sub component (later redux)
               createGame={this.createGame} //function to create a new game as facilitator
               advanceStage={this.advanceStage} //function to advance the game forward
               joinGame={this.joinGame} //function to join a game as player
+              facilitatorJoinGame={this.facilitatorJoinGame}
             />
             :
             null
