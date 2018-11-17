@@ -40,6 +40,8 @@ const journal = (state = {intention: '', question_one: '', question_two: '', que
                 ...state,
                 intention: action.payload.intention,
             }
+        case 'SET_JOURNAL':
+            return action.payload;
         default:
             return state;
     }
