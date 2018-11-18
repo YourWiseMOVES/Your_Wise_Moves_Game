@@ -20,8 +20,13 @@ class Background extends Component {
         let i = 0;
         this.i = i;
 
+        let counter = 1;
+        this.counter = counter;
+
         let backwards=false;
         this.backwards = backwards;
+
+
 
         const width = this.mount.clientWidth;
         const height = this.mount.clientHeight;
@@ -58,26 +63,30 @@ class Background extends Component {
         //--------------------END LIGHTS-------------------------------------
 
         //background
-        const geoBackground = new THREE.PlaneBufferGeometry(200, 200, 32);
-        const matBackground = new THREE.MeshBasicMaterial({ color: 0xC0DFDF });
+        const backgroundTexture = new THREE.TextureLoader().load(require('./images/threebackground.jpg'));
+
+        const geoBackground = new THREE.PlaneBufferGeometry(800, 800, 32);
+        const matBackground = new THREE.MeshBasicMaterial({ map: backgroundTexture });
         const background = new THREE.Mesh(geoBackground, matBackground);
         background.receiveShadow = true;
         background.position.z = -20;
+        background.position.y = -200;
+        background.rotation.z = -Math.PI/6;
         scene.add(background);
 
         //------------------------------CLOUDS----------------------------------
         //clouds
         //Remember, you need a server for images to be loaded!
-        const textureClouds = new THREE.TextureLoader().load('./images/clouds5.jpg');
+        const textureClouds1 = new THREE.TextureLoader().load(require('./images/clouds5.jpg'));
 
-        const geoClouds = new THREE.SphereGeometry(80, 100, 100);
-        const matClouds = new THREE.MeshPhongMaterial({ alphaMap: textureClouds });
-        const clouds1 = new THREE.Mesh(geoClouds, matClouds);
-        matClouds.transparent = true
+        const geoClouds1 = new THREE.SphereGeometry(60, 100, 100);
+        const matClouds1 = new THREE.MeshPhongMaterial({ alphaMap: textureClouds1 });
+        const clouds1 = new THREE.Mesh(geoClouds1, matClouds1);
+        matClouds1.transparent = true;
 
-        const textureClouds2 = new THREE.TextureLoader().load('./images/clouds2.jpg');
+        const textureClouds2 = new THREE.TextureLoader().load(require('./images/clouds2.jpg'));
 
-        const geoClouds2 = new THREE.SphereGeometry(110, 100, 100);
+        const geoClouds2 = new THREE.SphereGeometry(90, 100, 100);
         const matClouds2 = new THREE.MeshPhongMaterial({ alphaMap: textureClouds2 });
         const clouds2 = new THREE.Mesh(geoClouds2, matClouds2);
         matClouds2.transparent = true
@@ -135,7 +144,7 @@ class Background extends Component {
         fire.overdraw = true;
         fire.castShadow = true;
         scene.add(fire);
-        fire.position.set(24, 32, 0)
+        fire.position.set(38, -12, 0)
 
         const textureWood = new THREE.TextureLoader().load(require('./images/wood.jpg'));
 
@@ -146,7 +155,7 @@ class Background extends Component {
         wood.overdraw = true;
         wood.castShadow = true;
         scene.add(wood);
-        wood.position.set(38, -12, 0)
+        wood.position.set(24, 32, 0)
         //------------------------------END SPHERES----------------------------------
 
         //----------------------------CURVE PATH------------------------------------
@@ -176,28 +185,28 @@ class Background extends Component {
             { x: 0, y: 0, z: 120 },
         )
 
-        const pointsWoodOutside = createBezierCurve(
+        const pointsFireOutside = createBezierCurve(
             { x: 38, y: -12, z: 0 },
             { x: 29, y: -9, z: 30 },
             { x: 29, y: -9, z: 70 },
             { x: 0, y: 0, z: 120 },
         )
 
-        const pointsWoodInside = createBezierCurve(
+        const pointsFireInside = createBezierCurve(
             { x: 38, y: -12, z: 0 },
             { x: -10, y: 3, z: 30 },
             { x: -10, y: 3, z: 70 },
             { x: 0, y: 0, z: 120 },
         )
 
-        const pointsFireOutside = createBezierCurve(
+        const pointsWoodOutside = createBezierCurve(
             { x: 24, y: 32, z: 0 },
             { x: 18, y: 24, z: 30 },
             { x: 18, y: 24, z: 70 },
             { x: 0, y: 0, z: 120 },
         )
 
-        const pointsFireInside = createBezierCurve(
+        const pointsWoodInside = createBezierCurve(
             { x: 24, y: 32, z: 0 },
             { x: -6, y: -8, z: 30 },
             { x: -6, y: -8, z: 70 },
@@ -234,6 +243,15 @@ class Background extends Component {
 
         this.pointsEarthOutside = pointsEarthOutside;
         this.pointsEarthInside = pointsEarthInside;
+        this.pointsWoodOutside = pointsWoodOutside;
+        this.pointsWoodInside = pointsWoodInside;
+        this.pointsFireOutside = pointsFireOutside;
+        this.pointsFireInside = pointsFireInside;
+        this.pointsWaterOutside = pointsWaterOutside;
+        this.pointsWaterInside = pointsWaterInside;
+        this.pointsMetalOutside = pointsMetalOutside;
+        this.pointsMetalInside = pointsMetalInside;
+
         //---------------------END CURVE PATH------------------------------------
 
 
@@ -243,6 +261,8 @@ class Background extends Component {
         this.scene = scene;
         this.camera = camera;
         this.renderer = renderer;
+
+        this.background = background;
 
         this.clouds1 = clouds1;
         this.clouds2 = clouds2;
@@ -256,7 +276,7 @@ class Background extends Component {
 
         this.mount.appendChild(this.renderer.domElement)
         this.start()
-        this.moveSphereForward(this.pointsEarthOutside, this.pointsEarthInside, this.earth)
+        this.moveSphereForward(this.pointsMetalOutside, this.pointsMetalInside, this.metal)
     }
 
     componentWillUnmount() {
@@ -279,8 +299,8 @@ class Background extends Component {
         this.renderScene()
         this.frameId = window.requestAnimationFrame(this.animate)
         this.camera.rotation.z -= .0004;
-        this.clouds1.rotation.y += .002;
-        this.clouds2.rotation.y += .002;
+        this.clouds1.rotation.y += .001;
+        this.clouds2.rotation.y += .001;
 
         this.yinYang.rotation.y += 0.00;
         this.earth.rotation.y += 0.001;
@@ -305,15 +325,17 @@ class Background extends Component {
         return blueprint;
     }
 
+    rotateBackground = (numOfSegments) => {
+        this.background.rotation.z += (Math.PI/3) / numOfSegments;
+    }
+
     moveSphereForward = (pointsArrayOutside, pointsArrayInside, sphere) => {
 
         const easedArray = this.speedArchitect(pointsArrayOutside.length, 16)
-        console.log('hello', this.i)
-        let iplus = this.i
-        if (iplus < easedArray.length - 1 && this.backwards === false) {
-            let bPoint = easedArray[iplus];
+        if (this.i < easedArray.length - 1 && this.backwards === false) {
+            let bPoint = easedArray[this.i];
             let b = pointsArrayOutside[bPoint];
-            let ybPoint = easedArray[easedArray.length - (iplus + 1)];
+            let ybPoint = easedArray[easedArray.length - (this.i + 1)];
             let yb = pointsArrayInside[ybPoint];
             sphere.position.x = b.x
             sphere.position.y = b.y
@@ -322,13 +344,10 @@ class Background extends Component {
             this.yinYang.position.y = yb.y;
             this.yinYang.position.z = yb.z;
 
-            //i is not increasing by 1.
-            let iplusplus = iplus +1;
-
-            this.i = iplusplus;
-
+            this.rotateBackground(easedArray.length);
+            this.i = this.i + 1;
             requestAnimationFrame(() => this.moveSphereForward(pointsArrayOutside, pointsArrayInside, sphere));
-        } else if (iplus === easedArray.length - 1 && this.backwards === false) {
+        } else if (this.i === easedArray.length - 1 && this.backwards === false) {
             this.backwards = true;
             sphere.position.x = pointsArrayOutside[pointsArrayOutside.length - 1].x;
             sphere.position.y = pointsArrayOutside[pointsArrayOutside.length - 1].y;
@@ -336,8 +355,44 @@ class Background extends Component {
             this.yinYang.position.x = pointsArrayInside[0].x;
             this.yinYang.position.y = pointsArrayInside[0].y;
             this.yinYang.position.z = pointsArrayInside[0].z;
-            iplus--;
-            // this.moveSphereBack(pointsArrayOutside, pointsArrayInside, sphere);
+            this.i--;
+            this.moveSphereBack(pointsArrayOutside, pointsArrayInside, sphere);
+        }
+    }
+
+    moveSphereBack(pointsArrayOutside, pointsArrayInside, sphere) {
+
+        const easedArray = this.speedArchitect(pointsArrayOutside.length, 16)
+    
+        if (this.i > 0 && this.backwards === true) {
+            const bPoint = easedArray[this.i];
+            const b = pointsArrayInside[bPoint];
+            const ybPoint = easedArray[easedArray.length-(this.i+1)];
+            const yb = pointsArrayOutside[ybPoint];
+            sphere.position.x = b.x;
+            sphere.position.y = b.y;
+            sphere.position.z = b.z;
+            this.yinYang.position.x = yb.x;
+            this.yinYang.position.y = yb.y;
+            this.yinYang.position.z = yb.z;
+            this.i--;
+            requestAnimationFrame(() => this.moveSphereBack(pointsArrayOutside, pointsArrayInside, sphere));
+        } else if (this.backwards === true && this.i === 0) {
+            this.backwards = false;
+            this.counter = this.counter + 1;
+
+            if (this.counter === 1){
+            this.moveSphereForward(this.pointsMetalOutside, this.pointsMetalInside, this.metal)
+            } else if (this.counter === 2){
+            this.moveSphereForward(this.pointsWaterOutside, this.pointsWaterInside, this.water)
+            } else if (this.counter === 3) {
+            this.moveSphereForward(this.pointsWoodOutside, this.pointsWoodInside, this.wood)
+            } else if (this.counter === 4) {
+            this.moveSphereForward(this.pointsFireOutside, this.pointsFireInside, this.fire)
+            } else if (this.counter === 5) {
+            this.counter = 0
+            this.moveSphereForward(this.pointsEarthOutside, this.pointsEarthInside, this.earth)
+            }
         }
     }
 
