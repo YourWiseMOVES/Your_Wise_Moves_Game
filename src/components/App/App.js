@@ -43,7 +43,7 @@ class App extends Component {
               path="/home"
               component={Game}
             />
-            <ProtectedRoute
+            <Route
               exact
               path="/info"
               component={InfoPage}
