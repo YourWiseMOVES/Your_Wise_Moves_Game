@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import {
   HashRouter as Router,
   Route,
@@ -7,7 +7,7 @@ import {
   Link
 } from 'react-router-dom';
 
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 
 import Nav from '../Nav/Nav';
 import Footer from '../Footer/Footer';
@@ -26,33 +26,30 @@ import '../../stylesheets/main.css';
 import PreGame from '../Game/PreGame/PreGame';
 
 class App extends Component {
-  componentDidMount () {
-    this.props.dispatch({type: 'FETCH_USER'})
+  componentDidMount() {
+    this.props.dispatch({ type: 'FETCH_USER' })
   }
 
   render() {
     return (
       <Router>
         <div>
-        <Background />
-          <Nav />
           <Switch>
-            <Redirect exact from="/" to="/home" />
+            <Redirect exact from="/" to="/home/game" />
             <Route
               exact
-              path="/home"
-              component={Game}
+              path="/home/game"
+              render={()=> { return (<React.Fragment><Game /> <Background /> </React.Fragment>);}}
             />
             <Route
               exact
               path="/info"
-              component={InfoPage}
+              render={()=> { return (<React.Fragment><Nav /> <InfoPage /> </React.Fragment>);}}
             />
-            {/* Change this back to protected// */}
             <Route
               exact
               path="/admin"
-              component={AdminPage}
+              render={()=> { return (<React.Fragment><Nav /> <AdminPage /> </React.Fragment>);}}
             />
             <Route
               path="/results"
@@ -60,10 +57,10 @@ class App extends Component {
             />
             <Route render={() => <h1>404</h1>} />
           </Switch>
-          <Footer />
         </div>
       </Router>
-  )}
+    )
+  }
 }
 
 export default connect()(App);
