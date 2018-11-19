@@ -14,7 +14,7 @@ class IntentionIntro extends Component {
         <h1>Introduction to Intention or Question</h1>
       { this.props.state.user.userReducer && this.props.state.user.userReducer.id &&
         <button onClick={() => {this.props.advanceStage(
-           this.props.calculateNextStage('1')
+           this.props.calculateNextStage('2')
         )
         }
       }>Next</button>

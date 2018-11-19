@@ -22,7 +22,7 @@ import GameRounds from './GameRounds/GameRounds';
 import PostGame from './PostGame/PostGame';
 import GameStart from './GameStart/GameStart';
 import PreGame from './PreGame/PreGame';
-import Journal from './Journal';
+import Sidebar from './Sidebar';
 
 //game start imports
 import axios from 'axios';
@@ -160,10 +160,12 @@ class Game extends Component {
       socket.on('players', data => { //set players event handler
         //trigger fetch players saga
         this.props.dispatch({ type: 'FETCH_PLAYERS', payload: this.props.state.game.gameId })
+        this.props.dispatch({ type: 'FETCH_JOURNAL', payload: this.props.state.game.player.journal_id })
       })
       socket.on('player', data => { //set event handler for 'player' events
         //trigger saga to refresh single player
         this.props.dispatch({ type: 'FETCH_PLAYER', payload: this.props.state.game.player.id })
+        this.props.dispatch({ type: 'FETCH_JOURNAL', payload: this.props.state.game.player.journal_id })
       })
       if (!reJoin) {
         socket.emit('join', { //emit an action to join game on server
@@ -267,7 +269,7 @@ class Game extends Component {
   render() {
     return (
       <div className="game">
-        <Journal />
+        <Sidebar />
         {this.props.state.game.gameState[0] === '0' &&
           this.props.state.gameCode !== '' ?
           <GameStart
