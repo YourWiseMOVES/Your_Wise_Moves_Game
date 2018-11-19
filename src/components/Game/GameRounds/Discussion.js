@@ -12,7 +12,7 @@ class Discussion extends Component {
 
   render() {
     return (
-      <div>
+      <div className="threeContentContainer">
         <h1>Discussion Phase</h1>
         <h2>Round: {this.props.state.game.roundNumber}</h2>
         {/* Players who are ready yet to speak */}
