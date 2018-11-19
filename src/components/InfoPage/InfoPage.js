@@ -24,10 +24,7 @@ class InfoPage extends Component {
          <QuestionForm/>
         </div>
         {!this.props.cards ? null :
-          <div style={{display: 'flex',
-          flexFlow: 'row wrap',
-          padding: '8px',
-          justifyContent: 'space-around'}}>
+          <div className="card-collection">
             {this.props.cards.map(question => <Card key={question.id} question={question}/>)}
           </div>}
       </div>
