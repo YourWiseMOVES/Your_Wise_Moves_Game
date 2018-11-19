@@ -36,7 +36,7 @@ class GameLobby extends Component {
                     </ol>
                     {this.props.state.user.userReducer && this.props.state.user.userReducer.id ?
                         <button onClick={() => this.props.advanceStage(
-                            this.props.calculateNextStage('0')
+                            this.props.calculateNextStage('1')
                         )}>Next</button>
                         :
                         null

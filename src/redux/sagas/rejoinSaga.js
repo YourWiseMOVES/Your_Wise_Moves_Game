@@ -7,6 +7,7 @@ function* rejoinGamePlayer(action) {
     console.log(response);
     yield put({ type: 'FETCH_PLAYER', payload: response.data.playerId });  
     yield put({ type: 'FETCH_PLAYERS', payload: response.data.gameId });  
+    yield put({ type: 'FETCH_JOURNAL', payload: response.data.journalId });  
     yield put({ type: 'UPDATE_GAME_STATE', payload: {
         newGameState: response.data.gameState,
     } });  
