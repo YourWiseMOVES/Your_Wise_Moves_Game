@@ -3,12 +3,14 @@ const router = require('express').Router();
 const game = require('../game');
 const pool = require('../../modules/pool');
 
+const isFacilitator = require('../modules/isFacilitator');
+
 const transporter = require('../../modules/transporter');
 const mailOptions = require('../../modules/mailOptions');
 
 //post route (will require facilitator auth) to start game
-router.post('/start', async (req, res) => {
-    const data = await game.begin(req.body.id, req.body.gameConfig, req.io);
+router.post('/start', isFacilitator, async (req, res) => {
+    const data = await game.begin(req.user.id, req.body.gameConfig, req.io);
     res.send(data);
 })
 
@@ -36,7 +38,7 @@ router.get('/player', (req, res) => {
 })
 
 //get route for facilitator to get all of their active games
-router.get('/games', (req, res) => {
+router.get('/games', isFacilitator, (req, res) => {
     pool.query(`SELECT "game"."id", "game"."name" as "name", "game"."code" as "code", COUNT("player"."id") as "players", COUNT("player"."in_game"=true) as "active" FROM "game"
     FULL OUTER JOIN "player" ON "game"."id"="player"."game_id" 
     WHERE "game"."facilitator_id"=$1
@@ -93,8 +95,8 @@ router.post('/get/results', async (req, res) => {
 })
 
 //post route (will require facilitator auth) to end game
-router.post('/end', (req, res) => {
-    game.end(req.body.id, req.io)
+router.post('/end', isFacilitator, (req, res) => {
+    game.end(req.user.id, req.io)
         .then(() => res.sendStatus(200));
 })
 
