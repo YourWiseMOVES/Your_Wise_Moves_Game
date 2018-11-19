@@ -14,7 +14,7 @@ const sampleMessage = {
 
 const chat =  async (message, gameId, socket, config) => {
     try {
-        await pool.query(`INSERT INTO "chat" ("message", "type", "game_id") VALUES ($1, $2, $3);`,
+        await pool.query(`INSERT INTO "chat" ("text", "type", "game_id") VALUES ($1, $2, $3);`,
             [message.message, message.type, gameId]
         ) //update the chat table
         socket.broadcast.emit('chat', {done: true});
