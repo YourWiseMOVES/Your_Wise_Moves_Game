@@ -11,15 +11,7 @@ class Deck {
     }
     //subSelect is for narrowing the current cards down to cards of one type
     subSelect(stage_id) {
-        let subSelection = []
-        for (let card of this.cards) {
-            if (card.stage_id === stage_id) {
-                subSelection.push(card)
-            } else {
-                this.drawnCards.push(card)
-            }
-        }
-        this.cards = subSelection;
+        this.cards = this.cards.filter(card=>card.stage_id === stage_id)
     }
 
     //shuffle cards (for fun)
