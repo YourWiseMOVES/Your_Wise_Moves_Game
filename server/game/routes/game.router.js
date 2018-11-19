@@ -63,6 +63,17 @@ router.post('/rejoin', (req, res) => {
     })
 })
 
+//router for player to get up to date journal info at all times
+router.get('/journal', (req, res) => {
+    pool.query(`SELECT * FROM "journal" WHERE "id"=$1;`, [req.query.id])
+    .then(results => {
+        res.send(results.rows[0])
+    })
+    .catch(err => {
+        console.log('Error in journal get', err);
+    })
+})
+
 
 //post route for getting results emailed after the game 
 router.post('/get/results', async (req, res) => {

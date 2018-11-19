@@ -56,10 +56,9 @@ const join = action => { //returns array of two actions to handle join actions
     const actions = [];
     //action one sets the joining players info into redux
     const reduxActionOne = {
-        type: 'SET_PLAYER',
-        payload: {
-            ...action.data,
-        }
+        type: 'FETCH_PLAYER',
+        payload: action.data.id,
+        
     }
     //action two sets the game id into redux state
     actions.push(reduxActionOne);
