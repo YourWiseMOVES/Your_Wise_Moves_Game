@@ -38,7 +38,6 @@ class PlayerLogin extends Component {
         {/* user join game function from props to emit socket event */}
         <button onClick={() => this.props.joinGame(this.state.player, this.state.code, false)}>Join Game</button>
         <button onClick={() => this.props.joinGame(this.state.player, this.state.code, true)}>Re-Join Game</button>
-
       </div>
     );
   }

@@ -37,7 +37,7 @@ class FacilitatorLogin extends Component {
 
   render() {
     return (
-      <div>
+      <div className="threeContentContainer">
         <h1>Login View</h1>
         <button onClick={this.props.player}>Player Login</button>
         <h2>Facilitator View</h2>
