@@ -36,7 +36,7 @@ class App extends Component {
         <div className="backgroundPlaceholder"></div>
           <Nav />
           <Switch>
-            <Redirect exact from="/" to="/game" />
+            <Redirect exact from="/" to="/home" />
             <Route
               exact
               path="/home"
