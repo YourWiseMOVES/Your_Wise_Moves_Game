@@ -16,25 +16,21 @@
   border-top-right-radius: 1rem;
   border-bottom-right-radius: 1rem;
 }
-
 .sidebar h3 {
   color: black;
-  margin-left: .4rem;
+  margin-left: 0.4rem;
   font-size: 2rem;
   margin-bottom: 5px;
 }
-
 .sidebar h3:hover {
   color: grey;
   cursor: default;
 }
-
 .sidebar p {
   color: black;
-  margin-left: .4rem;
+  margin-left: 0.4rem;
   font-size: 1.4rem;
 }
-
 .sidebar p:hover {
   color: grey;
   cursor: default;
@@ -53,31 +49,70 @@
     margin-left: -70vw;
     width: 70vw;
   }
+
   .showSidebar {
-    -webkit-transition: .8s;
-    transition: .8s;
+    -webkit-transition: 0.8s;
+    -moz-transition: 0.8s;
+    -ms-transition: 0.8s;
+    -o-transition: 0.8s;
+    transition: 0.8s;
     margin-left: 0vw;
   }
+
   .hideSidebar {
-    -webkit-transition: .8s;
-    transition: .8s;
+    -webkit-transition: 0.8s;
+    -moz-transition: 0.8s;
+    -ms-transition: 0.8s;
+    -o-transition: 0.8s;
+    transition: 0.8s;
     margin-left: -70vw;
   }
+
   .sidebarButton {
     visibility: visible;
   }
+
   .moveSidebarButton {
-    -webkit-transition: .8s;
-    transition: .8s;
+    -webkit-transition: 0.8s;
+    -moz-transition: 0.8s;
+    -ms-transition: 0.8s;
+    -o-transition: 0.8s;
+    transition: 0.8s;
     top: 2vh;
     left: 60vw;
   }
+
   .moveSidebarButtonBack {
-    -webkit-transition: .8s;
-    transition: .8s;
+    -webkit-transition: 0.8s;
+    -moz-transition: 0.8s;
+    -ms-transition: 0.8s;
+    -o-transition: 0.8s;
+    transition: 0.8s;
     top: 0;
     left: 71vw;
   }
+}
+.card-wrapper {
+  width: 175px;
+  height: 250px;
+  background-color: white;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  margin: 8px;
+  border-radius: 4px;
+}
+
+.card-content {
+  padding: 2px 16px;
+}
+.card-content h6 {
+  color: black;
+}
+
+.card-collection {
+  display: flex;
+  flex-flow: row wrap;
+  padding: 8px;
+  justify-content: space-around;
 }
 
 #react-root {
@@ -139,12 +174,8 @@ footer {
 }
 
 .game {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+  justify-content: center;
 }
 
 .backgroundPlaceholderParent {
@@ -176,10 +207,10 @@ footer {
     margin-left: 10%;
   }
 }
-
 @media (min-width: 1400px) {
   .backgroundPlaceholder {
     margin-left: 40vw;
   }
 }
+
 /*# sourceMappingURL=main.css.map */
