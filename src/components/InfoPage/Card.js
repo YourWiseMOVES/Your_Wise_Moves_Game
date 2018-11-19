@@ -54,7 +54,9 @@ class Card extends Component {
     return (
       <div className="card-wrapper">
         <div className="card-content">
+        <div className={`card-header ${this.props.question.type}`}>
           <h6>{this.props.question.type}</h6>
+          </div>
           <h5>{this.props.question.text}</h5>
           <button onClick={() => this.setState({ editing: !this.state.editing })}>
             {this.state.editing ? 'close' : 'edit'}

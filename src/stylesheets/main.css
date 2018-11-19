@@ -101,10 +101,32 @@
   border-radius: 4px;
 }
 
-.card-content {
-  padding: 2px 16px;
+.card-header h6 {
+  color: white;
+  font-size: 16px;
 }
-.card-content h6 {
+
+.Map {
+  background-color: yellow;
+}
+
+.Open {
+  background-color: green;
+}
+
+.Visualize {
+  background-color: blue;
+}
+
+.Engage {
+  background-color: grey;
+}
+
+.Sustain {
+  background-color: red;
+}
+
+.card-content h5 {
   color: black;
 }
 
