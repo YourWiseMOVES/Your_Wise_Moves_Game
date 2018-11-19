@@ -201,10 +201,10 @@ body {
   left: 25vw;
   top: 39vh;
   z-index: 2;
-  background-color: black;
   height: 30vh;
   width: 80vh;
   max-width: 800px;
+  text-align: center;
 }
 
 @media only screen and (min-width: 0) {
@@ -219,7 +219,6 @@ body {
     width: 80vw;
     height: 30%;
     top: 60%;
-    background-color: green;
   }
 }
 
@@ -236,7 +235,6 @@ body {
     width: 400px;
     height: 30%;
     top: 60%;
-    background-color: red;
   }
 }
 
@@ -250,12 +248,11 @@ body {
   }
   .threeContentContainer {
     left: 60vw;
-    margin-left: -300px;
-    width: 600px;
+    margin-left: -125px;
+    width: 250px;
     height: 250px;
     top: 14vh;
     margin-top: 175px;
-    background-color: orange;
   }
 }
 
@@ -270,11 +267,11 @@ body {
   .threeContentContainer {
     width: 750px;
     left: 60vw;
-    margin-left: -375px;
+    margin-left: -150px;
     top: 12vh;
     margin-top: 225px;
     height: 300px;
-    background-color: purple;
+    width: 300px;
   }
 }
 /*# sourceMappingURL=main.css.map */
