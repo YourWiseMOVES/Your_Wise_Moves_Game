@@ -16,4 +16,4 @@ const isFacilitator = (req, res, next) => {
 
 };
   
-module.exports = { isFacilitator };
+module.exports =  isFacilitator ;
