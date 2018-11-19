@@ -5,7 +5,7 @@ import swal from 'sweetalert';
 class QuestionForm extends Component {
   state = {
     newContent: {
-      stage_id: '',
+      stage_id: '1',
       text: ''
     },
     editing: false
