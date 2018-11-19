@@ -1,0 +1,42 @@
+.card-wrapper{ 
+    width: 175px;
+    height:250px;
+    background-color: white;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2); 
+    margin: 8px;
+    border-radius:4px;
+    
+}
+.card-header{
+   h6{
+        color:white;
+        font-size: 16px;
+    };
+}
+.Map{
+background-color:yellow
+}
+.Open{
+background-color: green
+}
+.Visualize{
+background-color: blue
+}
+.Engage{
+background-color: grey
+}
+.Sustain{
+background-color: red
+}
+.card-content{
+   
+    h5{
+        color: black;
+    }
+}
+.card-collection{
+    display: flex;
+    flex-flow: row wrap;
+    padding: 8px;
+    justify-content: space-around;
+}

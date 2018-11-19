@@ -12,7 +12,7 @@ class PostGame extends Component {
         return (
             <div>
                 <h1>Final Reflection</h1>
-                {this.props.state.user.userReducer && this.props.state.user.userReducer.id &&
+                {this.props.state.user.userReducer && this.props.state.user.userReducer.is_facilitator &&
                     <button onClick={() => {
                         this.props.endGame()
                         //also clear facilitators redux state later

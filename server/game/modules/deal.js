@@ -23,10 +23,13 @@ const sampleDealAction = {
 const Deck = require('./Deck');
 const pool = require('../../modules/pool');
 
-const deal =  async (action, gameId, socket) => {
+const deal =  async (action, gameId, socket, config) => {
     try {
         //get cards
-       let cardResponse  = await pool.query(`SELECT * FROM "card";`)
+       let cardResponse  = await pool.query(`SELECT "card"."id","card"."text","stage_id","stage_type"."type" FROM "card"
+       JOIN "stage_type"
+       ON "card"."stage_id"="stage_type"."id"
+       WHERE "card"."id"=ANY(SELECT unnest("cards_in_deck") FROM "deck" WHERE "id" = $1);`, [config.deckId])
        //get players
        let playerResponse = await pool.query(`SELECT "id" FROM "player" WHERE "game_id"=$1;`, [gameId])
        //set cards as card data

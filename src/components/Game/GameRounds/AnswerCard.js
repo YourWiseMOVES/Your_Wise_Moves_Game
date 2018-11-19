@@ -23,7 +23,7 @@ class AnswerCard extends Component {
       <div>
         <h1>Answer Card</h1>
         <h2>Round: {this.props.state.game.roundNumber}</h2>
-        {this.props.state.user.userReducer && this.props.state.user.userReducer.id ?
+        {this.props.state.user.userReducer && this.props.state.user.userReducer.is_facilitator ?
           <div className="facilitator">
             <ol>
               {this.props.state.game.allPlayers.map(player => {

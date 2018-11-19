@@ -3,12 +3,15 @@ const router = require('express').Router();
 const game = require('../game');
 const pool = require('../../modules/pool');
 
+const { rejectUnauthenticated } = require('../../modules/authentication-middleware');
+const isFacilitator = require('../../modules/isFacilitator');
+
 const transporter = require('../../modules/transporter');
 const mailOptions = require('../../modules/mailOptions');
 
 //post route (will require facilitator auth) to start game
-router.post('/start', async (req, res) => {
-    const data = await game.begin(req.body.id, req.body.name, req.io);
+router.post('/start', isFacilitator, async (req, res) => {
+    const data = await game.begin(req.user.id, req.body.gameConfig, req.io);
     res.send(data);
 })
 
@@ -36,7 +39,7 @@ router.get('/player', (req, res) => {
 })
 
 //get route for facilitator to get all of their active games
-router.get('/games', (req, res) => {
+router.get('/games', rejectUnauthenticated, isFacilitator, (req, res) => {
     pool.query(`SELECT "game"."id", "game"."name" as "name", "game"."code" as "code", COUNT("player"."id") as "players", COUNT("player"."in_game"=true) as "active" FROM "game"
     FULL OUTER JOIN "player" ON "game"."id"="player"."game_id" 
     WHERE "game"."facilitator_id"=$1
@@ -63,6 +66,17 @@ router.post('/rejoin', (req, res) => {
     })
 })
 
+//router for player to get up to date journal info at all times
+router.get('/journal', (req, res) => {
+    pool.query(`SELECT * FROM "journal" WHERE "id"=$1;`, [req.query.id])
+    .then(results => {
+        res.send(results.rows[0])
+    })
+    .catch(err => {
+        console.log('Error in journal get', err);
+    })
+})
+
 
 //post route for getting results emailed after the game 
 router.post('/get/results', async (req, res) => {
@@ -82,8 +96,8 @@ router.post('/get/results', async (req, res) => {
 })
 
 //post route (will require facilitator auth) to end game
-router.post('/end', (req, res) => {
-    game.end(req.body.id, req.io)
+router.post('/end', rejectUnauthenticated, isFacilitator, (req, res) => {
+    game.end(req.user.id, req.io)
         .then(() => res.sendStatus(200));
 })
 
