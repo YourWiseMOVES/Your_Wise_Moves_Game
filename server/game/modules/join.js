@@ -47,4 +47,3 @@ const join =  async (action, gameId, socket, config) => {
 
 module.exports = join;
 
-//may need a rejoin function as well
