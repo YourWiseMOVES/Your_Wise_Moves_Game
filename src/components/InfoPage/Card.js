@@ -52,7 +52,7 @@ class Card extends Component {
   }
   render() {
     return (
-      <div style={{ width: '250px', boxShadow: '0 4px 8px 0 rgba(0,0,0,0.2)', margin:'8px' }} >
+      <div className="card-wrapper">
         <div style={{ padding: '2px 16px' }}>
           <h6>{this.props.question.type}</h6>
           <h5>{this.props.question.text}</h5>

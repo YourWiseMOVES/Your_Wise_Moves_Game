@@ -15,11 +15,14 @@ router.get('/', (req, res) => {
         })
 });
 // GET all the cards in a given deck
-router.get('/cards', (req, res) => {
+router.get('/:id', (req, res) => {
     console.log('get card');
-    pool.query(`SELECT * FROM "card"
-    WHERE "id" 
-    IN (SELECT unnest("cards_in_deck") FROM "deck" WHERE "id" = $1);`, [req.query.id])
+    pool.query(`
+    SELECT "card"."id","card"."text","stage_id","stage_type"."type" FROM "card"
+    JOIN "stage_type"
+    ON "card"."stage_id"="stage_type"."id"
+    WHERE "card"."id"=ANY(SELECT unnest("cards_in_deck") FROM "deck" WHERE "id" = $1);`,
+    [req.params.id])
         .then((results) => {
             res.send(results.rows)
         }).catch((error) => {
@@ -56,7 +59,7 @@ router.delete('/:id', (req, res) => {
         })
 });
 
-// PUT to edit a question
+// PUT to edit the makeup of the deck, takes an array of cards.
 router.put('/', (req, res) => {
     pool.query(`UPDATE "deck"
     SET "cards_in_deck" = ARRAY [${req.body.cards_in_deck}],
