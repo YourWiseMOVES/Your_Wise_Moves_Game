@@ -3,7 +3,7 @@ const cards = (state = {allCards:[], filteredCards:[]}, action) => {
         case 'SET_CARDS':
             return {...state, allCards:action.payload};
             case 'FILTER_CARDS':
-            return {...state, filteredCards: state.allCards.filter(card => card.stage_id == action.payload)}
+            return {...state, filteredCards: state.allCards.filter(card => card.stage_id === Number(action.payload))}
         default:
             return state;
     }

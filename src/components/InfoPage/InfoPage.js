@@ -6,7 +6,7 @@ import QuestionForm from './QuestionForm';
 class InfoPage extends Component {
   state = {
     data: [],
-    filter: '',
+    filter: '1',
     filtering:false
   }
   componentDidMount() {
