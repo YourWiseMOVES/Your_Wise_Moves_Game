@@ -1,10 +1,12 @@
 const express = require('express');
 const pool = require('../modules/pool');
 const router = express.Router();
+const isAdmin = require('../modules/isAdmin');
+const { rejectUnauthenticated } = require('../modules/authentication-middleware');
 
 
 // GET info on all questions from the card table
-router.get('/', (req, res) => {
+router.get('/', rejectUnauthenticated, isAdmin, (req, res) => {
     console.log('get card');
     pool.query(`
     SELECT "card"."id","card"."text","stage_id","stage_type"."type" FROM "card"
@@ -20,7 +22,7 @@ router.get('/', (req, res) => {
 
 
 // POST for adding a new question to the card table in the database
-router.post('/', (req, res) => {
+router.post('/', rejectUnauthenticated, isAdmin, (req, res) => {
     let body = req.body.card;
     pool.query(`INSERT INTO "card"( "text","stage_id" )
     VALUES ($1, $2);`,
@@ -36,7 +38,7 @@ router.post('/', (req, res) => {
 
 
 // DELETE question from card database
-router.delete('/:id', (req, res) => {
+router.delete('/:id', rejectUnauthenticated, isAdmin, (req, res) => {
     pool.query(`DELETE FROM "card"
     WHERE "id"=$1;`,
     [req.params.id])
@@ -49,7 +51,7 @@ router.delete('/:id', (req, res) => {
 });
 
 // PUT to edit a question
-router.put('/', (req, res) => {
+router.put('/', rejectUnauthenticated, isAdmin, (req, res) => {
     const updatedCard = req.body;
     console.log('in the edit function');
     console.log(req.body);  

@@ -19,9 +19,19 @@ function* fetchPlayer(action) {
   }
 }
 
+function* fetchJournal(action) {
+  try {
+    const response = yield call(axios, {method: 'GET', url: '/game/journal', params: {id: action.payload}})
+    yield put({ type: 'SET_JOURNAL', payload: response.data });
+  } catch (error) {
+    console.log('journal get request failed', error);
+  }
+}
+
 function* playersSaga() {
   yield takeLatest('FETCH_PLAYERS', fetchPlayers);
   yield takeLatest('FETCH_PLAYER', fetchPlayer);
+  yield takeLatest('FETCH_JOURNAL', fetchJournal);
 }
 
 export default playersSaga;
