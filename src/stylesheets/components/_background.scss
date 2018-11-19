@@ -7,7 +7,6 @@
 
 .myCanvas {
     position: absolute;
-    top: 14vh;
     -webkit-clip-path: circle(50% at 50% 50%);
     clip-path: circle(50% at 50% 50%);
     z-index: -1;
@@ -16,12 +15,27 @@
 .threeContentContainer {
     position: absolute;
     left: 25vw;
-    top: 39vh;
     z-index: 2;
     height: 30vh;
     width: 80vh; 
     max-width: 800px;   
     text-align: center;
+    color: whitesmoke;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    button{
+        width: 100px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    h3, h2 {
+        margin: 2px;
+    }
+    h1 {
+        margin-top: 2px;
+        margin-bottom: 2px;
+    }
 }
 
 @media only screen and (min-width: 0) {
@@ -29,7 +43,7 @@
         width: 80vw;
         height: 80vw;
         left: 10vw;
-        top: 16vh;
+        top: 10vh;
     }
     .threeContentContainer{
         left: 10vw;
@@ -59,19 +73,20 @@
 
 @media only screen and (min-width: $medium){
     .myCanvas {
-        left: 60vw;
-        top: 14vh;
+        left: 50vw;
+        top: 50vh;
+        margin-top: -300px;
         margin-left: -300px;
         height: 600px;
         width: 600px;
     }
     .threeContentContainer{
-        left: 60vw;
+        left: 50vw;
         margin-left: -125px;
         width: 250px;
         height: 250px;
-        top: 14vh;
-        margin-top: 175px;
+        top: 50vh;
+        margin-top: -125px;
         // background-color: orange;
     }
 }
@@ -82,16 +97,17 @@
     .myCanvas {
         width: 750px;
         height: 750px;
-        left: 60vw;
+        left: 50vw;
         margin-left: -375px;
-        top: 12vh;
+        top: 50%;
+        margin-top: -375px;
     }
     .threeContentContainer{
         width: 750px;
-        left: 60vw;
+        left: 50vw;
         margin-left: -150px;
-        top: 12vh;
-        margin-top: 225px;
+        top: 50vh;
+        margin-top: -150px;
         height: 300px;
         width: 300px;
         // background-color: purple;

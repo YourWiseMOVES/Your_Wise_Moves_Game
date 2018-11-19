@@ -17,7 +17,7 @@ class FacilitatorCreateGame extends Component {
 
   render() {
     return (
-      <div>
+      <div className="threeContentContainer">
         <h1>Your Games</h1>
         <ol>
           {this.props.state.games.map(game => {
