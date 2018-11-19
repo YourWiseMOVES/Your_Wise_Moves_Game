@@ -21,7 +21,7 @@ class IntentionInput extends Component {
     return (
       <div>
         <h1>Intention or Question Input</h1>
-        {this.props.state.user.userReducer && this.props.state.user.userReducer.id ?
+        {this.props.state.user.userReducer && this.props.state.user.userReducer.is_facilitator ?
           <div className="facilitator">
             <ol>
               {
