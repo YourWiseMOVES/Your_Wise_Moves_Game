@@ -6,7 +6,8 @@ function* rejoinGamePlayer(action) {
     const response = yield call(axios, {method: 'POST', url: '/game/rejoin', data: {type: 'player', identifier: action.payload.code, name: action.payload.name}})
     console.log(response);
     yield put({ type: 'FETCH_PLAYER', payload: response.data.playerId });  
-    yield put({ type: 'FETCH_PLAYERS', payload: response.data.gameId });  
+    yield put({ type: 'FETCH_PLAYERS', payload: response.data.gameId }); 
+    yield put({ type: 'FETCH_CHAT', payload: response.data.gameId });  
     yield put({ type: 'FETCH_JOURNAL', payload: response.data.journalId });  
     yield put({ type: 'UPDATE_GAME_STATE', payload: {
         newGameState: response.data.gameState,
@@ -20,8 +21,8 @@ function* rejoinGamePlayer(action) {
 function* rejoinGameFacilitator(action) {
   try {
     const response = yield call(axios, {method: 'POST', url: '/game/rejoin', data: {type: 'facilitator', identifier: action.payload}})
-    console.log(response);
-    yield put({ type: 'FETCH_PLAYERS', payload: action.payload });  
+    yield put({ type: 'FETCH_PLAYERS', payload: action.payload }); 
+    yield put({ type: 'FETCH_CHAT', payload: response.data.gameId });  
     yield put({ type: 'UPDATE_GAME_STATE', payload: {
         newGameState: response.data.gameState,
     } });  

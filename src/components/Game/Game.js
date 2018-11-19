@@ -23,6 +23,7 @@ import PostGame from './PostGame/PostGame';
 import GameStart from './GameStart/GameStart';
 import PreGame from './PreGame/PreGame';
 import Sidebar from './Sidebar';
+import Chat from './Chat';
 
 //game start imports
 import axios from 'axios';
@@ -70,6 +71,9 @@ class Game extends Component {
     })
     socket.on('game', data => {
       this.props.dispatch({ type: 'FETCH_GAMES' });
+    })
+    socket.on('chat', data => {
+      this.props.dispatch({ type: 'FETCH_CHAT', payload: this.props.state.game.gameId });
     })
     this.props.dispatch({ type: 'REJOIN_GAME_FACILITATOR', payload: game.id })
     this.props.dispatch({ type: 'SET_CODE', payload: game.code })
@@ -161,6 +165,9 @@ class Game extends Component {
         //trigger fetch players saga
         this.props.dispatch({ type: 'FETCH_PLAYERS', payload: this.props.state.game.gameId })
         this.props.dispatch({ type: 'FETCH_JOURNAL', payload: this.props.state.game.player.journal_id })
+      })
+      socket.on('chat', data => {
+        this.props.dispatch({ type: 'FETCH_CHAT', payload: this.props.state.game.gameId });
       })
       socket.on('player', data => { //set event handler for 'player' events
         //trigger saga to refresh single player
@@ -266,6 +273,16 @@ class Game extends Component {
     window.removeEventListener('beforeunload', this.disconnectSocket)
   }
 
+  sendMessage = message => event => {
+    event.preventDefault();
+    console.log('message sent');
+    socket.emit('chat', {
+      message,
+      type: 'user',
+      from: this.props.state.game.player.name || 'facilitator',
+    });
+  }
+
   render() {
     return (
       <div className="game">
@@ -307,6 +324,9 @@ class Game extends Component {
             endGame={this.endGame} //function to end the game
           />
         }
+        <Chat 
+          sendMessage={this.sendMessage}
+        />
       </div>
     )
   }

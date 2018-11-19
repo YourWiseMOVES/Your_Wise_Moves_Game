@@ -10,6 +10,9 @@ const end = require('./modules/end');
 //function marks a player as not in game
 const removePlayer = require('./modules/removePlayer');
 
+//function handles chat events
+const chatHandler = require('./modules/chat');
+
 //functions allow players and facilitators to rejoin
 const rejoinPlayer = require('./modules/rejoinPlayer');
 const rejoinFacilitator = require('./modules/rejoinFacilitator');
@@ -44,6 +47,10 @@ exports.begin = async (facilitatorId, gameConfig, io) => {
                     socket.on('moves', action => {
                         console.log('received');
                         receiver(action, gameId, socket, config);
+                    })
+                    socket.on('chat', message => {
+                        console.log('chat event occured');
+                        chatHandler(message, gameId, socket, config,)
                     })
                     socket.on('end', action => {
                         socket.broadcast.emit('end', { done: true })
