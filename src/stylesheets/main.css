@@ -136,6 +136,9 @@ body {
   backface-visibility: hidden;
   border-radius: 4px;
 }
+.card-content h5 {
+  font-size: 10px;
+}
 
 .card-wrapper.is-flipped {
   transform: rotateY(180deg);
@@ -148,6 +151,9 @@ body {
 
 .card-back {
   transform: rotateY(180deg);
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
 }
 
 .card-back.Map {
@@ -178,6 +184,7 @@ body {
 .card-header h6 {
   color: white;
   font-size: 16px;
+  margin-top: 8px;
 }
 
 .card-header.Map {
@@ -210,6 +217,18 @@ body {
   flex-flow: row wrap;
   padding: 8px;
   justify-content: space-around;
+}
+
+.question-form {
+  height: 80%;
+  width: 80%;
+  background-color: white;
+  padding: 8px;
+  border-radius: 4px;
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+  flex-direction: column;
 }
 
 #react-root {

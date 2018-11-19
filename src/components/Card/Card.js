@@ -26,7 +26,7 @@ class Card extends Component {
   }
   render() {
     return (
-      <div className="scene" onClick={this.state.editable ? this.flipCard() : null}>
+      <div className="scene" onClick={!this.props.editable ? this.flipCard : null}>
         <div className={`card-wrapper ${this.state.isFlipped ? 'is-flipped' : null}`}>
           <div className="card-content card-front">
             <div className={`card-header ${this.props.question.type}`}>
@@ -44,7 +44,7 @@ class Card extends Component {
           </div>
           <div className={`card-content card-back ${this.props.question.type}`}>
             {
-              this.state.editing ?
+              this.props.editable ?
                 <QuestionForm flipCard={this.flipCard} question={this.props.question} /> : null
             }
           </div>

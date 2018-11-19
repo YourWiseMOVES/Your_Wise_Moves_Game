@@ -20,7 +20,7 @@ class InfoPage extends Component {
                    filtering:true})
   }
   toggleFilter= ()=>{
-    this.setState({filtering:!this.state.filtering,
+    this.setState({filtering: false,
                     data:this.props.cards.allCards})
 } 
   handleChangeFor = (input) => event => {
@@ -49,7 +49,7 @@ class InfoPage extends Component {
  
           <input type="submit" />
           </form>
-          <button onClick={this.toggleFilter}>Clear filter</button>
+          <button disabled={!this.state.filtering} onClick={this.toggleFilter}>Clear filter</button>
         </div>
         <div>
           <QuestionForm add={true} />
