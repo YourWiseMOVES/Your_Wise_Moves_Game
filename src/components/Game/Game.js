@@ -279,6 +279,7 @@ class Game extends Component {
     socket.emit('chat', {
       message,
       type: 'user',
+      from: this.props.state.game.player.name || 'facilitator',
     });
   }
 
