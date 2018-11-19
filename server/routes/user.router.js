@@ -3,19 +3,27 @@ const { rejectUnauthenticated } = require('../modules/authentication-middleware'
 const encryptLib = require('../modules/encryption');
 const pool = require('../modules/pool');
 const userStrategy = require('../strategies/user.strategy');
+const isAdmin = require('../modules/isAdmin');
+
 
 const router = express.Router();
 
 // Handles Ajax request for user information if user is authenticated
 router.get('/', rejectUnauthenticated, (req, res) => {
   // Send back user object from the session (previously queried from the database)
-  res.send(req.user);
+  pool.query(`SELECT * FROM "person" WHERE "id"=$1;`, [req.user.id])
+  .then(results => {
+    res.send(results.rows[0]);
+  })
+  .catch(err => {
+    console.log('Error getting user info', err);
+  })
 });
 
 // Handles POST request with new user data
 // The only thing different from this and every other post we've seen
 // is that the password gets encrypted before being inserted
-router.post('/register', (req, res, next) => {
+router.post('/register', rejectUnauthenticated, isAdmin, (req, res, next) => {
   const username = req.body.username;
   const password = encryptLib.encryptPassword(req.body.password);
   const first_name = req.body.first_name;
@@ -47,7 +55,7 @@ router.post('/logout', (req, res) => {
   res.sendStatus(200);
 });
 
-router.put('/register', (req, res) => { // will leave "password" as editable until we have set up 
+router.put('/register', rejectUnauthenticated, isAdmin, (req, res) => { // will leave "password" as editable until we have set up 
   const updatedFacilitator = req.body;  // functionality for facilitator to change own password
   console.log('in the edit function');
   console.log(req.body);
@@ -78,7 +86,7 @@ router.put('/register', (req, res) => { // will leave "password" as editable unt
     })
 })
 
-router.get('/register', (req, res) => {
+router.get('/register', rejectUnauthenticated, isAdmin, (req, res) => {
   console.log('get facilitators');
   pool.query(`SELECT "username", "first_name", "last_name", "email", "organization", "phone_number", "is_facilitator", "is_admin", "id"
   FROM "person";`)
@@ -90,7 +98,7 @@ router.get('/register', (req, res) => {
     })
 });
 
-router.delete('/register', (req, res) => {
+router.delete('/register', rejectUnauthenticated, isAdmin, (req, res) => {
   pool.query(`DELETE FROM "person"
   WHERE "first_name"=$1 AND "last_name"=$2;`,
       [req.body.first_name,

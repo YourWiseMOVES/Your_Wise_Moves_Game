@@ -104,7 +104,7 @@ class Background extends Component {
         yinYang.castShadow = true;
         yinYang.receiveShadow = true;
         scene.add(yinYang);
-        yinYang.position.set(0, 0, 90);
+        yinYang.position.set(0, 0, 120);
 
         const textureEarth = new THREE.TextureLoader().load(require('./images/earth.jpg'));
 
@@ -276,7 +276,7 @@ class Background extends Component {
 
         this.mount.appendChild(this.renderer.domElement)
         this.start()
-        this.moveSphereForward(this.pointsMetalOutside, this.pointsMetalInside, this.metal)
+        // this.moveSphereForward(this.pointsMetalOutside, this.pointsMetalInside, this.metal)
     }
 
     componentWillUnmount() {

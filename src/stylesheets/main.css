@@ -1,3 +1,21 @@
+#react-root {
+  height: 100vh;
+  width: 100vw;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+body {
+  font: 100% Helvetica, sans-serif;
+  color: #e4cfcf;
+  background: #64b4e4;
+  background: linear-gradient(0deg, #64b4e4 0%, #000742 100%);
+  height: 100vh;
+  font-size: 10px;
+  text-align: center;
+}
+
 .sidebar {
   height: 80vh;
   /* Full-height: remove this if you want "auto" height */
@@ -44,7 +62,7 @@
   visibility: hidden;
 }
 
-@media (max-width: 900px) {
+@media only screen and (max-width: 1000px) {
   .sidebar {
     margin-left: -70vw;
     width: 70vw;
@@ -92,13 +110,69 @@
     left: 71vw;
   }
 }
+.scene {
+  width: 350px;
+  height: 200px;
+  border-radius: 8px;
+  perspective: 600px;
+  margin-bottom: 10px;
+}
+
 .card-wrapper {
-  width: 175px;
-  height: 250px;
-  background-color: white;
+  height: 100%;
+  width: 100%;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-  margin: 8px;
   border-radius: 4px;
+  transition: transform 1s;
+  transform-style: preserve-3d;
+  cursor: pointer;
+  position: relative;
+}
+
+.card-content {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  border-radius: 4px;
+}
+
+.card-wrapper.is-flipped {
+  transform: rotateY(180deg);
+}
+
+.card-front {
+  background: white;
+  color: black;
+}
+
+.card-back {
+  transform: rotateY(180deg);
+}
+
+.card-back.Map {
+  background-image: url("../images/map.jpg");
+  background-size: 350px 200px;
+}
+
+.card-back.Open {
+  background-image: url("../images/open.jpg");
+  background-size: 350px 200px;
+}
+
+.card-back.Visualize {
+  background-image: url("../images/visualize.jpg");
+  background-size: 350px 200px;
+}
+
+.card-back.Engage {
+  background-image: url("../images/engage.jpg");
+  background-size: 350px 200px;
+}
+
+.card-back.Sustain {
+  background-image: url("../images/sustain.jpg");
+  background-size: 350px 200px;
 }
 
 .card-header h6 {
@@ -106,28 +180,29 @@
   font-size: 16px;
 }
 
-.Map {
-  background-color: yellow;
+.card-header.Map {
+  background-image: url("../images/map.jpg");
+  background-size: 350px 200px;
 }
 
-.Open {
-  background-color: green;
+.card-header.Open {
+  background-image: url("../images/open.jpg");
+  background-size: 350px 200px;
 }
 
-.Visualize {
-  background-color: blue;
+.card-header.Visualize {
+  background-image: url("../images/visualize.jpg");
+  background-size: 350px 200px;
 }
 
-.Engage {
-  background-color: grey;
+.card-header.Engage {
+  background-image: url("../images/engage.jpg");
+  background-size: 350px 200px;
 }
 
-.Sustain {
-  background-color: red;
-}
-
-.card-content h5 {
-  color: black;
+.card-header.Sustain {
+  background-image: url("../images/sustain.jpg");
+  background-size: 350px 200px;
 }
 
 .card-collection {
@@ -148,7 +223,9 @@
 body {
   font: 100% Helvetica, sans-serif;
   color: #e4cfcf;
-  background-color: black;
+  background: #64b4e4;
+  background: linear-gradient(0deg, #64b4e4 0%, #000742 100%);
+  height: 100vh;
   font-size: 10px;
   text-align: center;
 }
@@ -195,6 +272,24 @@ footer {
   float: right;
 }
 
+#react-root {
+  height: 100vh;
+  width: 100vw;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+body {
+  font: 100% Helvetica, sans-serif;
+  color: #e4cfcf;
+  background: #64b4e4;
+  background: linear-gradient(0deg, #64b4e4 0%, #000742 100%);
+  height: 100vh;
+  font-size: 10px;
+  text-align: center;
+}
+
 .game {
   display: flex;
   justify-content: center;
@@ -202,24 +297,89 @@ footer {
 
 .myCanvas {
   position: absolute;
-  margin-left: 30vw;
-  height: 70vh;
-  width: 70vh;
-  max-height: 800px;
-  max-width: 800px;
-  margin-top: 14vh;
+  top: 14vh;
   -webkit-clip-path: circle(50% at 50% 50%);
   clip-path: circle(50% at 50% 50%);
   z-index: -1;
 }
 
-@media (max-width: 900px) {
+.threeContentContainer {
+  position: absolute;
+  left: 25vw;
+  top: 39vh;
+  z-index: 2;
+  height: 30vh;
+  width: 80vh;
+  max-width: 800px;
+  text-align: center;
+}
+
+@media only screen and (min-width: 0) {
   .myCanvas {
-    width: 80%;
-    height: 80%;
-    max-width: 80vw;
-    max-height: 80vw;
-    margin-left: 10vw;
+    width: 80vw;
+    height: 80vw;
+    left: 10vw;
+    top: 16vh;
+  }
+
+  .threeContentContainer {
+    left: 10vw;
+    width: 80vw;
+    height: 30%;
+    top: 60%;
+  }
+}
+@media only screen and (min-width: 500px) {
+  .myCanvas {
+    width: 400px;
+    height: 400px;
+    left: 50vw;
+    margin-left: -200px;
+  }
+
+  .threeContentContainer {
+    left: 50vw;
+    margin-left: -200px;
+    width: 400px;
+    height: 30%;
+    top: 60%;
+  }
+}
+@media only screen and (min-width: 1000px) {
+  .myCanvas {
+    left: 60vw;
+    top: 14vh;
+    margin-left: -300px;
+    height: 600px;
+    width: 600px;
+  }
+
+  .threeContentContainer {
+    left: 60vw;
+    margin-left: -125px;
+    width: 250px;
+    height: 250px;
+    top: 14vh;
+    margin-top: 175px;
+  }
+}
+@media (min-width: 1400px) {
+  .myCanvas {
+    width: 750px;
+    height: 750px;
+    left: 60vw;
+    margin-left: -375px;
+    top: 12vh;
+  }
+
+  .threeContentContainer {
+    width: 750px;
+    left: 60vw;
+    margin-left: -150px;
+    top: 12vh;
+    margin-top: 225px;
+    height: 300px;
+    width: 300px;
   }
 }
 

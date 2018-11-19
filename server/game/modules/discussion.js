@@ -16,7 +16,7 @@ const sampleDiscussionAction = {
     facilitatorId: 0,
 }
 
-const discussion = async (action, gameId, socket) => {
+const discussion = async (action, gameId, socket, config) => {
     switch (action.data.set) {
         //update player to reflect that they have spoken their turn in the discussion phase
         case 'done':

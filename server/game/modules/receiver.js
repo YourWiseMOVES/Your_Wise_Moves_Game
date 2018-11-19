@@ -29,23 +29,23 @@ const join = require('./join')
 const deal = require('./deal');
 
 //function receives actions and routes them to their proper handlers
-const receiver = (action, gameId, socket) => {
+const receiver = (action, gameId, socket, config) => {
     console.log('in receiver');
     switch(action.type) {
         case ('advance'):
-            advance(action, gameId, socket);
+            advance(action, gameId, socket, config);
             break;
         case ('discussion'):
-            discussion(action, gameId, socket);
+            discussion(action, gameId, socket, config);
             break;
         case ('journal'):
-            journal(action, gameId, socket);
+            journal(action, gameId, socket, config);
             break;
         case ('join'):
-            join(action, gameId, socket);
+            join(action, gameId, socket, config);
             break;
         case('deal'):
-            deal(action, gameId, socket)
+            deal(action, gameId, socket, config)
             break;
     }
 }
