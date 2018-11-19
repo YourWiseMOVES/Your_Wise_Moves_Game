@@ -16,15 +16,15 @@ class Chat extends Component {
     render() {
         return (
             <div>
-                <ol>
+                <ul>
                     {
                         this.props.state.chat.map(message => {
                             return (
-                                <li key={message.id}>{message.text}</li>
+                                <li key={message.id}>{message.from}: {message.text}</li>
                             );
                         })
                     }
-                </ol>
+                </ul>
                 <form onSubmit={this.props.sendMessage(this.state.newMessage)}>
                     <input
                         type="text"
