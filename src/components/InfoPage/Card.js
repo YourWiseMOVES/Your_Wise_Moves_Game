@@ -53,7 +53,7 @@ class Card extends Component {
   render() {
     return (
       <div className="card-wrapper">
-        <div style={{ padding: '2px 16px' }}>
+        <div className="card-content">
           <h6>{this.props.question.type}</h6>
           <h5>{this.props.question.text}</h5>
           <button onClick={() => this.setState({ editing: !this.state.editing })}>
