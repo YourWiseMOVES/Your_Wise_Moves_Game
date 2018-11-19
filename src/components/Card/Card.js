@@ -37,7 +37,7 @@ class Card extends Component {
             {this.props.editable ?
               <div className="edit-buttons">
                 <button onClick={() => this.flipCard()}>
-                  {this.state.editing ? 'close' : 'edit'}
+                  Edit
                 </button>
 
               </div> : null}
