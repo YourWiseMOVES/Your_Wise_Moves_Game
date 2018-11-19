@@ -1,10 +1,13 @@
 const express = require('express');
 const pool = require('../modules/pool');
 const router = express.Router();
+const isAdmin = require('../modules/isAdmin');
+const isFacilitator = require('../modules/isFacilitator');
+const { rejectUnauthenticated } = require('../modules/authentication-middleware');
 
 
 // GET a list of all decks
-router.get('/', (req, res) => {
+router.get('/', rejectUnauthenticated, isFacilitator, (req, res) => {
     console.log('get all decks');
     pool.query(`SELECT * FROM "deck";`)
         .then((results) => {
@@ -33,7 +36,7 @@ router.get('/:id', (req, res) => {
 
 
 // POST a new deck, takes an array of cards that make up the deck, and the description of the deck
-router.post('/', (req, res) => {
+router.post('/', rejectUnauthenticated, isAdmin, (req, res) => {
     pool.query(`INSERT INTO "deck"( "cards_in_deck","description" )
     VALUES (ARRAY [${req.body.cards_in_deck}], $1);`,
         [req.body.description])
@@ -47,7 +50,7 @@ router.post('/', (req, res) => {
 
 
 // DELETE a whole deck
-router.delete('/:id', (req, res) => {
+router.delete('/:id', rejectUnauthenticated, isAdmin, (req, res) => {
     pool.query(`DELETE FROM "deck"
     WHERE "id"=$1;`,
         [req.params.id])
@@ -60,7 +63,7 @@ router.delete('/:id', (req, res) => {
 });
 
 // PUT to edit the makeup of the deck, takes an array of cards.
-router.put('/', (req, res) => {
+router.put('/', rejectUnauthenticated, isAdmin, (req, res) => {
     pool.query(`UPDATE "deck"
     SET "cards_in_deck" = ARRAY [${req.body.cards_in_deck}],
     "description" = $1
