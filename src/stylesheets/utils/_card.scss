@@ -7,11 +7,31 @@
     border-radius:4px;
     
 }
-.card-content{
-    padding: 2px 16px;
-    h6{
-        color:black;
+.card-header{
+   h6{
+        color:white;
+        font-size: 16px;
     };
+}
+.Map{
+background-color:yellow
+}
+
+.Open{
+background-color: green
+}
+
+.Visualize{
+background-color: blue
+}
+.Engage{
+background-color: grey
+}
+.Sustain{
+background-color: red
+}
+.card-content{
+   
     h5{
         color: black;
     }
