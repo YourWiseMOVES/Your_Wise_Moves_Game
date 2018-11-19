@@ -33,7 +33,7 @@ class IntentionInput extends Component {
               }
             </ol>
             <button onClick={() => this.props.advanceStage(
-              this.props.calculateNextStage('2')
+              this.props.calculateNextStage('0')
             )}>Next</button>
           </div>
           :
