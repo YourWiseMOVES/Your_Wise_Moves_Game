@@ -33,7 +33,13 @@ class Sidebar extends Component {
             <div ref={ref => this.sidebar = ref} className="sidebar">
                 <button className="sidebarButton" onClick={this.triggerSidebar}>Side Bar</button>
                 {this.props.state.user.userReducer && this.props.state.user.userReducer.is_facilitator ?
+<<<<<<< HEAD
                     <FacilitatorSidebar />
+=======
+                    <FacilitatorSidebar 
+                        createGame={this.props.createGame}
+                    />
+>>>>>>> 99ff01beb63e9cc1dbc8ed18a4346834ca9de263
                     :
                     <Journal />
                 }

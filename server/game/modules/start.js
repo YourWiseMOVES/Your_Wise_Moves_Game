@@ -13,9 +13,16 @@ const newCode = require('randomatic');
 const start = async (facilitatorId, config) => {
     try {
         //use module to generate new six digit numerical code
+<<<<<<< HEAD
         let untestedCode = true;
         while(untestedCode) { //make new codes until a unique one is generated
             let code = await newCode('0', 6);
+=======
+        let code;
+        let untestedCode = true;
+        while(untestedCode) { //make new codes until a unique one is generated
+            code = await newCode('0', 6);
+>>>>>>> 99ff01beb63e9cc1dbc8ed18a4346834ca9de263
             let response = await pool.query(`SELECT * FROM "game" WHERE "code"=$1;`, [code]);
             if(response.rows[0]){
                 console.log('code matched');
