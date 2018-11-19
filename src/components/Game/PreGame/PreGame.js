@@ -27,7 +27,7 @@ class PreGame extends Component {
     componentDidMount(){
         setTimeout(
             () => {
-                if(this.props.state.user.userReducer.id){
+                if(this.props.state.user.userReducer.is_facilitator){
                     this.setState({
                         userType: 'facilitator',
                     })
@@ -72,7 +72,7 @@ class PreGame extends Component {
                 {
                     this.state.userType === 'facilitator' &&
                     <div>
-                        {this.props.state.user.userReducer && this.props.state.user.userReducer.id ?
+                        {this.props.state.user.userReducer && tthis.props.state.user.userReducer.is_facilitator ?
                             <FacilitatorCreateGame
                                 //sub component requires 
                                 createGame={this.props.createGame}
