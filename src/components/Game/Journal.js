@@ -6,7 +6,6 @@ class Journal extends Component {
     render() {
         return (
             <div>
-                <pre>{JSON.stringify(this.props.state.game.player, null, 2)}</pre>
                 <h2>Journal</h2>
                 <h3>{this.props.journal.intention}</h3>
                 <h4>Question One</h4>

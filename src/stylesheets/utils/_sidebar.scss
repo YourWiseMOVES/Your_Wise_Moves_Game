@@ -1,3 +1,5 @@
+@import '../base/body';
+
 .sidebar {
     height: 80vh; /* Full-height: remove this if you want "auto" height */
     width: 20vw; /* Set the width of the sidebar */
@@ -38,7 +40,7 @@
     visibility: hidden;
 }
 
-@media (max-width: 900px) {
+@media only screen and (max-width: $medium) {
     .sidebar {
         margin-left: -70vw;
         width: 70vw;
@@ -81,4 +83,12 @@
         top: 0;
         left: 71vw;
     }
+}
+
+@media only screen and (min-width: $medium){
+    
+}
+
+@media only screen and (min-width: $large) {
+    
 }

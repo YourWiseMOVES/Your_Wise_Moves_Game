@@ -21,7 +21,7 @@ class Discussion extends Component {
           {this.props.state.game.allPlayers.map(player => {
             if (player.in_discussion && !player.discussed) {
               return (
-                <li key={player.id}>Name: {player.name} {this.props.state.user.userReducer && this.props.state.user.userReducer.id &&
+                <li key={player.id}>Name: {player.name} {this.props.state.user.userReducer && this.props.state.user.userReducer.is_facilitator &&
                   !this.props.state.game.selectedPlayer.id && //only show the select button when there is no selected player
                   <button
                     onClick={() => this.props.selectPlayer(player)}
@@ -37,7 +37,7 @@ class Discussion extends Component {
         <h2>{this.props.state.game.selectedPlayer.name}</h2>
         <h3>Selected Player Intention: {this.props.state.game.selectedPlayer.intention}</h3>
         <h3>Selected Player Question: {this.props.state.game.selectedPlayer.current_card}</h3>
-        {this.props.state.user.userReducer && this.props.state.user.userReducer.id &&
+        {this.props.state.user.userReducer && this.props.state.user.userReducer.is_facilitator&&
           <button
             onClick={() => this.props.markDone(this.props.state.game.selectedPlayer)}
           >Mark Complete</button>
@@ -54,7 +54,7 @@ class Discussion extends Component {
             }
           })}
         </ol>
-        {this.props.state.user.userReducer && this.props.state.user.userReducer.id &&
+        {this.props.state.user.userReducer && this.props.state.user.userReducer.is_facilitator &&
           <button onClick={() => this.props.advanceStage(
             this.props.calculateNextStage('0'), true
           )}>Next</button>
