@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import {connect} from 'react-redux'
-import Card from './Card'
+import { connect } from 'react-redux'
+import Card from '../Card/Card'
 import QuestionForm from './QuestionForm';
 
 class InfoPage extends Component {
@@ -8,7 +8,7 @@ class InfoPage extends Component {
     data: [],
   }
   componentDidMount() {
-    this.props.dispatch({type:'FETCH_CARDS'}); // call getCardInfo on page load to display all the default questions
+    this.props.dispatch({ type: 'FETCH_CARDS' }); // call getCardInfo on page load to display all the default questions
   }
   render() {
     return (
@@ -21,23 +21,22 @@ class InfoPage extends Component {
           <h4>Add a new question here:</h4>
         </div>
         <div>
-         <QuestionForm add={true}/>
+          <QuestionForm add={true} />
         </div>
         {!this.props.cards ? null :
           <div className="card-collection">
             {this.props.cards.map(question =>
-               <div>
-                 <Card 
-                 key={question.id} 
-                 question={question}
-                 editable={true}/>
-               </div>)}
+              <Card
+                key={question.id}
+                question={question}
+                editable={true} />
+            )}
           </div>}
       </div>
     )
   }
 }
-const mapReduxStateToProps = ({cards})=>({cards})
+const mapReduxStateToProps = ({ cards }) => ({ cards })
 
 
-export default connect(mapReduxStateToProps) (InfoPage);
+export default connect(mapReduxStateToProps)(InfoPage);
