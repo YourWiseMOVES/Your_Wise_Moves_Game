@@ -17,7 +17,8 @@ class QuestionForm extends Component {
           stage_id: this.props.question.stage_id,
           text: this.props.question.text,
           id: this.props.question.id
-        }
+        },
+        editing: true
       })
     }
   }
@@ -54,12 +55,14 @@ class QuestionForm extends Component {
       this.props.dispatch({ type: 'ADD_CARD', payload: this.state.newContent }) :
       this.props.dispatch({ type: 'EDIT_CARD', payload: this.state.newContent })
     swal(this.props.add ? 'Card Added' : 'Card Edited');
+    if (this.props.flipCard){
+      this.props.flipCard();
+    }
   }
   render() {
     return (
-      <div>
+      <div className="question-form">
         <form onSubmit={this.handleSubmit}>
-          <h6>Add a question</h6>
           <label htmlFor="select">Select a movement: </label>
           <select name="select" onChange={this.handleChangeFor('stage_id')} value={this.state.newContent.stage_id}>
             <option value="1">Map</option>
@@ -73,6 +76,7 @@ class QuestionForm extends Component {
           <input name="text" type="text" onChange={this.handleChangeFor('text')} value={this.state.newContent.text} />
           <input type="submit" />
         </form>
+        {this.state.editing?<button onClick={() => this.handleDelete(this.props.question.id)}>Delete</button>:null}
       </div>
     );
   }

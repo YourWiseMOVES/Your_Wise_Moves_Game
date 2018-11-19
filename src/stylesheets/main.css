@@ -10,7 +10,6 @@ body {
   font: 100% Helvetica, sans-serif;
   color: #e4cfcf;
   background: #64b4e4;
-  background: -webkit-gradient(linear, left bottom, left top, from(#64b4e4), to(#000742));
   background: linear-gradient(0deg, #64b4e4 0%, #000742 100%);
   height: 100vh;
   min-height: 900px;
@@ -129,43 +128,107 @@ button:active {
   }
 }
 
+.scene {
+  width: 350px;
+  height: 200px;
+  border-radius: 8px;
+  perspective: 600px;
+  margin: 10px;
+}
+
 .card-wrapper {
-  width: 175px;
-  height: 250px;
-  background-color: white;
-  -webkit-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-          box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-  margin: 8px;
+  height: 100%;
+  width: 100%;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+
   border-radius: 4px;
+  transition: transform 1s;
+  transform-style: preserve-3d;
+  cursor: pointer;
+  position: relative;
+}
+
+.card-content {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  border-radius: 4px;
+}
+.card-content h5 {
+  font-size: 10px;
+}
+
+.card-wrapper.is-flipped {
+  transform: rotateY(180deg);
+}
+
+.card-front {
+  background: white;
+  color: black;
+}
+
+.card-back {
+  transform: rotateY(180deg);
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.card-back.Map {
+  background-image: url("../images/map.jpg");
+  background-size: 350px 200px;
+}
+
+.card-back.Open {
+  background-image: url("../images/open.jpg");
+  background-size: 350px 200px;
+}
+
+.card-back.Visualize {
+  background-image: url("../images/visualize.jpg");
+  background-size: 350px 200px;
+}
+
+.card-back.Engage {
+  background-image: url("../images/engage.jpg");
+  background-size: 350px 200px;
+}
+
+.card-back.Sustain {
+  background-image: url("../images/sustain.jpg");
+  background-size: 350px 200px;
 }
 
 .card-header h6 {
   color: white;
   font-size: 16px;
+  margin-top: 8px;
 }
 
-.Map {
-  background-color: yellow;
+.card-header.Map {
+  background-image: url("../images/map.jpg");
+  background-size: 350px 200px;
 }
 
-.Open {
-  background-color: green;
+.card-header.Open {
+  background-image: url("../images/open.jpg");
+  background-size: 350px 200px;
 }
 
-.Visualize {
-  background-color: blue;
+.card-header.Visualize {
+  background-image: url("../images/visualize.jpg");
+  background-size: 350px 200px;
 }
 
-.Engage {
-  background-color: grey;
+.card-header.Engage {
+  background-image: url("../images/engage.jpg");
+  background-size: 350px 200px;
 }
 
-.Sustain {
-  background-color: red;
-}
-
-.card-content h5 {
-  color: black;
+.card-header.Sustain {
+  background-image: url("../images/sustain.jpg");
+  background-size: 350px 200px;
 }
 
 .card-collection {
@@ -181,6 +244,18 @@ button:active {
       justify-content: space-around;
 }
 
+.question-form {
+  height: 80%;
+  width: 80%;
+  background-color: white;
+  padding: 8px;
+  border-radius: 4px;
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+  flex-direction: column;
+}
+
 #react-root {
   height: 100vh;
   width: 100vw;
@@ -193,7 +268,6 @@ body {
   font: 100% Helvetica, sans-serif;
   color: #e4cfcf;
   background: #64b4e4;
-  background: -webkit-gradient(linear, left bottom, left top, from(#64b4e4), to(#000742));
   background: linear-gradient(0deg, #64b4e4 0%, #000742 100%);
   height: 100vh;
   min-height: 900px;
@@ -284,7 +358,6 @@ body {
   font: 100% Helvetica, sans-serif;
   color: #e4cfcf;
   background: #64b4e4;
-  background: -webkit-gradient(linear, left bottom, left top, from(#64b4e4), to(#000742));
   background: linear-gradient(0deg, #64b4e4 0%, #000742 100%);
   height: 100vh;
   min-height: 900px;
@@ -380,6 +453,7 @@ button:active {
     left: 10vw;
     top: 10vh;
   }
+
   .threeContentContainer {
     left: 10vw;
     width: 80vw;
@@ -387,7 +461,6 @@ button:active {
     top: 60%;
   }
 }
-
 @media only screen and (min-width: 500px) {
   .myCanvas {
     width: 400px;
@@ -395,6 +468,7 @@ button:active {
     left: 50vw;
     margin-left: -200px;
   }
+
   .threeContentContainer {
     left: 50vw;
     margin-left: -200px;
@@ -403,7 +477,6 @@ button:active {
     top: 60%;
   }
 }
-
 @media only screen and (min-width: 1000px) {
   .myCanvas {
     left: 50vw;
@@ -413,6 +486,7 @@ button:active {
     height: 600px;
     width: 600px;
   }
+
   .threeContentContainer {
     left: 50vw;
     margin-left: -125px;
@@ -422,7 +496,6 @@ button:active {
     margin-top: -125px;
   }
 }
-
 @media (min-width: 1400px) {
   .myCanvas {
     width: 750px;
@@ -432,6 +505,7 @@ button:active {
     top: 50%;
     margin-top: -375px;
   }
+
   .threeContentContainer {
     width: 750px;
     left: 50vw;
