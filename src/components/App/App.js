@@ -11,6 +11,7 @@ import {connect} from 'react-redux';
 
 import Nav from '../Nav/Nav';
 import Footer from '../Footer/Footer';
+import Background from './Background';
 
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute'
 
@@ -32,11 +33,11 @@ class App extends Component {
   render() {
     return (
       <Router>
-        <div className="backgroundPlaceholderParent">
-        <div className="backgroundPlaceholder"></div>
+        <div>
+        <Background />
           <Nav />
           <Switch>
-            <Redirect exact from="/" to="/game" />
+            <Redirect exact from="/" to="/home" />
             <Route
               exact
               path="/home"
