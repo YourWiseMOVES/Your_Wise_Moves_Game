@@ -16,7 +16,7 @@ const sampleAdvanceAction = {
     facilitatorId: 0,
 }
 
-const advance =  async (action, gameId, socket) => {
+const advance =  async (action, gameId, socket, config) => {
     console.log(action);
     try {
         //update the database to reflect the new game state

@@ -8,7 +8,7 @@ const mailOptions = require('../../modules/mailOptions');
 
 //post route (will require facilitator auth) to start game
 router.post('/start', async (req, res) => {
-    const data = await game.begin(req.body.id, req.body.name, req.io);
+    const data = await game.begin(req.body.id, req.body.gameConfig, req.io);
     res.send(data);
 })
 
