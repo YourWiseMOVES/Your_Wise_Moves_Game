@@ -54,6 +54,7 @@ class QuestionForm extends Component {
       this.props.dispatch({ type: 'ADD_CARD', payload: this.state.newContent }) :
       this.props.dispatch({ type: 'EDIT_CARD', payload: this.state.newContent })
     swal(this.props.add ? 'Card Added' : 'Card Edited');
+    this.props.flipCard();
   }
   render() {
     return (
@@ -73,6 +74,7 @@ class QuestionForm extends Component {
           <input name="text" type="text" onChange={this.handleChangeFor('text')} value={this.state.newContent.text} />
           <input type="submit" />
         </form>
+        <button onClick={() => this.handleDelete(this.props.question.id)}>Delete</button>
       </div>
     );
   }

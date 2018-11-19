@@ -21,7 +21,7 @@ class InfoPage extends Component {
           <h4>Add a new question here:</h4>
         </div>
         <div>
-          <QuestionForm add={true} />
+          <QuestionForm flipCard={this.flipCard} add={true} />
         </div>
         {!this.props.cards ? null :
           <div className="card-collection">
