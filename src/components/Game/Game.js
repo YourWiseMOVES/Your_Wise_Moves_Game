@@ -269,6 +269,7 @@ class Game extends Component {
   render() {
     return (
       <div className="game">
+
         <Sidebar
           createGame={this.createGame} //function to create a new game as facilitator
         />
