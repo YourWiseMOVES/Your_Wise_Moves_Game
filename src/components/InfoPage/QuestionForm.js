@@ -54,13 +54,14 @@ class QuestionForm extends Component {
       this.props.dispatch({ type: 'ADD_CARD', payload: this.state.newContent }) :
       this.props.dispatch({ type: 'EDIT_CARD', payload: this.state.newContent })
     swal(this.props.add ? 'Card Added' : 'Card Edited');
-    this.props.flipCard();
+    if (this.props.flipCard){
+      this.props.flipCard();
+    }
   }
   render() {
     return (
       <div>
         <form onSubmit={this.handleSubmit}>
-          <h6>Add a question</h6>
           <label htmlFor="select">Select a movement: </label>
           <select name="select" onChange={this.handleChangeFor('stage_id')} value={this.state.newContent.stage_id}>
             <option value="1">Map</option>
