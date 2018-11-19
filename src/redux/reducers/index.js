@@ -6,6 +6,7 @@ import game from './gameReducer';
 import gameCode from './codeReducer';
 import cards from './cardReducer'
 import games from './gamesReducer';
+import chat from './chatReducer';
 
 // rootReducer is the primary reducer for our entire project
 // It bundles up all of the other reducers so our project can use them.
@@ -21,6 +22,7 @@ const rootReducer = combineReducers({
   gameCode,
   cards,
   games,
+  chat,
 });
 
 export default rootReducer;

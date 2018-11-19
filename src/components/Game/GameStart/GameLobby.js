@@ -20,7 +20,7 @@ class GameLobby extends Component {
 
     render() {
         return (
-            <div>
+            <div className="threeContentContainer">
                 <h1>Game Lobby</h1>
                 <div className="facilitator">
                     <ol>
@@ -34,7 +34,7 @@ class GameLobby extends Component {
                             })
                         }
                     </ol>
-                    {this.props.state.user.userReducer && this.props.state.user.userReducer.id ?
+                    {this.props.state.user.userReducer && this.props.state.user.userReducer.is_facilitator ?
                         <button onClick={() => this.props.advanceStage(
                             this.props.calculateNextStage('1')
                         )}>Next</button>

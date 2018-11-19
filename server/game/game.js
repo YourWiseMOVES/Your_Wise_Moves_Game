@@ -10,6 +10,9 @@ const end = require('./modules/end');
 //function marks a player as not in game
 const removePlayer = require('./modules/removePlayer');
 
+//function handles chat events
+const chatHandler = require('./modules/chat');
+
 //functions allow players and facilitators to rejoin
 const rejoinPlayer = require('./modules/rejoinPlayer');
 const rejoinFacilitator = require('./modules/rejoinFacilitator');
@@ -20,10 +23,12 @@ let game_socket;
 let code;
 let gameId;
 let link;
+let config;
 
-exports.begin = async (facilitatorId, name, io) => {
+exports.begin = async (facilitatorId, gameConfig, io) => {
     try {
-        const data = await start(facilitatorId, name);
+        config = gameConfig;
+        const data = await start(facilitatorId, config);
         //split up returned data for readability 
         code = data.code;
         gameId = data.gameId;
@@ -36,19 +41,23 @@ exports.begin = async (facilitatorId, name, io) => {
                     socket.emit('start', { message: 'Connected to server.', code });
                     //set listener for players joining
                     socket.on('join', action => {
-                        receiver(action, gameId, socket);
+                        receiver(action, gameId, socket, config);
                     })
                     //set listener for game actions
                     socket.on('moves', action => {
                         console.log('received');
-                        receiver(action, gameId, socket);
+                        receiver(action, gameId, socket, config);
+                    })
+                    socket.on('chat', message => {
+                        console.log('chat event occured');
+                        chatHandler(message, gameId, socket, config,)
                     })
                     socket.on('end', action => {
                         socket.broadcast.emit('end', { done: true })
                     })
                     socket.on('leave', action => {
                         console.log('in leave');
-                        removePlayer(action, gameId, socket);
+                        removePlayer(action, gameId, socket, config);
                     })
                     socket.on('disconnect', data => {
                         console.log('a client has disconnected');

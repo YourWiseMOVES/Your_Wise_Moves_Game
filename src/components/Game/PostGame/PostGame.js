@@ -10,9 +10,9 @@ import { connect } from 'react-redux';
 class PostGame extends Component {
     render() {
         return (
-            <div>
+            <div className="threeContentContainer">
                 <h1>Final Reflection</h1>
-                {this.props.state.user.userReducer && this.props.state.user.userReducer.id &&
+                {this.props.state.user.userReducer && this.props.state.user.userReducer.is_facilitator &&
                     <button onClick={() => {
                         this.props.endGame()
                         //also clear facilitators redux state later

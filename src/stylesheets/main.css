@@ -1,3 +1,52 @@
+#react-root {
+  height: 100vh;
+  width: 100vw;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+body {
+  font: 100% Helvetica, sans-serif;
+  color: #e4cfcf;
+  background: #64b4e4;
+  background: -webkit-gradient(linear, left bottom, left top, from(#64b4e4), to(#000742));
+  background: linear-gradient(0deg, #64b4e4 0%, #000742 100%);
+  height: 100vh;
+  min-height: 900px;
+  font-size: 10px;
+  text-align: center;
+}
+
+button {
+  border-top: 1px solid #9bd6fa;
+  border-bottom: 1px solid black;
+  border-right: 1px solid black;
+  border-left: 1px solid #9bd6fa;
+  background: #65a9d7;
+  background: -o-linear-gradient(top, #3e779d, #65a9d7);
+  padding: 5px 10px;
+  border-radius: 9px;
+  -webkit-box-shadow: black 0 1px 0;
+  box-shadow: black 0 1px 0;
+  text-shadow: rgba(0, 0, 0, 0.4) 0 1px 0;
+  color: white;
+  font-size: 12px;
+  vertical-align: middle;
+}
+
+button:hover {
+  border-top-color: #28597a;
+  border-left-color: #28597a;
+  background: #28597a;
+  color: #ccc;
+}
+
+button:active {
+  border-top-color: #1b435e;
+  background: #1b435e;
+}
+
 .sidebar {
   height: 80vh;
   /* Full-height: remove this if you want "auto" height */
@@ -7,7 +56,7 @@
   /* Fixed Sidebar (stay in place on scroll) */
   z-index: 1;
   /* Stay on top */
-  top: 13vh;
+  top: 10vh;
   /* Stay at the top */
   left: 0;
   background-color: white;
@@ -48,7 +97,7 @@
   visibility: hidden;
 }
 
-@media (max-width: 900px) {
+@media only screen and (max-width: 1000px) {
   .sidebar {
     margin-left: -70vw;
     width: 70vw;
@@ -80,6 +129,58 @@
   }
 }
 
+.card-wrapper {
+  width: 175px;
+  height: 250px;
+  background-color: white;
+  -webkit-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+          box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  margin: 8px;
+  border-radius: 4px;
+}
+
+.card-header h6 {
+  color: white;
+  font-size: 16px;
+}
+
+.Map {
+  background-color: yellow;
+}
+
+.Open {
+  background-color: green;
+}
+
+.Visualize {
+  background-color: blue;
+}
+
+.Engage {
+  background-color: grey;
+}
+
+.Sustain {
+  background-color: red;
+}
+
+.card-content h5 {
+  color: black;
+}
+
+.card-collection {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: row wrap;
+          flex-flow: row wrap;
+  padding: 8px;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+}
+
 #react-root {
   height: 100vh;
   width: 100vw;
@@ -91,9 +192,42 @@
 body {
   font: 100% Helvetica, sans-serif;
   color: #e4cfcf;
-  background-color: black;
+  background: #64b4e4;
+  background: -webkit-gradient(linear, left bottom, left top, from(#64b4e4), to(#000742));
+  background: linear-gradient(0deg, #64b4e4 0%, #000742 100%);
+  height: 100vh;
+  min-height: 900px;
   font-size: 10px;
   text-align: center;
+}
+
+button {
+  border-top: 1px solid #9bd6fa;
+  border-bottom: 1px solid black;
+  border-right: 1px solid black;
+  border-left: 1px solid #9bd6fa;
+  background: #65a9d7;
+  background: -o-linear-gradient(top, #3e779d, #65a9d7);
+  padding: 5px 10px;
+  border-radius: 9px;
+  -webkit-box-shadow: black 0 1px 0;
+  box-shadow: black 0 1px 0;
+  text-shadow: rgba(0, 0, 0, 0.4) 0 1px 0;
+  color: white;
+  font-size: 12px;
+  vertical-align: middle;
+}
+
+button:hover {
+  border-top-color: #28597a;
+  border-left-color: #28597a;
+  background: #28597a;
+  color: #ccc;
+}
+
+button:active {
+  border-top-color: #1b435e;
+  background: #1b435e;
 }
 
 footer {
@@ -138,6 +272,55 @@ footer {
   float: right;
 }
 
+#react-root {
+  height: 100vh;
+  width: 100vw;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+body {
+  font: 100% Helvetica, sans-serif;
+  color: #e4cfcf;
+  background: #64b4e4;
+  background: -webkit-gradient(linear, left bottom, left top, from(#64b4e4), to(#000742));
+  background: linear-gradient(0deg, #64b4e4 0%, #000742 100%);
+  height: 100vh;
+  min-height: 900px;
+  font-size: 10px;
+  text-align: center;
+}
+
+button {
+  border-top: 1px solid #9bd6fa;
+  border-bottom: 1px solid black;
+  border-right: 1px solid black;
+  border-left: 1px solid #9bd6fa;
+  background: #65a9d7;
+  background: -o-linear-gradient(top, #3e779d, #65a9d7);
+  padding: 5px 10px;
+  border-radius: 9px;
+  -webkit-box-shadow: black 0 1px 0;
+  box-shadow: black 0 1px 0;
+  text-shadow: rgba(0, 0, 0, 0.4) 0 1px 0;
+  color: white;
+  font-size: 12px;
+  vertical-align: middle;
+}
+
+button:hover {
+  border-top-color: #28597a;
+  border-left-color: #28597a;
+  background: #28597a;
+  color: #ccc;
+}
+
+button:active {
+  border-top-color: #1b435e;
+  background: #1b435e;
+}
+
 .game {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -149,24 +332,114 @@ footer {
 
 .myCanvas {
   position: absolute;
-  margin-left: 30vw;
-  height: 70vh;
-  width: 70vh;
-  max-height: 800px;
-  max-width: 800px;
-  margin-top: 14vh;
   -webkit-clip-path: circle(50% at 50% 50%);
   clip-path: circle(50% at 50% 50%);
   z-index: -1;
 }
 
-@media (max-width: 900px) {
+.threeContentContainer {
+  position: absolute;
+  left: 25vw;
+  z-index: 2;
+  height: 30vh;
+  width: 80vh;
+  max-width: 800px;
+  text-align: center;
+  color: whitesmoke;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.threeContentContainer button {
+  width: 100px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.threeContentContainer h3, .threeContentContainer h2 {
+  margin: 2px;
+}
+
+.threeContentContainer h1 {
+  margin-top: 2px;
+  margin-bottom: 2px;
+}
+
+@media only screen and (min-width: 0) {
   .myCanvas {
-    width: 80%;
-    height: 80%;
-    max-width: 80vw;
-    max-height: 80vw;
-    margin-left: 10vw;
+    width: 80vw;
+    height: 80vw;
+    left: 10vw;
+    top: 10vh;
+  }
+  .threeContentContainer {
+    left: 10vw;
+    width: 80vw;
+    height: 30%;
+    top: 60%;
+  }
+}
+
+@media only screen and (min-width: 500px) {
+  .myCanvas {
+    width: 400px;
+    height: 400px;
+    left: 50vw;
+    margin-left: -200px;
+  }
+  .threeContentContainer {
+    left: 50vw;
+    margin-left: -200px;
+    width: 400px;
+    height: 30%;
+    top: 60%;
+  }
+}
+
+@media only screen and (min-width: 1000px) {
+  .myCanvas {
+    left: 50vw;
+    top: 50vh;
+    margin-top: -300px;
+    margin-left: -300px;
+    height: 600px;
+    width: 600px;
+  }
+  .threeContentContainer {
+    left: 50vw;
+    margin-left: -125px;
+    width: 250px;
+    height: 250px;
+    top: 50vh;
+    margin-top: -125px;
+  }
+}
+
+@media (min-width: 1400px) {
+  .myCanvas {
+    width: 750px;
+    height: 750px;
+    left: 50vw;
+    margin-left: -375px;
+    top: 50%;
+    margin-top: -375px;
+  }
+  .threeContentContainer {
+    width: 750px;
+    left: 50vw;
+    margin-left: -150px;
+    top: 50vh;
+    margin-top: -150px;
+    height: 300px;
+    width: 300px;
   }
 }
 

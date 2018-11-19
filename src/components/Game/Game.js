@@ -23,6 +23,7 @@ import PostGame from './PostGame/PostGame';
 import GameStart from './GameStart/GameStart';
 import PreGame from './PreGame/PreGame';
 import Sidebar from './Sidebar';
+import Chat from './Chat';
 
 //game start imports
 import axios from 'axios';
@@ -32,10 +33,10 @@ let socket;
 
 class Game extends Component {
 
-  createGame = name => { //function to create the game, triggers the game start on server
+  createGame = config => { //function to create the game, triggers the game start on server
     axios({
       method: 'POST',
-      data: { id: this.props.state.user.userReducer.id, name: name }, //pass facilitator id to be added to game table
+      data: { id: this.props.state.user.userReducer.id, gameConfig: config }, //pass facilitator id to be added to game table + options for game settings
       url: '/game/start',
     })
       .then(response => {
@@ -71,7 +72,10 @@ class Game extends Component {
     socket.on('game', data => {
       this.props.dispatch({ type: 'FETCH_GAMES' });
     })
-    this.props.dispatch({type: 'REJOIN_GAME_FACILITATOR', payload: game.id})
+    socket.on('chat', data => {
+      this.props.dispatch({ type: 'FETCH_CHAT', payload: this.props.state.game.gameId });
+    })
+    this.props.dispatch({ type: 'REJOIN_GAME_FACILITATOR', payload: game.id })
     this.props.dispatch({ type: 'SET_CODE', payload: game.code })
   }
 
@@ -162,6 +166,9 @@ class Game extends Component {
         this.props.dispatch({ type: 'FETCH_PLAYERS', payload: this.props.state.game.gameId })
         this.props.dispatch({ type: 'FETCH_JOURNAL', payload: this.props.state.game.player.journal_id })
       })
+      socket.on('chat', data => {
+        this.props.dispatch({ type: 'FETCH_CHAT', payload: this.props.state.game.gameId });
+      })
       socket.on('player', data => { //set event handler for 'player' events
         //trigger saga to refresh single player
         this.props.dispatch({ type: 'FETCH_PLAYER', payload: this.props.state.game.player.id })
@@ -176,7 +183,7 @@ class Game extends Component {
         })
       }
       else if (reJoin) {
-        this.props.dispatch({type:'REJOIN_GAME_PLAYER', payload: {code, name}})
+        this.props.dispatch({ type: 'REJOIN_GAME_PLAYER', payload: { code, name } })
       }
       this.props.dispatch({ //set the game code in redux state (for view redirect)
         type: 'SET_CODE',
@@ -266,10 +273,23 @@ class Game extends Component {
     window.removeEventListener('beforeunload', this.disconnectSocket)
   }
 
+  sendMessage = message => event => {
+    event.preventDefault();
+    console.log('message sent');
+    socket.emit('chat', {
+      message,
+      type: 'user',
+      from: this.props.state.game.player.name || 'facilitator',
+    });
+  }
+
   render() {
     return (
       <div className="game">
-        <Sidebar />
+
+        <Sidebar
+          createGame={this.createGame} //function to create a new game as facilitator
+        />
         {this.props.state.game.gameState[0] === '0' &&
           this.props.state.gameCode !== '' ?
           <GameStart
@@ -280,7 +300,6 @@ class Game extends Component {
           :
           this.props.state.game.gameState[0] === '0' ?
             <PreGame
-              createGame={this.createGame} //function to create a new game as facilitator
               advanceStage={this.advanceStage} //function to advance the game forward
               joinGame={this.joinGame} //function to join a game as player
               facilitatorJoinGame={this.facilitatorJoinGame}
@@ -305,6 +324,9 @@ class Game extends Component {
             endGame={this.endGame} //function to end the game
           />
         }
+        <Chat 
+          sendMessage={this.sendMessage}
+        />
       </div>
     )
   }
