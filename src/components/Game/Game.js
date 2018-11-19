@@ -268,6 +268,7 @@ class Game extends Component {
     return (
       <div className="game">
         <Journal />
+        <div className = "threeContentContainer" ></div>
         {this.props.state.game.gameState[0] === '0' &&
           this.props.state.gameCode !== '' ?
           <GameStart
