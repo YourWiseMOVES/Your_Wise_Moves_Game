@@ -10,7 +10,7 @@ class IntentionIntro extends Component {
 
   render() {
     return (
-      <div>
+      <div className="threeContentContainer">
         <h1>Introduction to Intention or Question</h1>
       { this.props.state.user.userReducer && this.props.state.user.userReducer.is_facilitator &&
         <button onClick={() => {this.props.advanceStage(

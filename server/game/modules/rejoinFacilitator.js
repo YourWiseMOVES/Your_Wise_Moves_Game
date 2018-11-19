@@ -12,6 +12,7 @@ const rejoinFacilitator =  async (gameId) => {
         let gameState = gameStateResponse.rows[0].game_stage;
         return {
             gameState,
+            gameId,
         }
     }
     catch (err) {

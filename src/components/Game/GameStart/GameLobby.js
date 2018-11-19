@@ -20,7 +20,7 @@ class GameLobby extends Component {
 
     render() {
         return (
-            <div>
+            <div className="threeContentContainer">
                 <h1>Game Lobby</h1>
                 <div className="facilitator">
                     <ol>
