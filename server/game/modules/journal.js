@@ -23,7 +23,7 @@ const sampleJournalAction = {
     }
 }
 
-const journal = async (action, gameId, socket) => {
+const journal = async (action, gameId, socket, config) => {
     console.log(action);
     try {
         //get the inbound player's journal id
