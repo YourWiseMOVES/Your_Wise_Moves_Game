@@ -4,7 +4,7 @@
 
 const pool = require('../../modules/pool');
 
-const removePlayer =  async (action, gameId, socket) => {
+const removePlayer =  async (action, gameId, socket, config) => {
     try {
         await pool.query(`UPDATE "player" SET "in_game"=$1 WHERE "id"=$2;`, [false, action.id]);
         socket.broadcast.emit('players', {done: true});

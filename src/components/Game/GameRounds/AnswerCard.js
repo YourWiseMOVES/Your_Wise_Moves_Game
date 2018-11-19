@@ -23,8 +23,8 @@ class AnswerCard extends Component {
       <div>
         <h1>Answer Card</h1>
         <h2>Round: {this.props.state.game.roundNumber}</h2>
-        {this.props.state.user.userReducer && this.props.state.user.userReducer.id ?
-          <div className="facilitator">
+        {this.props.state.user.userReducer && this.props.state.user.userReducer.is_facilitator ?
+          <div className="threeContentContainer">
             <ol>
               {this.props.state.game.allPlayers.map(player => {
                 return(
@@ -37,7 +37,7 @@ class AnswerCard extends Component {
             )}>Next</button>
           </div>
           :
-          <div>
+          <div className="threeContentContainer">
             <h2>Your Intention: {this.props.state.game.player.intention}</h2>
             <h2>Your Question: {this.props.state.game.player.current_card}</h2>
             <input

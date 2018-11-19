@@ -14,7 +14,7 @@ const sampleJoinAction = {
     },
 }
 
-const join =  async (action, gameId, socket) => {
+const join =  async (action, gameId, socket, config) => {
     try {
         //As each player joins create a journal row
         let journalId = await pool.query(`INSERT INTO "journal" ("game_id") VALUES ($1)
@@ -47,4 +47,3 @@ const join =  async (action, gameId, socket) => {
 
 module.exports = join;
 
-//may need a rejoin function as well

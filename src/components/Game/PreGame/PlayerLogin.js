@@ -24,7 +24,7 @@ class PlayerLogin extends Component {
 
   render() {
     return (
-      <div>
+      <div className="threeContentContainer">
         <h1>Player Login</h1>
         <button onClick={this.props.facilitator}>Log in as facilitator</button>
         <h2>Player View</h2>
@@ -38,7 +38,6 @@ class PlayerLogin extends Component {
         {/* user join game function from props to emit socket event */}
         <button onClick={() => this.props.joinGame(this.state.player, this.state.code, false)}>Join Game</button>
         <button onClick={() => this.props.joinGame(this.state.player, this.state.code, true)}>Re-Join Game</button>
-
       </div>
     );
   }
