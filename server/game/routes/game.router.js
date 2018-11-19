@@ -95,6 +95,19 @@ router.post('/get/results', async (req, res) => {
 
 })
 
+//get route for chat messages
+router.get('/get/chat', (req, res) => {
+    pool.query(`SELECT * FROM "chat" WHERE "game_id"=$1;`, [req.query.id])
+    .then(results => {
+        console.log(results);
+        res.send(results.rows);
+    })
+    .catch(err => {
+        console.log('error getting chat', err);
+        res.sendStatus(500);
+    })
+})
+
 //post route (will require facilitator auth) to end game
 router.post('/end', rejectUnauthenticated, isFacilitator, (req, res) => {
     game.end(req.user.id, req.io)
