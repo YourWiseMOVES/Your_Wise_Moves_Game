@@ -23,7 +23,7 @@ class Background extends Component {
         let counter = 1;
         this.counter = counter;
 
-        let backwards=false;
+        let backwards = false;
         this.backwards = backwards;
 
 
@@ -71,7 +71,7 @@ class Background extends Component {
         background.receiveShadow = true;
         background.position.z = -20;
         background.position.y = -200;
-        background.rotation.z = -Math.PI/6;
+        background.rotation.z = -Math.PI / 6;
         scene.add(background);
 
         //------------------------------CLOUDS----------------------------------
@@ -276,7 +276,7 @@ class Background extends Component {
 
         this.mount.appendChild(this.renderer.domElement)
         this.start()
-        // this.moveSphereForward(this.pointsMetalOutside, this.pointsMetalInside, this.metal)
+        // this.moveSphereForward(1)
     }
 
     componentWillUnmount() {
@@ -326,12 +326,36 @@ class Background extends Component {
     }
 
     rotateBackground = (numOfSegments) => {
-        this.background.rotation.z += (Math.PI/3) / numOfSegments;
+        this.background.rotation.z += (Math.PI / 3) / numOfSegments;
     }
 
-    moveSphereForward = (pointsArrayOutside, pointsArrayInside, sphere) => {
-
+    moveSphereForward = (input) => {
+        let pointsArrayOutside;
+        let pointsArrayInside;
+        let sphere;
+        if (input === 1){
+            pointsArrayOutside = this.pointsMetalOutside;
+            pointsArrayInside = this.pointsMetalInside;
+            sphere = this.metal
+        } else if ( input === 2){
+            pointsArrayOutside = this.pointsWaterOutside;
+            pointsArrayInside = this.pointsWaterInside;
+            sphere = this.water
+        } else if ( input === 3){
+            pointsArrayOutside = this.pointsWoodOutside;
+            pointsArrayInside = this.pointsWoodInside;
+            sphere = this.wood
+        } else if ( input === 4){
+            pointsArrayOutside = this.pointsFireOutside;
+            pointsArrayInside = this.pointsFireInside;
+            sphere = this.fire
+        } else if ( input === 5){
+            pointsArrayOutside = this.pointsEarthOutside;
+            pointsArrayInside = this.pointsEarthInside;
+            sphere = this.earth
+        }
         const easedArray = this.speedArchitect(pointsArrayOutside.length, 16)
+        
         if (this.i < easedArray.length - 1 && this.backwards === false) {
             let bPoint = easedArray[this.i];
             let b = pointsArrayOutside[bPoint];
@@ -346,7 +370,7 @@ class Background extends Component {
 
             this.rotateBackground(easedArray.length);
             this.i = this.i + 1;
-            requestAnimationFrame(() => this.moveSphereForward(pointsArrayOutside, pointsArrayInside, sphere));
+            requestAnimationFrame(() => this.moveSphereForward(input));
         } else if (this.i === easedArray.length - 1 && this.backwards === false) {
             this.backwards = true;
             sphere.position.x = pointsArrayOutside[pointsArrayOutside.length - 1].x;
@@ -356,18 +380,43 @@ class Background extends Component {
             this.yinYang.position.y = pointsArrayInside[0].y;
             this.yinYang.position.z = pointsArrayInside[0].z;
             this.i--;
-            this.moveSphereBack(pointsArrayOutside, pointsArrayInside, sphere);
         }
     }
 
-    moveSphereBack(pointsArrayOutside, pointsArrayInside, sphere) {
+    moveSphereBack = (input) => {
+
+        let pointsArrayOutside;
+        let pointsArrayInside;
+        let sphere;
+
+        if (input === 1){
+            pointsArrayOutside = this.pointsMetalOutside;
+            pointsArrayInside = this.pointsMetalInside;
+            sphere = this.metal
+        } else if ( input === 2){
+            pointsArrayOutside = this.pointsWaterOutside;
+            pointsArrayInside = this.pointsWaterInside;
+            sphere = this.water
+        } else if ( input === 3){
+            pointsArrayOutside = this.pointsWoodOutside;
+            pointsArrayInside = this.pointsWoodInside;
+            sphere = this.wood
+        } else if ( input === 4){
+            pointsArrayOutside = this.pointsFireOutside;
+            pointsArrayInside = this.pointsFireInside;
+            sphere = this.fire
+        } else if ( input === 5){
+            pointsArrayOutside = this.pointsEarthOutside;
+            pointsArrayInside = this.pointsEarthInside;
+            sphere = this.earth
+        }
 
         const easedArray = this.speedArchitect(pointsArrayOutside.length, 16)
-    
+
         if (this.i > 0 && this.backwards === true) {
             const bPoint = easedArray[this.i];
             const b = pointsArrayInside[bPoint];
-            const ybPoint = easedArray[easedArray.length-(this.i+1)];
+            const ybPoint = easedArray[easedArray.length - (this.i + 1)];
             const yb = pointsArrayOutside[ybPoint];
             sphere.position.x = b.x;
             sphere.position.y = b.y;
@@ -376,25 +425,17 @@ class Background extends Component {
             this.yinYang.position.y = yb.y;
             this.yinYang.position.z = yb.z;
             this.i--;
-            requestAnimationFrame(() => this.moveSphereBack(pointsArrayOutside, pointsArrayInside, sphere));
+            requestAnimationFrame(() => this.moveSphereBack(input));
         } else if (this.backwards === true && this.i === 0) {
             this.backwards = false;
             this.counter = this.counter + 1;
-
-            if (this.counter === 1){
-            this.moveSphereForward(this.pointsMetalOutside, this.pointsMetalInside, this.metal)
-            } else if (this.counter === 2){
-            this.moveSphereForward(this.pointsWaterOutside, this.pointsWaterInside, this.water)
-            } else if (this.counter === 3) {
-            this.moveSphereForward(this.pointsWoodOutside, this.pointsWoodInside, this.wood)
-            } else if (this.counter === 4) {
-            this.moveSphereForward(this.pointsFireOutside, this.pointsFireInside, this.fire)
-            } else if (this.counter === 5) {
-            this.counter = 0
-            this.moveSphereForward(this.pointsEarthOutside, this.pointsEarthInside, this.earth)
-            }
+        }
+        if ( input === 5) {
+            this.rotateBackground(easedArray.length);
         }
     }
+
+
 
     renderScene() {
         this.renderer.render(this.scene, this.camera)
@@ -402,7 +443,10 @@ class Background extends Component {
 
     render() {
         return (
-            <div ref={(mount) => { this.mount = mount }} className="myCanvas"></div>
+            <React.Fragment>
+                <div ref={(mount) => { this.mount = mount }} className="myCanvas"></div>
+                {React.cloneElement(this.props.children, { moveSphereForward: this.moveSphereForward, moveSphereBack: this.moveSphereBack })}
+            </React.Fragment>
         );
     }
 }

@@ -59,6 +59,14 @@ class Game extends Component {
           //trigger a saga that fetches the players from the database
           this.props.dispatch({ type: 'FETCH_PLAYERS', payload: this.props.state.game.game.id })
         }
+        if (data.type === 'advance' && data.data.newGameState[0] !== '0' && data.data.newGameState[0] !== '6') { //if it is an advance action
+          if (data.data.newGameState[1] === '0' && data.data.newGameState[0] !== '1') {
+            this.props.moveSphereBack(Number(this.props.state.game.roundNumber - 1))
+          }
+          this.props.moveSphereForward(Number(this.props.state.game.roundNumber))
+        } else if (data.data.newGameState[0] === '6') {
+          this.props.moveSphereBack(Number(this.props.state.game.roundNumber - 1))
+        }
         //dispatch the returned redux action
         this.props.dispatch(action);
       } catch (err) {
@@ -136,10 +144,17 @@ class Game extends Component {
               type: 'UPDATE_ROUND_NUMBER',
               payload: data.data.newGameState[0],
             }) //game state is a string of two numbers '00', index 0 is the round number, index 1 is step number within round
+            if (data.data.newGameState[0] !== '0' && data.data.newGameState[0] !== '6') {
+              if (data.data.newGameState[1] === '0' && data.data.newGameState[0] !== '1') {
+                this.props.moveSphereBack(Number(this.props.state.game.roundNumber - 1))
+              }
+              this.props.moveSphereForward(Number(this.props.state.game.roundNumber))
+            } else if (data.data.newGameState[0] === '6') {
+              this.props.moveSphereBack(Number(this.props.state.game.roundNumber - 1))
+            }
           }
           if (action.payload.fetchPlayers) { //if the action directs to refresh players
             //trigger fetch players saga
-            console.log('im running');
             this.props.dispatch({ type: 'FETCH_PLAYERS', payload: this.props.state.game.game.id })
           }
           this.props.dispatch(action); //dispatch the redux action
