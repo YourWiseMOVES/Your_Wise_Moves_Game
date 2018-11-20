@@ -26,6 +26,7 @@ class Deck {
     draw(){
         this.selectedCard = this.cards.pop()
         this.drawnCards.push(this.selectedCard)
+        return this.selectedCard
     }
 
     //set the deck back to its initial state
