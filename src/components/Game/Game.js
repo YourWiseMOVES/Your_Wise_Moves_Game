@@ -48,7 +48,7 @@ class Game extends Component {
   }
 
   facilitatorJoinGame = game => {
-    this.props.dispatch({ type: 'SET_GAME', payload: game.id }) //sets the gameId in redux state
+    this.props.dispatch({ type: 'FETCH_GAME', payload: game.id }) //sets the gameId in redux state
     socket = io.connect(`/${game.code}`); //connecting to socket namespace with code
     socket.on('moves', data => { //set event handler for 'moves' events
       try {
@@ -57,7 +57,7 @@ class Game extends Component {
         //if the action includes a fetchPlayers directive
         if (action.payload.fetchPlayers) {
           //trigger a saga that fetches the players from the database
-          this.props.dispatch({ type: 'FETCH_PLAYERS', payload: this.props.state.game.gameId })
+          this.props.dispatch({ type: 'FETCH_PLAYERS', payload: this.props.state.game.game.id })
         }
         //dispatch the returned redux action
         this.props.dispatch(action);
@@ -67,13 +67,13 @@ class Game extends Component {
     })
     socket.on('players', data => { //set event handler for 'players' events
       //trigger saga to refresh players
-      this.props.dispatch({ type: 'FETCH_PLAYERS', payload: this.props.state.game.gameId })
+      this.props.dispatch({ type: 'FETCH_PLAYERS', payload: this.props.state.game.game.id })
     })
     socket.on('game', data => {
       this.props.dispatch({ type: 'FETCH_GAMES' });
     })
     socket.on('chat', data => {
-      this.props.dispatch({ type: 'FETCH_CHAT', payload: this.props.state.game.gameId });
+      this.props.dispatch({ type: 'FETCH_CHAT', payload: this.props.state.game.game.id });
     })
     this.props.dispatch({ type: 'REJOIN_GAME_FACILITATOR', payload: game.id })
     this.props.dispatch({ type: 'SET_CODE', payload: game.code })
@@ -140,7 +140,7 @@ class Game extends Component {
           if (action.payload.fetchPlayers) { //if the action directs to refresh players
             //trigger fetch players saga
             console.log('im running');
-            this.props.dispatch({ type: 'FETCH_PLAYERS', payload: this.props.state.game.gameId })
+            this.props.dispatch({ type: 'FETCH_PLAYERS', payload: this.props.state.game.game.id })
           }
           this.props.dispatch(action); //dispatch the redux action
         } catch (err) {
@@ -163,11 +163,11 @@ class Game extends Component {
       })
       socket.on('players', data => { //set players event handler
         //trigger fetch players saga
-        this.props.dispatch({ type: 'FETCH_PLAYERS', payload: this.props.state.game.gameId })
+        this.props.dispatch({ type: 'FETCH_PLAYERS', payload: this.props.state.game.game.id })
         this.props.dispatch({ type: 'FETCH_JOURNAL', payload: this.props.state.game.player.journal_id })
       })
       socket.on('chat', data => {
-        this.props.dispatch({ type: 'FETCH_CHAT', payload: this.props.state.game.gameId });
+        this.props.dispatch({ type: 'FETCH_CHAT', payload: this.props.state.game.game.id });
       })
       socket.on('player', data => { //set event handler for 'player' events
         //trigger saga to refresh single player
@@ -324,9 +324,9 @@ class Game extends Component {
             endGame={this.endGame} //function to end the game
           />
         }
-        <Chat 
+        {/* <Chat 
           sendMessage={this.sendMessage}
-        />
+        /> */}
       </div>
     )
   }

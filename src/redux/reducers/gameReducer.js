@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
 
-const gameId = (state = '', action) => {
+const game = (state = '', action) => {
     switch (action.type) {
         case 'SET_GAME':
             return action.payload;
@@ -88,7 +88,7 @@ const selectedPlayer = (state = {}, action) => {
 }
 
 export default combineReducers({
-    gameId,
+    game,
     gameState,
     player,
     journal,
