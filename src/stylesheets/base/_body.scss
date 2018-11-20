@@ -23,6 +23,7 @@ body {
     min-height: 900px;
     font-size: 10px;
     text-align: center;
+    overflow-x: hidden;
   }
 
   button {
@@ -58,3 +59,9 @@ body {
     border-top-color: #1b435e;
     background: #1b435e;
     }
+
+.overflowHidden {
+  overflow-x: hidden;
+  width: 100vw;
+  z-index: -2;
+}
