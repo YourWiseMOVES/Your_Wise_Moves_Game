@@ -13,31 +13,49 @@ class Chat extends Component {
         })
     }
 
+    scrollToBottom() {
+        const scrollHeight = this.chatBox.scrollHeight;
+        const height = this.chatBox.clientHeight;
+        const maxScrollTop = scrollHeight - height;
+        this.chatBox.scrollTop = maxScrollTop > 0 ? maxScrollTop : 0;
+      }
+
+    componentDidMount() {
+        this.scrollToBottom();
+    }
+
+    componentDidUpdate() {
+        this.scrollToBottom();
+    }
     render() {
         return (
-            <div>
-                <ul>
+            <div className="chatPanel">
+                <h4 className="chatHeader">Game Chat</h4>
+                <ul className="messageHistory" ref={ref => this.chatBox = ref}>
                     {
                         this.props.state.chat.map(message => {
                             return (
-                                <li key={message.id}>{message.from}: {message.text}</li>
+                                <li className="message" key={message.id}>{message.from}: {message.text}</li>
                             );
                         })
                     }
                 </ul>
-                <form onSubmit={this.props.sendMessage(this.state.newMessage)}>
+                <div style={{ float: "left", clear: "both" }}
+                    ref={(el) => { this.messagesEnd = el; }}>
+                </div>
+                <form className="messageInput" onSubmit={this.props.sendMessage(this.state.newMessage)}>
                     <input
                         type="text"
                         placeholder="your message here"
                         onChange={this.handleChange}
                         value={this.state.newMessage}
+                        className="messageText"
                     />
                     <input
                         type="submit"
+                        className="messageSubmit"
                     />
                 </form>
-
-
             </div>
         );
     }
