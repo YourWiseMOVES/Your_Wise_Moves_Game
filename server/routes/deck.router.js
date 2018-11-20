@@ -6,9 +6,8 @@ const isFacilitator = require('../modules/isFacilitator');
 const { rejectUnauthenticated } = require('../modules/authentication-middleware');
 
 
-// GET a list of all decks
-router.get('/', rejectUnauthenticated, isFacilitator, (req, res) => {
-    console.log('get all decks');
+// GET a list of all decks no need to be protected, it doesn't actually contain any card data
+router.get('/',  (req, res) => {
     pool.query(`SELECT * FROM "deck";`)
         .then((results) => {
             res.send(results.rows)
@@ -18,8 +17,7 @@ router.get('/', rejectUnauthenticated, isFacilitator, (req, res) => {
         })
 });
 // GET all the cards in a given deck
-router.get('/:id', (req, res) => {
-    console.log('get card');
+router.get('/:id', rejectUnauthenticated, isFacilitator, (req, res) => {
     pool.query(`
     SELECT "card"."id","card"."text","stage_id","stage_type"."type" FROM "card"
     JOIN "stage_type"
@@ -43,7 +41,7 @@ router.post('/', rejectUnauthenticated, isAdmin, (req, res) => {
         .then((results) => {
             res.sendStatus(200)
         }).catch((error) => {
-            console.log('Error with  POST:', error);
+            console.log('Deck POST error:', error);
             res.sendStatus(500);
         })
 });

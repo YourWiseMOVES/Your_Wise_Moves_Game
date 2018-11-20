@@ -14,14 +14,13 @@ const deck = (state = {
         case 'SET_SELECTED_DECK':
             return {
                 ...state,
-                selectedDeck: action.payload
+                selectedDeck: {
+                    description:action.payload.description,
+                    cards:action.payload.cards_in_deck
+                }
             }
         default:
             return state;
     }
 }
-
-
-
-
 export default deck;
