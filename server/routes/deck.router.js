@@ -43,7 +43,7 @@ router.post('/', rejectUnauthenticated, isAdmin, (req, res) => {
         .then((results) => {
             res.sendStatus(200)
         }).catch((error) => {
-            console.log('Error with  POST:', error);
+            console.log('Deck POST error:', error);
             res.sendStatus(500);
         })
 });
