@@ -14,6 +14,7 @@ body {
   min-height: 900px;
   font-size: 10px;
   text-align: center;
+  overflow-x: hidden;
 }
 
 button {
@@ -45,6 +46,12 @@ button:active {
   background: #1b435e;
 }
 
+.overflowHidden {
+  overflow-x: hidden;
+  width: 100vw;
+  z-index: -2;
+}
+
 .sidebar {
   height: 80vh;
   /* Full-height: remove this if you want "auto" height */
@@ -52,7 +59,7 @@ button:active {
   /* Set the width of the sidebar */
   position: absolute;
   /* Fixed Sidebar (stay in place on scroll) */
-  z-index: 1;
+  z-index: 3;
   /* Stay on top */
   top: 10vh;
   /* Stay at the top */
@@ -89,7 +96,7 @@ button:active {
 
 .sidebarButton {
   position: absolute;
-  top: 0vh;
+  top: 1vh;
   left: 71vw;
   z-index: 1;
   visibility: hidden;
@@ -116,13 +123,13 @@ button:active {
   .moveSidebarButton {
     -webkit-transition: .8s;
     transition: .8s;
-    top: 2vh;
+    top: 1vh;
     left: 60vw;
   }
   .moveSidebarButtonBack {
     -webkit-transition: .8s;
     transition: .8s;
-    top: 0;
+    top: 1vh;
     left: 71vw;
   }
 }
@@ -271,6 +278,74 @@ button:active {
           flex-direction: column;
 }
 
+.actionPanel {
+  height: 40vh;
+  /* Full-height: remove this if you want "auto" height */
+  width: 20vw;
+  /* Set the width of the sidebar */
+  position: absolute;
+  /* Fixed Sidebar (stay in place on scroll) */
+  z-index: 1;
+  /* Stay on top */
+  top: 4vh;
+  /* Stay at the top */
+  right: 3vw;
+  background-color: white;
+  /* Black */
+  text-align: left;
+  border-radius: 1rem;
+  z-index: 3;
+}
+
+@media only screen and (max-width: 1000px) {
+  .actionPanel {
+    height: 40vh;
+    /* Full-height: remove this if you want "auto" height */
+    width: 30vw;
+    /* Set the width of the sidebar */
+    position: absolute;
+    /* Fixed Sidebar (stay in place on scroll) */
+    z-index: 1;
+    /* Stay on top */
+    top: 0;
+    /* Stay at the top */
+    right: -30vw;
+    background-color: white;
+    /* Black */
+    text-align: left;
+    border-radius: 0;
+    border-bottom-left-radius: 1rem;
+  }
+  .showActionPanel {
+    -webkit-transition: .8s;
+    transition: .8s;
+    margin-right: 30vw;
+  }
+  .hideActionPanel {
+    -webkit-transition: .8s;
+    transition: .8s;
+    margin-right: -30vw;
+  }
+  .actionPanelButton {
+    visibility: visible;
+    position: absolute;
+    top: 1vh;
+    right: 33vw;
+  }
+  .moveActionPanelButton {
+    -webkit-transition: .8s;
+    transition: .8s;
+    top: 1vh;
+    right: 20vw;
+  }
+  .moveActionPanelButtonBack {
+    -webkit-transition: .8s;
+    transition: .8s;
+    top: 1vh;
+    right: 63vw;
+  }
+}
+
 #react-root {
   height: 100vh;
   width: 100vw;
@@ -287,6 +362,7 @@ body {
   min-height: 900px;
   font-size: 10px;
   text-align: center;
+  overflow-x: hidden;
 }
 
 button {
@@ -316,6 +392,12 @@ button:hover {
 button:active {
   border-top-color: #1b435e;
   background: #1b435e;
+}
+
+.overflowHidden {
+  overflow-x: hidden;
+  width: 100vw;
+  z-index: -2;
 }
 
 footer {
@@ -376,6 +458,7 @@ body {
   min-height: 900px;
   font-size: 10px;
   text-align: center;
+  overflow-x: hidden;
 }
 
 button {
@@ -405,6 +488,12 @@ button:hover {
 button:active {
   border-top-color: #1b435e;
   background: #1b435e;
+}
+
+.overflowHidden {
+  overflow-x: hidden;
+  width: 100vw;
+  z-index: -2;
 }
 
 .game {
