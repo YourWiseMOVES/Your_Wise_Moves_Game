@@ -90,6 +90,16 @@ router.get('/games', rejectUnauthenticated, isFacilitator, (req, res) => {
         })
 })
 
+router.get('/game',  (req, res) => {
+    pool.query(`SELECT * FROM "game" WHERE "id"=$1;`, [req.query.id])
+        .then(results => {
+            res.send(results.rows[0]);
+        })
+        .catch(err => {
+            console.log('Error in game get', err);
+            res.sendStatus(500);
+        })
+})
 
 //post route for rejoining active games
 router.post('/rejoin', (req, res) => { 

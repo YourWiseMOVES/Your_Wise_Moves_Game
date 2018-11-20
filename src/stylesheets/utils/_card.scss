@@ -32,17 +32,17 @@
   }
 
 .card-front {
-    background: white;
-    color: black
+    color: white;
+    padding: 4px;
+    text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
   }
 
-  .card-back {
+.card-back {
     transform: rotateY(180deg);
     display:flex;
     justify-content: center;
     flex-direction: column;
-
-  }
+}
 
 .card-back.Map{
     background-image: url("../images/map.jpg");
@@ -68,28 +68,22 @@
    h6{
         color:white;
         font-size: 16px;
-        margin-top:8px
     };
 }
-.card-header.Map{
+.card-front.Map{
     background-image: url("../images/map.jpg");
-    background-size: 350px 200px;
 }
-.card-header.Open{
+.card-front.Open{
     background-image: url("../images/open.jpg");
-    background-size: 350px 200px;
 }
-.card-header.Visualize{
+.card-front.Visualize{
     background-image: url("../images/visualize.jpg");
-    background-size: 350px 200px;
 }
-.card-header.Engage{
+.card-front.Engage{
     background-image: url("../images/engage.jpg");
-    background-size: 350px 200px;
 }
-.card-header.Sustain{
+.card-front.Sustain{
     background-image: url("../images/sustain.jpg");
-    background-size: 350px 200px;
 }
 .card-collection{
     display: flex;
