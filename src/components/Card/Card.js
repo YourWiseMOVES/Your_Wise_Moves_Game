@@ -8,14 +8,14 @@ class Card extends Component {
       stage_id: '',
       text: ''
     },
-    editing: false,
     isFlipped: false
   }
+
   flipCard = () => this.setState({
     isFlipped: !this.state.isFlipped,
-    editing: !this.state.editing
   });
-  componentDidMount = () => {
+
+  componentDidMount() {
     this.setState({
       newContent: {
         stage_id: this.props.question.stage_id,
@@ -24,6 +24,13 @@ class Card extends Component {
       }
     })
   }
+
+  componentDidUpdate(prevProps){
+    if (this.props.flipped !== prevProps.flipped){
+      this.flipCard()
+    }
+  }
+
   render() {
     return (
       <div className="scene" onClick={!this.props.editable ? this.flipCard : null}>
