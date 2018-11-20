@@ -5,28 +5,23 @@ import QuestionForm from './QuestionForm';
 
 class InfoPage extends Component {
   state = {
-    data: [],
-    filter: '1',
-    filtering:false
+    filterCategory: '1',
   }
   componentDidMount() {
-    this.props.dispatch({ type: 'FETCH_CARDS' }); 
+    this.props.dispatch({ type: 'FETCH_CARDS' });
   }
-  filterCards = (event) =>{
+  filterCards = (event) => {
     event.preventDefault();
-    // this.props.dispatch({ type: 'FETCH_CARDS' });
-    this.props.dispatch({type:'FILTER_CARDS', payload:this.state.filter})
-    this.setState({data:this.props.cards.filterCards,
-                   filtering:true})
+    this.props.dispatch({ type: 'FILTER_CARDS_BY_CATEGORY', payload: this.state.filterCategory })
+
   }
-  toggleFilter= ()=>{
-    this.setState({filtering: false,
-                    data:this.props.cards.allCards})
-} 
+  clearFilter = () => {
+    this.props.dispatch({ type: 'CLEAR_CARD_FILTER' })
+  }
   handleChangeFor = (input) => event => {
     this.setState({
-        ...this.state,
-        [input]: event.target.value,
+      ...this.state,
+      [input]: event.target.value,
     })
   }
   render() {
@@ -37,32 +32,32 @@ class InfoPage extends Component {
         </div>
         <div>
           <form onSubmit={this.filterCards}>
-          <label htmlFor="select">Select a movement: </label>
-          <select name="select" onChange={this.handleChangeFor('filter')} selected={this.state.filter}>
-            <option value="1">Map</option>
-            <option value="2">Open</option>
-            <option value="3">Visualize</option>
-            <option value="4">Engage</option>
-            <option value="5">Sustain</option>
-            
-          </select>
- 
-          <input type="submit" />
+            <label htmlFor="select">Select a movement: </label>
+            <select name="select"
+              onChange={this.handleChangeFor('filterCategory')}
+              selected={this.state.filterCategory}>
+              <option value="1">Map</option>
+              <option value="2">Open</option>
+              <option value="3">Visualize</option>
+              <option value="4">Engage</option>
+              <option value="5">Sustain</option>
+
+            </select>
+
+            <button type="submit">Filter</button>
           </form>
-          <button disabled={!this.state.filtering} onClick={this.toggleFilter}>Clear filter</button>
+          <button
+            disabled={this.props.cards.allCards === this.props.cards.filteredCards?true:false}
+            onClick={this.clearFilter}>
+            Clear filter
+          </button>
         </div>
         <div>
           <QuestionForm add={true} />
         </div>
         {!this.props.cards ? null :
           <div className="card-collection">
-            {!this.state.filtering?
-            this.props.cards.allCards.map(question =>
-              <Card
-                key={question.id}
-                question={question}
-                editable={true} />):
-                this.props.cards.filteredCards.map(question =>
+            {this.props.cards.filteredCards.map(question =>
               <Card
                 key={question.id}
                 question={question}
