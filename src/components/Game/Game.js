@@ -48,7 +48,7 @@ class Game extends Component {
   }
 
   facilitatorJoinGame = game => {
-    this.props.dispatch({ type: 'SET_GAME', payload: game.id }) //sets the gameId in redux state
+    this.props.dispatch({ type: 'FETCH_GAME', payload: game.id }) //sets the gameId in redux state
     socket = io.connect(`/${game.code}`); //connecting to socket namespace with code
     socket.on('moves', data => { //set event handler for 'moves' events
       try {
@@ -324,9 +324,9 @@ class Game extends Component {
             endGame={this.endGame} //function to end the game
           />
         }
-        <Chat 
+        {/* <Chat 
           sendMessage={this.sendMessage}
-        />
+        /> */}
       </div>
     )
   }
