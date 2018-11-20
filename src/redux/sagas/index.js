@@ -7,6 +7,7 @@ import cardSaga from './cardSaga'
 import gamesSaga from './gamesSaga';
 import rejoinSaga from './rejoinSaga';
 import chatSaga from './chatSaga';
+import deckSaga from './deckSaga'
 
 // rootSaga is the primary saga.
 // It bundles up all of the other sagas so our project can use them.
@@ -25,5 +26,6 @@ export default function* rootSaga() {
     gamesSaga(),
     rejoinSaga(),
     chatSaga(),
+    deckSaga(),
   ]);
 }

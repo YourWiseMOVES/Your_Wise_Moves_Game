@@ -6,8 +6,8 @@ const isFacilitator = require('../modules/isFacilitator');
 const { rejectUnauthenticated } = require('../modules/authentication-middleware');
 
 
-// GET a list of all decks
-router.get('/', rejectUnauthenticated, isFacilitator, (req, res) => {
+// GET a list of all decks no need to be protected, it doesn't actually contain any card data
+router.get('/',  (req, res) => {
     pool.query(`SELECT * FROM "deck";`)
         .then((results) => {
             res.send(results.rows)
