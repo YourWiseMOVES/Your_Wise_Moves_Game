@@ -63,7 +63,7 @@ const join = action => { //returns array of two actions to handle join actions
     //action two sets the game id into redux state
     actions.push(reduxActionOne);
     const reduxActionTwo = {
-        type: 'SET_GAME',
+        type: 'FETCH_GAME',
         payload: action.game
     }
     actions.push(reduxActionTwo);
