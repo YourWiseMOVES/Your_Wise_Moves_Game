@@ -17,6 +17,7 @@ class Card extends Component {
 
   componentDidMount() {
     this.setState({
+      isFlipped:this.props.flipped,
       newContent: {
         stage_id: this.props.question.stage_id,
         text: this.props.question.text,
