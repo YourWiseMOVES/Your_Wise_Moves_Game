@@ -295,7 +295,7 @@ class Game extends Component {
     socket.emit('chat', {
       message,
       type: 'user',
-      from: this.props.state.game.player.name || 'facilitator',
+      from: this.props.state.game.player.name || 'Facilitator',
     });
   }
 
@@ -341,9 +341,9 @@ class Game extends Component {
             endGame={this.endGame} //function to end the game
           />
         }
-        {/* <Chat 
+        <Chat 
           sendMessage={this.sendMessage}
-        /> */}
+        />
       </div>
     )
   }
