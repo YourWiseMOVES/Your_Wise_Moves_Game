@@ -74,7 +74,7 @@ class QuestionForm extends Component {
           <br />
           <label htmlFor="text">Type a question: </label>
           <input name="text" type="text" onChange={this.handleChangeFor('text')} value={this.state.newContent.text} />
-          <input type="submit" />
+          <button onClick={this.handleSubmit}>Submit</button>
         </form>
         {this.state.editing?<button onClick={() => this.handleDelete(this.props.question.id)}>Delete</button>:null}
       </div>
