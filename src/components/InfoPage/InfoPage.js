@@ -5,12 +5,13 @@ import QuestionForm from './QuestionForm';
 class InfoPage extends Component {
   state = {
     filterCategory: '1',
+    filterDeck:'1',
   }
   componentDidMount() {
     this.props.dispatch({ type: 'FETCH_CARDS' });
   }
-  filterCards = () => {
-    this.props.dispatch({ type: 'FILTER_CARDS_BY_CATEGORY', payload: this.state.filterCategory })
+  filterCards = (actionType,filterType) => () => {
+    this.props.dispatch({ type: actionType, payload: this.state[filterType] })
   }
   clearFilter = () => {
     this.props.dispatch({ type: 'CLEAR_CARD_FILTER' })
@@ -28,7 +29,7 @@ class InfoPage extends Component {
           <h4>Add a new question here:</h4>
         </div>
         <div>
-          <label htmlFor="select">Select a movement: </label>
+          <label htmlFor="select">Filter By Category: </label>
           <select name="select"
             onChange={this.handleChangeFor('filterCategory')}
             selected={this.state.filterCategory}>
@@ -38,7 +39,17 @@ class InfoPage extends Component {
             <option value="4">Engage</option>
             <option value="5">Sustain</option>
           </select>
-          <button onClick={this.filterCards}>Filter</button>
+          <button onClick={this.filterCards('FILTER_CARDS_BY_CATEGORY','filterCategory')}>Filter</button>
+          <label htmlFor="select">Filter By Deck: </label>
+          {<select name="select"
+            onChange={this.handleChangeFor('filterDeck')}
+            selected={this.state.filterDeck}>
+            
+            {this.props.decks.decks.map(deck=>
+            <option value={`${deck.id}`}>{deck.description}</option>)}
+           
+          </select>}
+          <button onClick={this.filterCards('FETCH_DECK_CARDS','filterDeck')}>Filter</button>
           <button
             disabled={this.props.cards.originalCards === this.props.cards.cards ? true : false}
             onClick={this.clearFilter}>
@@ -50,7 +61,7 @@ class InfoPage extends Component {
         </div>
         {!this.props.cards ? null :
           <div className="card-collection">
-            {this.props.cards.originalCards.map(question =>
+            {this.props.cards.cards.map(question =>
               <Card
                 key={question.id}
                 question={question}
@@ -60,5 +71,5 @@ class InfoPage extends Component {
     )
   }
 }
-const mapReduxStateToProps = ({ cards }) => ({ cards })
+const mapReduxStateToProps = ({ cards,decks }) => ({ cards,decks })
 export default connect(mapReduxStateToProps)(InfoPage);
