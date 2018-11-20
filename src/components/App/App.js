@@ -40,7 +40,7 @@ class App extends Component {
             <Route
               exact
               path="/home/game"
-              render={()=> { return (<React.Fragment><Game /> <Background /> </React.Fragment>);}}
+              render={()=> { return (<React.Fragment><Background><Game/></Background ></React.Fragment>);}}
             />
             <Route
               exact
