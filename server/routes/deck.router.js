@@ -8,7 +8,6 @@ const { rejectUnauthenticated } = require('../modules/authentication-middleware'
 
 // GET a list of all decks
 router.get('/', rejectUnauthenticated, isFacilitator, (req, res) => {
-    console.log('get all decks');
     pool.query(`SELECT * FROM "deck";`)
         .then((results) => {
             res.send(results.rows)
@@ -18,8 +17,7 @@ router.get('/', rejectUnauthenticated, isFacilitator, (req, res) => {
         })
 });
 // GET all the cards in a given deck
-router.get('/:id', (req, res) => {
-    console.log('get card');
+router.get('/:id', rejectUnauthenticated, isFacilitator, (req, res) => {
     pool.query(`
     SELECT "card"."id","card"."text","stage_id","stage_type"."type" FROM "card"
     JOIN "stage_type"

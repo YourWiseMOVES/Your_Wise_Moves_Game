@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux'
 import Card from '../Card/Card'
 import QuestionForm from './QuestionForm';
-
 class InfoPage extends Component {
   state = {
     filterCategory: '1',
@@ -10,10 +9,8 @@ class InfoPage extends Component {
   componentDidMount() {
     this.props.dispatch({ type: 'FETCH_CARDS' });
   }
-  filterCards = (event) => {
-    event.preventDefault();
+  filterCards = () => {
     this.props.dispatch({ type: 'FILTER_CARDS_BY_CATEGORY', payload: this.state.filterCategory })
-
   }
   clearFilter = () => {
     this.props.dispatch({ type: 'CLEAR_CARD_FILTER' })
@@ -31,23 +28,19 @@ class InfoPage extends Component {
           <h4>Add a new question here:</h4>
         </div>
         <div>
-          <form onSubmit={this.filterCards}>
-            <label htmlFor="select">Select a movement: </label>
-            <select name="select"
-              onChange={this.handleChangeFor('filterCategory')}
-              selected={this.state.filterCategory}>
-              <option value="1">Map</option>
-              <option value="2">Open</option>
-              <option value="3">Visualize</option>
-              <option value="4">Engage</option>
-              <option value="5">Sustain</option>
-
-            </select>
-
-            <button type="submit">Filter</button>
-          </form>
+          <label htmlFor="select">Select a movement: </label>
+          <select name="select"
+            onChange={this.handleChangeFor('filterCategory')}
+            selected={this.state.filterCategory}>
+            <option value="1">Map</option>
+            <option value="2">Open</option>
+            <option value="3">Visualize</option>
+            <option value="4">Engage</option>
+            <option value="5">Sustain</option>
+          </select>
+          <button onClick={this.filterCards}>Filter</button>
           <button
-            disabled={this.props.cards.allCards === this.props.cards.filteredCards?true:false}
+            disabled={this.props.cards.originalCards === this.props.cards.cards ? true : false}
             onClick={this.clearFilter}>
             Clear filter
           </button>
@@ -57,7 +50,7 @@ class InfoPage extends Component {
         </div>
         {!this.props.cards ? null :
           <div className="card-collection">
-            {this.props.cards.filteredCards.map(question =>
+            {this.props.cards.originalCards.map(question =>
               <Card
                 key={question.id}
                 question={question}
@@ -68,6 +61,4 @@ class InfoPage extends Component {
   }
 }
 const mapReduxStateToProps = ({ cards }) => ({ cards })
-
-
 export default connect(mapReduxStateToProps)(InfoPage);

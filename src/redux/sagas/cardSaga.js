@@ -35,8 +35,18 @@ function* deleteCard(action) {
     }
 }
 
+function* fetchDeckCards(action) {
+    try {
+        const response = yield axios.get(`api/deck/${action.payload}`)
+        yield put({ type: 'FILTER_CARDS_BY_DECK', payload: response.data });
+    } catch (error) {
+        console.log('Error getting cards', error);
+    }
+}
+
 function* cardSaga() {
     yield takeLatest('FETCH_CARDS', fetchCards);
+    yield takeLatest('FETCH_DECK_CARDS', fetchDeckCards);
     yield takeLatest('ADD_CARD', addCard);
     yield takeLatest('EDIT_CARD', editCard);
     yield takeLatest('DELETE_CARD', deleteCard);

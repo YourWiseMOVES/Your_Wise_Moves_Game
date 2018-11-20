@@ -1,11 +1,13 @@
-const cards = (state = { allCards: [], filteredCards: [] }, action) => {
+const cards = (state = { originalCards: [], cards: [] }, action) => {
     switch (action.type) {
         case 'SET_CARDS':
-            return { allCards: action.payload, filteredCards: action.payload };
+            return { originalCards: action.payload, cards: action.payload };
         case 'CLEAR_CARD_FILTER':
-            return { ...state, filteredCards: state.allCards };
+            return { ...state, cards: state.originalCards };
         case 'FILTER_CARDS_BY_CATEGORY':
-            return { ...state, filteredCards: state.allCards.filter(card => card.stage_id === Number(action.payload)) }
+            return { ...state, cards: state.originalCards.filter(card => card.stage_id === Number(action.payload)) }
+        case 'FILTER_CARDS_BY_DECK':
+            return { ...state, cards: action.payload }
         default:
             return state;
     }
