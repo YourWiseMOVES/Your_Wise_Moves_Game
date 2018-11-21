@@ -73,8 +73,8 @@ class InfoPage extends Component {
               <Card
                 key={question.id}
                 question={question}
-                editable={true} />)}
-                flipped={this.state.flipEm}
+                editable={true} 
+                flipped={this.state.flipEm}/>)}
           </div>}
       </div>
     )
