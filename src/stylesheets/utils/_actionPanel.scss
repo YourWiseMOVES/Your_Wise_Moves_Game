@@ -5,10 +5,19 @@
     z-index: 1; /* Stay on top */
     top: 4vh; /* Stay at the top */
     right: 3vw;
+    opacity: .85;
     background-color: white; /* Black */
     text-align: left;
     border-radius: 1rem;
     z-index: 3;
+}
+
+.actionPanel:hover {
+    opacity: .9;
+}
+
+.actionPanelButton {
+ visibility: hidden;
 }
 
 @media only screen and (max-width: $medium) {
