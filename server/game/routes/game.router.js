@@ -18,25 +18,7 @@ router.post('/start', isFacilitator, async (req, res) => {
 
 //get route for players in a specific game, no auth required
 router.get('/players', (req, res) => {
-    pool.query(`SELECT player.current_card,
-	player.game_id,
-	player.id,
-	player.discussed,
-	player.in_discussion,
-	player.in_game,
-	player.intention,
-	player.journal_id,
-	player."name",
-	player.selected,
-	"card"."text",
-	"stage_id",
-	"stage_type"."type" 
-	FROM "card"
-    JOIN "stage_type"
-    ON "card"."stage_id"="stage_type"."id"
-    JOIN "player"
-    ON CAST("player"."current_card" AS INTEGER)="card"."id"
-    WHERE player.id = $1;`, [req.query.id])
+    pool.query(`SELECT * FROM "player" WHERE "game_id"=$1`, [req.query.id])
         .then(results => {
             res.send(results.rows);
         })
@@ -47,25 +29,7 @@ router.get('/players', (req, res) => {
 
 //get route for player in a specific game, no auth required
 router.get('/player', (req, res) => {
-    pool.query(`SELECT player.current_card,
-	player.game_id,
-	player.id,
-	player.discussed,
-	player.in_discussion,
-	player.in_game,
-	player.intention,
-	player.journal_id,
-	player."name",
-	player.selected,
-	"card"."text",
-	"stage_id",
-	"stage_type"."type" 
-	FROM "card"
-    JOIN "stage_type"
-    ON "card"."stage_id"="stage_type"."id"
-    JOIN "player"
-    ON CAST("player"."current_card" AS INTEGER)="card"."id"
-    WHERE player.id = $1;`, [req.query.id])
+    pool.query(`SELECT * FROM "player" WHERE "player_id"=$1`, [req.query.id])
         .then(results => {
             res.send(results.rows[0]);
         })
