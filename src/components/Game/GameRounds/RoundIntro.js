@@ -12,8 +12,6 @@ class RoundIntro extends Component {
   render() {
     return (
       <div className="threeContentContainer">
-        <h1>Round Introduction</h1>
-        <h2>Round: {this.props.state.game.roundNumber}</h2>
         {this.props.state.user.userReducer && this.props.state.user.userReducer.is_facilitator &&
           <button onClick={() => {
             //deal cards

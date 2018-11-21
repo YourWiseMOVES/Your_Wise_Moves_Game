@@ -10,14 +10,19 @@ import { connect } from 'react-redux';
 
 class PlayerLogin extends Component {
   state = {
-    player: '',
-    code: '',
+    info: {
+      player: '',
+      code: '',
+    },
+    joinRejoin: false,
   }
 
   handleChange = (event) => {
     this.setState({
-      ...this.state,
-      [event.target.name]: event.target.value,
+      info: {
+        ...this.state.info,
+        [event.target.name]: event.target.value,
+      }
     })
   }
 
@@ -25,19 +30,24 @@ class PlayerLogin extends Component {
   render() {
     return (
       <div className="threeContentContainer">
-        <h1>Player Login</h1>
-        <button onClick={this.props.facilitator}>Log in as facilitator</button>
-        <h2>Player View</h2>
-        <h3>Insert your player name and code from facilitator</h3>
+        <button onClick={() => this.setState({
+          ...this.state,
+          joinRejoin: !this.state.joinRejoin,
+        })}>{this.state.joinRejoin ? <p>Re - Join Game</p> : <p>Join Game</p>}</button>
         <label>
+          Player Name
           <input onChange={this.handleChange} placeholder="Name" name="player" value={this.state.player}></input>
         </label>
         <label>
+          Code
           <input onChange={this.handleChange} placeholder="Code" name="code" value={this.state.code}></input>
         </label>
-        {/* user join game function from props to emit socket event */}
-        <button onClick={() => this.props.joinGame(this.state.player, this.state.code, false)}>Join Game</button>
-        <button onClick={() => this.props.joinGame(this.state.player, this.state.code, true)}>Re-Join Game</button>
+        {
+          this.state.joinRejoin ?
+          <button onClick={() => this.props.joinGame(this.state.player, this.state.code, true)}>Re-Join Game</button>
+          :
+          <button onClick={() => this.props.joinGame(this.state.player, this.state.code, false)}>Join Game</button>
+        }
       </div>
     );
   }
