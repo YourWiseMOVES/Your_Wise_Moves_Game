@@ -42,7 +42,7 @@ class PreGame extends Component {
         return (
             <div>
                 {
-                    this.state.userType === '' &&
+                    this.props.state.user.userType === '' &&
                     null
                 }
                 {

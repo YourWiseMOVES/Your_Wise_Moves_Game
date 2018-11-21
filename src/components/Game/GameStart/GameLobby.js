@@ -21,19 +21,7 @@ class GameLobby extends Component {
     render() {
         return (
             <div className="threeContentContainer">
-                <h1>Game Lobby</h1>
                 <div className="facilitator">
-                    <ol>
-                        {
-                            this.props.state.game.allPlayers.map(player => {
-                                if (player.in_game) {
-                                    return (
-                                        <li key={player.id}>{player.name}</li>
-                                    )
-                                }
-                            })
-                        }
-                    </ol>
                     {this.props.state.user.userReducer && this.props.state.user.userReducer.is_facilitator ?
                         <button onClick={() => this.props.advanceStage(
                             this.props.calculateNextStage('1')
