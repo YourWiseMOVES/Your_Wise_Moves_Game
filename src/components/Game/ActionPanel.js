@@ -52,6 +52,7 @@ class ActionPanel extends Component {
     render() {
         return (
             <div ref={ref => this.actionPanel = ref} className="actionPanel">
+
                 <button className="actionPanelButton" onClick={this.triggerSidebar}>Action</button>
                 <p>{this.props.state.game.game.code}</p>
                 {this.props.state.game.gameState[0] === '0' &&
@@ -278,6 +279,7 @@ class ActionPanel extends Component {
                         }
                     </div>
                 }
+
             </div>
         );
     }

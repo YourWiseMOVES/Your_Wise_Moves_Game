@@ -1,4 +1,5 @@
 @import '../base/body';
+@import '../themes/neutral';
 
 .game{
     display: flex;
@@ -20,7 +21,7 @@
     width: 80vh; 
     max-width: 800px;   
     text-align: center;
-    color: whitesmoke;
+    color: $neutral-text;
     display: flex;
     flex-direction: column;
     justify-content: center;

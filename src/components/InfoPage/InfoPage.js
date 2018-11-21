@@ -4,8 +4,11 @@ import Card from '../Card/Card'
 import QuestionForm from './QuestionForm';
 class InfoPage extends Component {
   state = {
+
+    flipEm: false,
     filterCategory: '1',
     filterDeck:'1',
+
   }
   componentDidMount() {
     this.props.dispatch({ type: 'FETCH_CARDS' });
@@ -22,11 +25,16 @@ class InfoPage extends Component {
       [input]: event.target.value,
     })
   }
+  flipEmAll=()=> { 
+    this.setState({flipEm:!this.state.flipEm})
+  }
   render() {
     return (
       <div>
+
         <div>
           <h4>Add a new question here:</h4>
+          <button onClick={this.flipEmAll}>FLIP EM ALL</button>
         </div>
         <div>
           <label htmlFor="select">Filter By Category: </label>
@@ -65,7 +73,8 @@ class InfoPage extends Component {
               <Card
                 key={question.id}
                 question={question}
-                editable={true} />)}
+                editable={true} 
+                flipped={this.state.flipEm}/>)}
           </div>}
       </div>
     )
