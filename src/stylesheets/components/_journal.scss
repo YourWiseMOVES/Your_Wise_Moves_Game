@@ -1,31 +1,34 @@
-.tab {
-    background-color: #add8e6; /* Green background */
-    border: 1px #2a609c; /* blue border */
-    color: white; /* White text */
-    padding: 10px 24px; /* Some padding */
-    cursor: pointer; /* Pointer/hand icon */
-    width: 50%; /* Set a width if needed */
-    // display: block; /* Make the buttons appear below each other */
-    margin-left: auto;
-    margin-right: auto;
-
-}
-
 .tablinks {
     background-color: white;
-    color: #0bb5ff;
-    // border: 2px solid blue;
+    color: black;
+    border: 2px solid #82cefa;
     display: block;
     padding: 5px;
     margin: 5px;
     border-radius: 5px;
     text-align: center;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .journal-active {
-    background-color: black;
+    background-color: #82cefa;
 }
 
 .journal {
-    font-size: 14px;
+    h3 {
+        font-size: 2.0rem;
+        text-align: center;
+    }
+}
+
+.tabcontent {
+    h4 {
+        font-size: 1.5rem;
+        text-align: center;
+    }
+    p {
+        font-size: 1.3rem;
+        text-align: center;
+    }
 }
