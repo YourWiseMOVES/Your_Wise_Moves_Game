@@ -55,11 +55,8 @@ function* fetchDeckCards(action) {
 
 function* cardSaga() {
     yield takeLatest('FETCH_CARDS', fetchCards);
-<<<<<<< HEAD
     yield takeLatest('FETCH_SPECIFIC_CARD',fetchSpecificCard);
-=======
     yield takeLatest('FETCH_DECK_CARDS', fetchDeckCards);
->>>>>>> 39396412662628ad454cc848b5e8a31dd3a08c4c
     yield takeLatest('ADD_CARD', addCard);
     yield takeLatest('EDIT_CARD', editCard);
     yield takeLatest('DELETE_CARD', deleteCard);
