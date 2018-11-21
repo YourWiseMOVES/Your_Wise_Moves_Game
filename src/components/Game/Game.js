@@ -65,7 +65,7 @@ class Game extends Component {
             this.props.moveSphereBack(Number(this.props.state.game.roundNumber - 1))
           }
           this.props.moveSphereForward(Number(this.props.state.game.roundNumber))
-        } else if (data.data.newGameState[0] === '6') {
+        } else if (data.type === 'advance' && data.data.newGameState[0] === '6') {
           this.props.moveSphereBack(Number(this.props.state.game.roundNumber - 1))
         }
         //dispatch the returned redux action
@@ -306,13 +306,17 @@ class Game extends Component {
         <Sidebar
           createGame={this.createGame} //function to create a new game as facilitator
         />
-        <ActionPanel />
+        <ActionPanel 
+          editIntention={this.editIntention} //function allows user to input their intention
+          editJournal={this.editJournal} //function for player to input their answers to provided questions
+          advanceToDiscussion={this.advanceToDiscussion}//single player can advance from answer stage to discussion phase
+          selectPlayer={this.selectPlayer} //function to select which player is going to speak next
+        />
         {this.props.state.game.gameState[0] === '0' &&
           this.props.state.gameCode !== '' ?
           <GameStart
             advanceStage={this.advanceStage} //function to advance the game forward
             calculateNextStage={this.calculateNextStage}  //function required if advancing to a new round
-            editIntention={this.editIntention} //function allows user to input their intention
           />
           :
           this.props.state.game.gameState[0] === '0' ?
@@ -328,11 +332,8 @@ class Game extends Component {
           <GameRounds
             advanceStage={this.advanceStage} //function to advance the game forward
             calculateNextStage={this.calculateNextStage} //function required if advancing to a new round
-            selectPlayer={this.selectPlayer} //function to select which player is going to speak next
             markDone={this.markDone} //function to mark a player as done speaking
-            editJournal={this.editJournal} //function for player to input their answers to provided questions
             dealCards={this.dealCards} //function for facilitator to deal cards to all players
-            advanceToDiscussion={this.advanceToDiscussion}//single player can advance from answer stage to discussion phase
           />
         }
         {this.props.state.game.gameState[0] == '6' &&
