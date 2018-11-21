@@ -80,10 +80,16 @@ class Card extends Component {
           <div className={`card-content card-back ${this.classNameSwitch(this.props.question.stage_id)}`}>
             {
               this.props.editable ?
+              <div>
                 <QuestionForm 
                 flipCard={this.flipCard} 
-                question={this.props.question} /> : null
+                question={this.props.question} /> 
+                <button onClick={() => this.flipCard()}>
+                  Cancel Edit
+                </button>
+                </div>: null
             }
+
           </div>
         </div >
       </div>
