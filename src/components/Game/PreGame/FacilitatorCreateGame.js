@@ -11,21 +11,27 @@ import { connect } from 'react-redux';
 
 class FacilitatorCreateGame extends Component {
 
-  componentDidMount(){
-    this.props.dispatch({type: 'FETCH_GAMES'});
+  componentDidMount() {
+    this.props.dispatch({ type: 'FETCH_GAMES' });
   }
 
   render() {
     return (
       <div className="threeContentContainer">
-        <h1>Your Games</h1>
-        <ol>
-          {this.props.state.games.map(game => {
-            return(
-              <li key={game.id}>{game.name}, {game.code}, {game.players} players, {game.active} active <button onClick={() => this.props.facilitatorJoinGame(game)}>Join</button></li>
-            );
-          })}
-        </ol>
+        <div>
+          {this.props.state.selectedGame && this.props.state.selectedGame.id &&
+            <div>
+              <h3>{this.props.state.selectedGame.name}</h3>
+              <h5>{this.props.state.selectedGame.code}</h5>
+              <ul>
+                <h5>Players</h5>
+                <li>{this.props.state.selectedGame.players}</li>
+                <li>{this.props.state.selectedGame.active}</li>
+                <li><button onClick={() => this.props.facilitatorJoinGame(this.props.state.selectedGame)}>Join</button></li>
+              </ul>
+            </div>
+          }
+        </div>
       </div>
     );
   }
