@@ -40,7 +40,7 @@ class Journal extends Component {
 
                 <div id="QuestionOne" ref={ref => this.question_one = ref} className="tabcontent">
                     <h4>Map Movement</h4>
-                    <h4>{this.props.journal.question_one}</h4>
+                    <p>{this.props.journal.question_one}</p>
                     <p>{this.props.journal.response_one}</p>
                 </div>
 
