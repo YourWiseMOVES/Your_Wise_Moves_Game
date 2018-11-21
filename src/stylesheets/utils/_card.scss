@@ -24,7 +24,7 @@
     backface-visibility: hidden;
     border-radius:4px;
     h5{
-        font-size: 1rem
+        font-size: .75rem
     }
 }
 .card-wrapper.is-flipped {
@@ -33,6 +33,7 @@
 
 .card-front {
     flex-direction: column;
+    justify-content: flex-start;
     display: flex;
     color: white;
     padding: 4px;
@@ -43,8 +44,7 @@
     flex-direction: column;
     display: flex;
     transform: rotateY(180deg);
-    display:flex;
-    justify-content: center;
+    justify-content: flex-start;
     flex-direction: column;
 }
 
@@ -69,9 +69,10 @@
     background-size: 350px 200px;
     };
 .card-header{
+    flex-shrink: 1;
    h6{
         color:white;
-        font-size: 16px;
+        font-size: .75rem;
     };
 }
 .card-front.Map{
