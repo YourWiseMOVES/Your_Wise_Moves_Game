@@ -6,6 +6,7 @@
 
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import Card from '../../Card/Card'
 
 class AnswerCard extends Component {
 
@@ -21,6 +22,11 @@ class AnswerCard extends Component {
           :
           <div className="threeContentContainer">
             <h2>Your Intention: {this.props.state.game.player.intention}</h2>
+            <Card flipped={true} question={{
+              type: this.props.state.game.player.type,
+              text: this.props.state.game.player.text
+            }} />
+
           </div>
         }
       </div>
