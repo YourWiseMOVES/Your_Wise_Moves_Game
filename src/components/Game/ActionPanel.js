@@ -7,6 +7,8 @@ class ActionPanel extends Component {
         trigger: false,
         username: '',
         password: '',
+        intention: '',
+        response: '',
     }
 
     triggerActionPanel = (event) => {
@@ -97,7 +99,7 @@ class ActionPanel extends Component {
                                         <input
                                             type="text"
                                             placeholder="Set your Intention or Question"
-                                            onChange={this.handleChange}
+                                            onChange={this.handleInputChangeFor('intention')}
                                         />
                                         <button
                                             onClick={() => this.props.editIntention(this.state.intention)}
@@ -121,7 +123,7 @@ class ActionPanel extends Component {
                                 <div>
                                     <h1>Home Screen : not authed</h1>
                                     <h2>Player Login</h2>
-                                    <button onClick={this.props.dispatch({ type: 'SET_USER_TYPE', payload: 'facilitator' })}>Log in as facilitator</button>
+                                    <button onClick={() => this.props.dispatch({ type: 'SET_USER_TYPE', payload: 'facilitator' })}>Log in as facilitator</button>
                                 </div>
                             }
                             {
@@ -179,6 +181,7 @@ class ActionPanel extends Component {
                                                     />
                                                 </div>
                                             </form>
+                                            <button onClick={() => this.props.dispatch({ type: 'SET_USER_TYPE', payload: 'player' })}>Back To Player Home</button>
                                         </div>
                                     }
                                 </div>
@@ -214,7 +217,7 @@ class ActionPanel extends Component {
                                         <input
                                             type="text"
                                             placeholder="Answer the question please"
-                                            onChange={this.handleChange}
+                                            onChange={this.handleInputChangeFor('response')}
                                         />
                                         <button
                                             onClick={() => this.props.editJournal(this.state.response)}
