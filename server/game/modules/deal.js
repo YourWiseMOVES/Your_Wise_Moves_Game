@@ -46,7 +46,7 @@ const deal =  async (action, gameId, socket, config) => {
            let draw = deck.draw(); //draw a card
            //set the players card in the database
            console.log(draw);
-           pool.query(`UPDATE "player" SET "current_card"=$1 WHERE "id"=$2;`, [draw.id, player.id])
+           pool.query(`UPDATE "player" SET "current_card"=$1 WHERE "id"=$2;`, [draw.text, player.id])
            deck.shuffle(); //shuffle the deck (for fun)
        }
        //emit players event to trigger client player updates
