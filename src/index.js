@@ -4,6 +4,7 @@ import { createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
 import createSagaMiddleware from 'redux-saga';
 import logger from 'redux-logger';
+import './stylesheets/main.css';
 
 import rootReducer from './redux/reducers'; // imports ./redux/reducers/index.js
 import rootSaga from './redux/sagas'; // imports ./redux/sagas/index.js
@@ -38,7 +39,7 @@ const store = createStore(
 sagaMiddleware.run(rootSaga);
 
 ReactDOM.render(
-  <Provider store={store}>
+  <Provider store={store} className="overflowHidden">
     <App />
   </Provider>,
   document.getElementById('react-root'),
