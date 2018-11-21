@@ -23,7 +23,9 @@ class Discussion extends Component {
               <button
                 onClick={() => this.props.markDone(this.props.state.game.selectedPlayer)}
               >Mark Complete</button>
+
             }
+          </div>
         }
         {this.props.state.user.userReducer && this.props.state.user.userReducer.is_facilitator &&
           <button onClick={() => this.props.advanceStage(
