@@ -60,11 +60,11 @@ class Card extends Component {
   render() {
     return (
       !this.props.question?null:
-      <div className="scene" onClick={!this.props.editable ? this.flipCard : null}>
+      <div className={`scene ${!this.props.editable? 'in-game' : null}`} onClick={!this.props.editable ? this.flipCard : null}>
         <div className={`card-wrapper ${this.state.isFlipped ? 'is-flipped' : null}`}>
           <div className={`card-content card-front ${this.classNameSwitch(this.props.question.stage_id)}`}>
             <div className={`card-header`}>
-              <h6>{this.props.question.type}</h6>
+              <h6>{this.props.editable? this.props.question.type:'Your Intention '+this.props.question.intention}</h6>
             </div>
             <div>
             <h5>{this.props.question.text}</h5>
