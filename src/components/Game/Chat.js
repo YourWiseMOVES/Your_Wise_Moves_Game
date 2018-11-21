@@ -51,10 +51,12 @@ class Chat extends Component {
                         value={this.state.newMessage}
                         className="messageText"
                     />
-                    <input
+                    <button
                         type="submit"
                         className="messageSubmit"
-                    />
+                    >
+                    Submit
+                    </button>
                 </form>
             </div>
         );
