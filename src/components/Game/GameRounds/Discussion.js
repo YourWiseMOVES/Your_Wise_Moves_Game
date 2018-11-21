@@ -25,7 +25,7 @@ class Discussion extends Component {
               >Mark Complete</button>
 
             }
-          </div>
+           </div>
         }
         {this.props.state.user.userReducer && this.props.state.user.userReducer.is_facilitator &&
           <button onClick={() => this.props.advanceStage(
