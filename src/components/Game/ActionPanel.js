@@ -30,6 +30,13 @@ class Sidebar extends Component {
     render() {
         return (
             <div ref={ref => this.actionPanel = ref} className="actionPanel">
+            <h1>Title here</h1>
+            <p>This is for Facilitators</p>
+            <input></input>
+            <input></input>
+            <button> Log in </button>
+            <p>Accordion to reveal username an password and a login button</p>
+            <p>Add Watermark</p>
                 <button className="actionPanelButton" onClick={this.triggerSidebar}>Action</button>                                  
             </div>
         );

@@ -1,4 +1,4 @@
-$neutral-text: rgb(224, 231, 233);
+$neutral-text: rgb(239, 246, 248);
 $neutral-background: rgb(35, 57, 77);
 $neutral-border: #1A191A; 
 $neutral-text-hover: rgb(230, 233, 233);
@@ -38,6 +38,25 @@ button {
     color: $neutral-text;
     }
  button:active {
-    border-top-color: #1b435e;
-    background: #1b435e;
+    background-image: radial-gradient($neutral-border, $neutral-background-hover, $neutral-gradient-center);
     }
+
+ button:focus {
+    outline: none;
+ }
+
+ input{
+      width: 60%;
+      padding: 5px 5px;
+      margin: 2px 0;
+      box-sizing: border-box;
+      border-radius: .2rem;
+      font-size: 1rem;
+      border: 3px solid $neutral-background-hover;
+  }
+
+  input:focus {
+   border: 3px solid $neutral-background-hover;
+   outline: none;
+   box-shadow: 0 0 3pt 2pt $neutral-background-hover;
+}
