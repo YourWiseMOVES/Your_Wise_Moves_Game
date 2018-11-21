@@ -23,6 +23,22 @@ router.get('/', rejectUnauthenticated, isAdmin, (req, res) => {
             res.sendStatus(500);
         })
 });
+router.get('/:id', (req, res) => {
+    console.log('get card');
+    pool.query(`
+    SELECT "card"."id","card"."text","stage_id","stage_type"."type" FROM "card"
+    JOIN "stage_type"
+    ON "card"."stage_id"="stage_type"."id"
+    WHERE "card"."id" = $1`,[req.params.id])
+        .then((results) => {
+            res.send(results.rows[0])
+        }).catch((error) => {
+            console.log('Error GET /card', error);
+            res.sendStatus(500);
+        })
+});
+
+
 
 
 // POST for adding a new question to the card table in the database

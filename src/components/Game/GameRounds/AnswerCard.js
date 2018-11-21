@@ -6,6 +6,7 @@
 
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import Card from '../../Card/Card'
 
 class AnswerCard extends Component {
   state = {
@@ -27,8 +28,8 @@ class AnswerCard extends Component {
           <div className="threeContentContainer">
             <ol>
               {this.props.state.game.allPlayers.map(player => {
-                return(
-                <li key={player.id}>{player.name} ready: {player.in_discussion ? <p>yes</p> : <p>no</p>}</li>
+                return (
+                  <li key={player.id}>{player.name} ready: {player.in_discussion ? <p>yes</p> : <p>no</p>}</li>
                 )
               })}
             </ol>
@@ -39,7 +40,10 @@ class AnswerCard extends Component {
           :
           <div className="threeContentContainer">
             <h2>Your Intention: {this.props.state.game.player.intention}</h2>
-            <h2>Your Question: {this.props.state.game.player.current_card}</h2>
+            <Card flipped={true} question={{
+              type: this.props.state.game.player.type,
+              text: this.props.state.game.player.text
+            }} />
             <input
               type="text"
               placeholder="Answer the question please"

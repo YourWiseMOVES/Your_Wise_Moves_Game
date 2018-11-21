@@ -36,7 +36,7 @@ class Discussion extends Component {
         <h2>Selected Player</h2>
         <h2>{this.props.state.game.selectedPlayer.name}</h2>
         <h3>Selected Player Intention: {this.props.state.game.selectedPlayer.intention}</h3>
-        <h3>Selected Player Question: {this.props.state.game.selectedPlayer.current_card}</h3>
+        <h3>Selected Player Question: {this.props.state.game.selectedPlayer.text}</h3>
         {this.props.state.user.userReducer && this.props.state.user.userReducer.is_facilitator&&
           <button
             onClick={() => this.props.markDone(this.props.state.game.selectedPlayer)}
