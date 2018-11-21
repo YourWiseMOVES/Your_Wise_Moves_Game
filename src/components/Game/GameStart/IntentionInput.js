@@ -8,15 +8,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 class IntentionInput extends Component {
-  state = {
-    intention: '',
-  }
-
-  handleChange = event => {
-    this.setState({
-      intention: event.target.value,
-    })
-  }
+  
   render() {
     return (
       <div className="threeContentContainer">

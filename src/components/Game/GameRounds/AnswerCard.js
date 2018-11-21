@@ -8,15 +8,6 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 class AnswerCard extends Component {
-  state = {
-    response: '',
-  }
-
-  handleChange = event => {
-    this.setState({
-      response: event.target.value,
-    })
-  }
 
   render() {
     return (

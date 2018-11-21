@@ -33,7 +33,7 @@ class PlayerLogin extends Component {
         <button onClick={() => this.setState({
           ...this.state,
           joinRejoin: !this.state.joinRejoin,
-        })}>{this.state.joinRejoin ? <p>Re - Join Game</p> : <p>Join Game</p>}</button>
+        })}>{this.state.joinRejoin ? <p>Join Game</p> : <p>Re-Join Game</p>}</button>
         <label>
           Player Name
           <input onChange={this.handleChange} placeholder="Name" name="player" value={this.state.player}></input>
@@ -44,9 +44,9 @@ class PlayerLogin extends Component {
         </label>
         {
           this.state.joinRejoin ?
-          <button onClick={() => this.props.joinGame(this.state.player, this.state.code, true)}>Re-Join Game</button>
+          <button onClick={() => this.props.joinGame(this.state.info.player, this.state.info.code, true)}>Re-Join Game</button>
           :
-          <button onClick={() => this.props.joinGame(this.state.player, this.state.code, false)}>Join Game</button>
+          <button onClick={() => this.props.joinGame(this.state.info.player, this.state.info.code, false)}>Join Game</button>
         }
       </div>
     );

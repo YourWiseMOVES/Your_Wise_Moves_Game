@@ -13,7 +13,7 @@ class Discussion extends Component {
   render() {
     return (
       <div className="threeContentContainer">
-        {!this.props.state.game.selectedPlayer &&
+        {this.props.state.game.selectedPlayer && this.props.state.game.selectedPlayer.id &&
           <div>
             <h2>Selected Player</h2>
             <h2>{this.props.state.game.selectedPlayer.name}</h2>

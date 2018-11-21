@@ -65,7 +65,7 @@ class Game extends Component {
             this.props.moveSphereBack(Number(this.props.state.game.roundNumber - 1))
           }
           this.props.moveSphereForward(Number(this.props.state.game.roundNumber))
-        } else if (data.data.newGameState[0] === '6') {
+        } else if (data.type === 'advance' && data.data.newGameState[0] === '6') {
           this.props.moveSphereBack(Number(this.props.state.game.roundNumber - 1))
         }
         //dispatch the returned redux action
