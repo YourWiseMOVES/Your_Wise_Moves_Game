@@ -32,13 +32,19 @@ class ActionPanel extends Component {
                     this.props.state.gameCode !== '' ?
                     <div>
                         {this.props.state.game.gameState[1] == '0' &&
-                            <div></div>
+                            <div>
+                                <h1>Game Lobby</h1>
+                            </div>
                         }
                         {this.props.state.game.gameState[1] == '1' &&
-                            <div></div>
+                            <div>
+                                <h1>Intention Intro</h1>
+                            </div>
                         }
                         {this.props.state.game.gameState[1] == '2' &&
-                            <div></div>
+                            <div>
+                                <h1>Intention Input</h1>
+                            </div>
                         }
                     </div>
                     :
@@ -51,16 +57,20 @@ class ActionPanel extends Component {
                             {
                                 this.props.state.user.userType === 'player' &&
                                 <div>
-
+                                    <h1>Player Login</h1>
                                 </div>
                             }
                             {
                                 this.props.state.user.userType === 'facilitator' &&
                                 <div>
                                     {this.props.state.user.userReducer && this.props.state.user.userReducer.is_facilitator ?
-                                        <div></div>
+                                        <div>
+                                            <h1>Facilitator Game Management</h1>
+                                        </div>
                                         :
-                                        <div></div>
+                                        <div>
+                                            <h1>Facilitator Login</h1>
+                                        </div>
                                     }
                                 </div>
                             }
@@ -71,18 +81,26 @@ class ActionPanel extends Component {
                 {this.props.state.game.gameState[0] > 0 && this.props.state.game.gameState[0] < 6 &&
                     <div>
                     {this.props.state.game.gameState[1] == '0' &&
-                       <div></div>
+                       <div>
+                           <h1>Round Intro</h1>
+                       </div>
                     }
                     {this.props.state.game.gameState[1] == '1' &&
-                        <div></div>
+                        <div>
+                            <h1>Answer Card</h1>
+                        </div>
                     }
                     {this.props.state.game.gameState[1] == '2' &&
-                        <div></div>
+                        <div>
+                            <h1>Discussion Phase</h1>
+                        </div>
                     }
                 </div>
                 }
                 {this.props.state.game.gameState[0] == '6' &&
-                    <div></div>
+                    <div>
+                        <h1>Post Game</h1>
+                    </div>
                 }
             </div>
         );
