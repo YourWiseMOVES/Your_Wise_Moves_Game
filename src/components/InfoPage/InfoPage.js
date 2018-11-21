@@ -70,11 +70,13 @@ class InfoPage extends Component {
         {!this.props.cards ? null :
           <div className="card-collection">
             {this.props.cards.cards.map(question =>
+              <div style={{margin:'4px'}}>
               <Card
                 key={question.id}
                 question={question}
                 editable={true} 
-                flipped={this.state.flipEm}/>)}
+                flipped={this.state.flipEm}/>
+                </div>)}
           </div>}
       </div>
     )
