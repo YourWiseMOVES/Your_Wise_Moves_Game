@@ -24,6 +24,7 @@ import GameStart from './GameStart/GameStart';
 import PreGame from './PreGame/PreGame';
 import Sidebar from './Sidebar';
 import Chat from './Chat';
+import ActionPanel from './ActionPanel';
 
 //game start imports
 import axios from 'axios';
@@ -294,7 +295,7 @@ class Game extends Component {
     socket.emit('chat', {
       message,
       type: 'user',
-      from: this.props.state.game.player.name || 'facilitator',
+      from: this.props.state.game.player.name || 'Facilitator',
     });
   }
 
@@ -305,6 +306,7 @@ class Game extends Component {
         <Sidebar
           createGame={this.createGame} //function to create a new game as facilitator
         />
+        <ActionPanel />
         {this.props.state.game.gameState[0] === '0' &&
           this.props.state.gameCode !== '' ?
           <GameStart
@@ -339,9 +341,9 @@ class Game extends Component {
             endGame={this.endGame} //function to end the game
           />
         }
-        {/* <Chat 
+        <Chat 
           sendMessage={this.sendMessage}
-        /> */}
+        />
       </div>
     )
   }
