@@ -4,13 +4,14 @@
     height: 80vh; /* Full-height: remove this if you want "auto" height */
     width: 20vw; /* Set the width of the sidebar */
     position: absolute; /* Fixed Sidebar (stay in place on scroll) */
-    z-index: 1; /* Stay on top */
+    z-index: 3; /* Stay on top */
     top: 10vh; /* Stay at the top */
     left: 0;
     background-color: white; /* Black */
     text-align: left;
     border-top-right-radius: 1rem;
     border-bottom-right-radius: 1rem;
+    box-shadow:10px 10px 50px grey;  
     h3 {
         color: black;
         margin-left: .4rem;
@@ -32,9 +33,13 @@
     };
 }
 
+.sidebar:hover {
+    box-shadow:12px 12px 75px grey;  
+}
+
 .sidebarButton {
     position: absolute;
-    top: 0vh;
+    top: 1vh;
     left: 71vw;
     z-index: 1;
     visibility: hidden;
@@ -71,7 +76,7 @@
         -ms-transition: .8s;
         -o-transition: .8s;
         transition: .8s;
-        top: 2vh;
+        top: 1vh;
         left: 60vw;
     }
     .moveSidebarButtonBack {
@@ -80,15 +85,7 @@
         -ms-transition: .8s;
         -o-transition: .8s;
         transition: .8s;
-        top: 0;
+        top: 1vh;
         left: 71vw;
     }
-}
-
-@media only screen and (min-width: $medium){
-    
-}
-
-@media only screen and (min-width: $large) {
-    
 }

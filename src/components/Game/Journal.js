@@ -27,8 +27,8 @@ class Journal extends Component {
 
     render() {
         return (
-            <div>
-                <h3 className="journal">Journal</h3>
+            <div className="journal" >
+                <h3>Journal</h3>
 
                 <div className="tab">
                     <button ref={ref => this.question_one_tab = ref} className="tablinks" onClick={() => this.openQuestionNumber('question_one')}>Question One</button>
@@ -39,31 +39,31 @@ class Journal extends Component {
                 </div>
 
                 <div id="QuestionOne" ref={ref => this.question_one = ref} className="tabcontent">
-                    <h4>Map</h4>
+                    <h4>Map Movement</h4>
                     <p>{this.props.journal.question_one}</p>
                     <p>{this.props.journal.response_one}</p>
                 </div>
 
                 <div id="QuestionTwo" ref={ref => this.question_two = ref} className="tabcontent">
-                    <h4>Open</h4>
+                    <h4>Open Movement</h4>
                     <p>{this.props.journal.question_two}</p>
                     <p>{this.props.journal.response_two}</p>
                 </div>
 
                 <div id="QuestionThree" ref={ref => this.question_three = ref} className="tabcontent">
-                    <h4>Visualize</h4>
+                    <h4>Visualize Movement</h4>
                     <p>{this.props.journal.question_three}</p>
                     <p>{this.props.journal.response_three}</p>
                 </div>
 
                 <div id="QuestionFour" ref={ref => this.question_four = ref} className="tabcontent">
-                    <h4>Engage</h4>
+                    <h4>Engage Movement</h4>
                     <p>{this.props.journal.question_four}</p>
                     <p>{this.props.journal.response_four}</p>
                 </div>
 
                 <div id="QuestionFive" ref={ref => this.question_five = ref} className="tabcontent">
-                    <h5>Sustain</h5>
+                    <h5>Sustain Movement</h5>
                     <p>{this.props.journal.question_five}</p>
                     <p>{this.props.journal.response_five}</p>
                 </div>

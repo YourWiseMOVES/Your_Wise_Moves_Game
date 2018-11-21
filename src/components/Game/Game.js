@@ -24,6 +24,7 @@ import GameStart from './GameStart/GameStart';
 import PreGame from './PreGame/PreGame';
 import Sidebar from './Sidebar';
 import Chat from './Chat';
+import ActionPanel from './ActionPanel';
 
 //game start imports
 import axios from 'axios';
@@ -58,6 +59,14 @@ class Game extends Component {
         if (action.payload.fetchPlayers) {
           //trigger a saga that fetches the players from the database
           this.props.dispatch({ type: 'FETCH_PLAYERS', payload: this.props.state.game.game.id })
+        }
+        if (data.type === 'advance' && data.data.newGameState[0] !== '0' && data.data.newGameState[0] !== '6') { //if it is an advance action
+          if (data.data.newGameState[1] === '0' && data.data.newGameState[0] !== '1') {
+            this.props.moveSphereBack(Number(this.props.state.game.roundNumber - 1))
+          }
+          this.props.moveSphereForward(Number(this.props.state.game.roundNumber))
+        } else if (data.type === 'advance' && data.data.newGameState[0] === '6') {
+          this.props.moveSphereBack(Number(this.props.state.game.roundNumber - 1))
         }
         //dispatch the returned redux action
         this.props.dispatch(action);
@@ -136,10 +145,17 @@ class Game extends Component {
               type: 'UPDATE_ROUND_NUMBER',
               payload: data.data.newGameState[0],
             }) //game state is a string of two numbers '00', index 0 is the round number, index 1 is step number within round
+            if (data.data.newGameState[0] !== '0' && data.data.newGameState[0] !== '6') {
+              if (data.data.newGameState[1] === '0' && data.data.newGameState[0] !== '1') {
+                this.props.moveSphereBack(Number(this.props.state.game.roundNumber - 1))
+              }
+              this.props.moveSphereForward(Number(this.props.state.game.roundNumber))
+            } else if (data.data.newGameState[0] === '6') {
+              this.props.moveSphereBack(Number(this.props.state.game.roundNumber - 1))
+            }
           }
           if (action.payload.fetchPlayers) { //if the action directs to refresh players
             //trigger fetch players saga
-            console.log('im running');
             this.props.dispatch({ type: 'FETCH_PLAYERS', payload: this.props.state.game.game.id })
           }
           this.props.dispatch(action); //dispatch the redux action
@@ -279,7 +295,7 @@ class Game extends Component {
     socket.emit('chat', {
       message,
       type: 'user',
-      from: this.props.state.game.player.name || 'facilitator',
+      from: this.props.state.game.player.name || 'Facilitator',
     });
   }
 
@@ -290,12 +306,17 @@ class Game extends Component {
         <Sidebar
           createGame={this.createGame} //function to create a new game as facilitator
         />
+        <ActionPanel 
+          editIntention={this.editIntention} //function allows user to input their intention
+          editJournal={this.editJournal} //function for player to input their answers to provided questions
+          advanceToDiscussion={this.advanceToDiscussion}//single player can advance from answer stage to discussion phase
+          selectPlayer={this.selectPlayer} //function to select which player is going to speak next
+        />
         {this.props.state.game.gameState[0] === '0' &&
           this.props.state.gameCode !== '' ?
           <GameStart
             advanceStage={this.advanceStage} //function to advance the game forward
             calculateNextStage={this.calculateNextStage}  //function required if advancing to a new round
-            editIntention={this.editIntention} //function allows user to input their intention
           />
           :
           this.props.state.game.gameState[0] === '0' ?
@@ -311,11 +332,8 @@ class Game extends Component {
           <GameRounds
             advanceStage={this.advanceStage} //function to advance the game forward
             calculateNextStage={this.calculateNextStage} //function required if advancing to a new round
-            selectPlayer={this.selectPlayer} //function to select which player is going to speak next
             markDone={this.markDone} //function to mark a player as done speaking
-            editJournal={this.editJournal} //function for player to input their answers to provided questions
             dealCards={this.dealCards} //function for facilitator to deal cards to all players
-            advanceToDiscussion={this.advanceToDiscussion}//single player can advance from answer stage to discussion phase
           />
         }
         {this.props.state.game.gameState[0] == '6' &&
@@ -324,9 +342,9 @@ class Game extends Component {
             endGame={this.endGame} //function to end the game
           />
         }
-        {/* <Chat 
+        <Chat 
           sendMessage={this.sendMessage}
-        /> */}
+        />
       </div>
     )
   }

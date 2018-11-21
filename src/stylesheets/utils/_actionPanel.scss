@@ -1,0 +1,88 @@
+@import '../themes/neutral';
+
+.actionPanel {
+    height: 40vh; /* Full-height: remove this if you want "auto" height */
+    width: 20vw; /* Set the width of the sidebar */
+    position: absolute; /* Fixed Sidebar (stay in place on scroll) */
+    z-index: 1; /* Stay on top */
+    top: 4vh; /* Stay at the top */
+    right: 3vw;
+    // background-color: $neutral-background;
+    // color: $neutral-text;
+    background-color: $neutral-text;
+    background-image: url('../images/move-as-one-logo.png');
+    background-repeat: no-repeat;
+    background-position-x: 95%;
+    background-position-y: 95%;
+    background-size: 100px 40px;
+    color: $neutral-border;
+    text-align: left;
+    border-radius: .4rem;
+    z-index: 3;
+    text-align: center;
+    box-shadow:10px 10px 50px grey;  
+}
+
+.actionPanel:hover {
+    box-shadow:12px 12px 75px grey;  
+}
+
+.actionPanelButton {
+ visibility: hidden;
+}
+
+@media only screen and (max-width: $medium) {
+    .actionPanel {
+        height: 40vh; /* Full-height: remove this if you want "auto" height */
+        width: 30vw; /* Set the width of the sidebar */
+        position: absolute; /* Fixed Sidebar (stay in place on scroll) */
+        z-index: 1; /* Stay on top */
+        top: 0; /* Stay at the top */
+        right: -30vw;
+        background-color: $neutral-background;
+        text-align: left;
+        border-radius: 0;
+        border-bottom-left-radius: 1rem;
+    }
+    .showActionPanel {
+        -webkit-transition: .8s;
+        -moz-transition: .8s;
+        -ms-transition: .8s;
+        -o-transition: .8s;
+        transition: .8s;
+        margin-right: 30vw;
+    }
+    .hideActionPanel {
+        -webkit-transition: .8s;
+        -moz-transition: .8s;
+        -ms-transition: .8s;
+        -o-transition: .8s;
+        transition: .8s;
+        margin-right: -30vw;
+    }
+
+    .actionPanelButton {
+        visibility: visible;
+        position: absolute;
+        top:1vh;
+        right: 33vw;
+    }
+    .moveActionPanelButton {
+        -webkit-transition: .8s;
+        -moz-transition: .8s;
+        -ms-transition: .8s;
+        -o-transition: .8s;
+        transition: .8s;
+        top: 1vh;
+        right: 20vw;
+    }
+    .moveActionPanelButtonBack {
+        -webkit-transition: .8s;
+        -moz-transition: .8s;
+        -ms-transition: .8s;
+        -o-transition: .8s;
+        transition: .8s;
+        top:1vh;
+        right: 63vw;
+    }
+}
