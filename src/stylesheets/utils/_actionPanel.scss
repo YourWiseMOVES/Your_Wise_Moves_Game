@@ -1,3 +1,5 @@
+@import '../themes/neutral';
+
 .actionPanel {
     height: 40vh; /* Full-height: remove this if you want "auto" height */
     width: 20vw; /* Set the width of the sidebar */
@@ -5,15 +7,24 @@
     z-index: 1; /* Stay on top */
     top: 4vh; /* Stay at the top */
     right: 3vw;
-    opacity: .85;
-    background-color: white; /* Black */
+    // background-color: $neutral-background;
+    // color: $neutral-text;
+    background-color: $neutral-text;
+    background-image: url('../images/move-as-one-logo.png');
+    background-repeat: no-repeat;
+    background-position-x: 95%;
+    background-position-y: 95%;
+    background-size: 100px 40px;
+    color: $neutral-border;
     text-align: left;
-    border-radius: 1rem;
+    border-radius: .4rem;
     z-index: 3;
+    text-align: center;
+    box-shadow:10px 10px 50px grey;  
 }
 
 .actionPanel:hover {
-    opacity: .9;
+    box-shadow:12px 12px 75px grey;  
 }
 
 .actionPanelButton {
@@ -28,7 +39,7 @@
         z-index: 1; /* Stay on top */
         top: 0; /* Stay at the top */
         right: -30vw;
-        background-color: white; /* Black */
+        background-color: $neutral-background;
         text-align: left;
         border-radius: 0;
         border-bottom-left-radius: 1rem;

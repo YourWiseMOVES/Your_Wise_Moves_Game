@@ -1,3 +1,4 @@
+@import '../themes/neutral';
 
 $font-stack: Helvetica, sans-serif;
 
@@ -20,10 +21,12 @@ body {
     font: 100% $font-stack;
     color: $primary-color;
     // background: rgb(100, 105, 129);
-    background-image: radial-gradient(rgb(79, 78, 88), rgb(47, 47, 51), rgb(21, 22, 26));
+    // background-image: radial-gradient(rgb(234, 238, 211),rgb(199, 196, 177), rgb(182, 179, 164));
+    // background-image: radial-gradient(rgb(217, 239, 243),rgb(188, 206, 209), rgb(153, 166, 168));
+    background-image: radial-gradient(rgb(245, 254, 255),rgb(182, 235, 240), rgb(113, 162, 167));
     height: 100vh;
     min-height: 900px;
-    font-size: 10px;
+    font-size: 14px;
     text-align: center;
     overflow-x: hidden;
 }

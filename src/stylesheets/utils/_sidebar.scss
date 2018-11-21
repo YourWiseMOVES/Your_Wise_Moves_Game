@@ -7,12 +7,11 @@
     z-index: 3; /* Stay on top */
     top: 10vh; /* Stay at the top */
     left: 0;
-    opacity: .85;
     background-color: white; /* Black */
     text-align: left;
     border-top-right-radius: 1rem;
     border-bottom-right-radius: 1rem;
-    box-shadow: 2px 2px black;
+    box-shadow:10px 10px 50px grey;  
     h3 {
         color: black;
         margin-left: .4rem;
@@ -35,7 +34,7 @@
 }
 
 .sidebar:hover {
-    opacity: .9;
+    box-shadow:12px 12px 75px grey;  
 }
 
 .sidebarButton {
