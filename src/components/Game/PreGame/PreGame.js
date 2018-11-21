@@ -18,38 +18,24 @@ import FacilitatorLogin from './FacilitatorLogin';
 import FacilitatorCreateGame from './FacilitatorCreateGame';
 
 class PreGame extends Component {
-
-    //user type for routing through pregame binary paths
-    state = {
-        userType: '',
-    }
-
-    componentDidMount(){
+    componentDidMount() {
         setTimeout(
             () => {
-                if(this.props.state.user.userReducer.is_facilitator){
-                    this.setState({
-                        userType: 'facilitator',
-                    })
+                if (this.props.state.user.userReducer.is_facilitator) {
+                    this.props.dispatch({ type: 'SET_USER_TYPE', payload: 'facilitator' })
                 } else {
-                    this.setState({
-                        userType: 'player',
-                    })
+                    this.props.dispatch({ type: 'SET_USER_TYPE', payload: 'player' })
                 }
             }, 100
         )
     }
 
     facilitator = () => {
-        this.setState({
-            userType: 'facilitator',
-        })
+        this.props.dispatch({ type: 'SET_USER_TYPE', payload: 'facilitator' })
     }
 
     player = () => {
-        this.setState({
-            userType: 'player',
-        })
+        this.props.dispatch({ type: 'SET_USER_TYPE', payload: 'player' })
     }
 
     render() {
@@ -60,7 +46,7 @@ class PreGame extends Component {
                     null
                 }
                 {
-                    this.state.userType === 'player' &&
+                    this.props.state.user.userType === 'player' &&
                     <div>
                         <PlayerLogin
                             //sub component requires
@@ -70,7 +56,7 @@ class PreGame extends Component {
                     </div>
                 }
                 {
-                    this.state.userType === 'facilitator' &&
+                    this.props.state.user.userType === 'facilitator' &&
                     <div>
                         {this.props.state.user.userReducer && this.props.state.user.userReducer.is_facilitator ?
                             <FacilitatorCreateGame
