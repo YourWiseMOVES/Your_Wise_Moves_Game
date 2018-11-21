@@ -10,6 +10,15 @@ function* fetchCards(action) {
     }
 }
 
+function* fetchSpecificCard(action) {
+    try {
+        const response = yield axios.get(`api/card/${action.payload}`)
+        yield put({ type: 'SET_SPECIFIC_CARD', payload: response.data });
+    } catch (error) {
+        console.log('Error getting cards', error);
+    }
+}
+
 function* addCard(action) {
     try {
         yield axios.post('api/card', action.payload)
@@ -46,6 +55,7 @@ function* fetchDeckCards(action) {
 
 function* cardSaga() {
     yield takeLatest('FETCH_CARDS', fetchCards);
+    yield takeLatest('FETCH_SPECIFIC_CARD',fetchSpecificCard);
     yield takeLatest('FETCH_DECK_CARDS', fetchDeckCards);
     yield takeLatest('ADD_CARD', addCard);
     yield takeLatest('EDIT_CARD', editCard);

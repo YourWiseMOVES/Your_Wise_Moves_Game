@@ -22,7 +22,7 @@ const discussion = async (action, gameId, socket, config) => {
         case 'done':
             try {
                 //update the player to reflect that they have spoken
-                await pool.query(`UPDATE "player" SET "discussed"=$1 WHERE "id"=$2;`, [true, action.data.player.id]);
+                await pool.query(`UPDATE "player" SET "discussed"=$1, "selected"=$2 WHERE "id"=$3;`, [true, false, action.data.player.id]);
                 //let all the clients know that this player has spoken
                 socket.emit('players', { type: 'done' });
                 socket.broadcast.emit('players', { type: 'done' })

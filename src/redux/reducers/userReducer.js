@@ -11,7 +11,7 @@ const userReducer = (state = {}, action) => {
   }
 };
 
-const userTypeReducer = (state = {userType: ''}, action) => {
+const userType = (state = '', action) => {
   switch (action.type) {
     case 'SET_USER_TYPE':
       return action.payload;
@@ -25,5 +25,5 @@ const userTypeReducer = (state = {userType: ''}, action) => {
 
 export default combineReducers({
   userReducer,
-  userTypeReducer,
+  userType,
 });
