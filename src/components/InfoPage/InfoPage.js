@@ -6,10 +6,10 @@ class InfoPage extends Component {
   state = {
 
     flipEm: false,
-    filterCategory: '1',
-    filterDeck: '1',
     cards: [],
-    searchText: ''
+    searchText: '',
+    categorySelected:'0',
+    filterDeck:'0'
 
   }
   componentDidMount() {
@@ -22,26 +22,39 @@ class InfoPage extends Component {
       })
     }
   }
-  searchFilter = (event) => {
-    let updatedList = this.props.cards.cards;
-    updatedList = updatedList.filter((card => {
+  textFilter = (event) => {
+    let updatedCards = this.props.cards.cards;
+    updatedCards = updatedCards.filter((card => {
       return card.text.toLowerCase().search(
         event.target.value.toLowerCase()) !== -1;
     }));
     this.setState({
-      cards: updatedList,
+      cards: updatedCards,
     });
-
   }
-
-
-  filterCards = (actionType, filterType) => () => {
-    this.props.dispatch({ type: actionType, payload: this.state[filterType] })
+  categoryFilter = (event) => {
+    let updatedCards = this.props.cards.cards;
+    if (event.target.value === '0') {
+      this.setState({
+        cards: updatedCards,
+        categorySelected: event.target.value
+      })
+    } else {
+      updatedCards = updatedCards.filter(card => card.stage_id === Number(event.target.value))
+      this.setState({
+        cards: updatedCards,
+        categorySelected:event.target.value
+      });
+    }
+  }
+  filterByDeck = () => (event) => {
+    this.setState({categorySelected:'0'})
+    this.props.dispatch({ type: 'FETCH_DECK_CARDS', payload: event.target.value })
   }
   clearFilter = () => {
     this.props.dispatch({ type: 'CLEAR_CARD_FILTER' })
   }
-  handleChangeFor = (input) => event => {
+  handleChangeFor = (input) => (event) => {
     this.setState({
       ...this.state,
       [input]: event.target.value,
@@ -56,50 +69,43 @@ class InfoPage extends Component {
 
         <div>
           <h4>Add a new question here:</h4>
+          <div>
+            <QuestionForm add={true} />
+          </div>
           <button onClick={this.flipEmAll}>FLIP EM ALL</button>
         </div>
         <div>
           <label htmlFor="select">Filter By Category: </label>
           <select name="select"
-            onChange={this.handleChangeFor('filterCategory')}
-            selected={this.state.filterCategory}>
+            onChange={this.categoryFilter}
+            value={this.state.categorySelected}
+          >
+            <option value="0">All Categories</option>
             <option value="1">Map</option>
             <option value="2">Open</option>
             <option value="3">Visualize</option>
             <option value="4">Engage</option>
             <option value="5">Sustain</option>
           </select>
-          <button onClick={this.filterCards('FILTER_CARDS_BY_CATEGORY', 'filterCategory')}>Filter</button>
           <label htmlFor="select">Filter By Deck: </label>
           {<select name="select"
-            onChange={this.handleChangeFor('filterDeck')}
+            onChange={this.filterByDeck()}
             selected={this.state.filterDeck}>
-
+            <option value="0">All Cards</option>
             {this.props.decks.decks.map(deck =>
               <option value={`${deck.id}`}>{deck.description}</option>)}
           </select>}
-          <button onClick={this.filterCards('FETCH_DECK_CARDS', 'filterDeck')}>Filter</button>
-          <button
-            disabled={this.props.cards.originalCards === this.props.cards.cards ? true : false}
-            onClick={this.clearFilter}>
-            Clear filter
-          </button>
-          <input placeholder="search for a card by content" onChange={this.searchFilter}></input>
+          <input placeholder="search for a card by content" onChange={this.textFilter}></input>
         </div>
-        <div>
-          <QuestionForm add={true} />
+        <div className="card-collection">
+          {this.state.cards.map(question =>
+            <div key={question.id} style={{ margin: '4px' }}>
+              <Card
+                question={question}
+                editable={true}
+                flipped={this.state.flipEm} />
+            </div>)}
         </div>
-        {!this.props.cards ? null :
-          <div className="card-collection">
-            {this.state.cards.map(question =>
-              <div style={{ margin: '4px' }}>
-                <Card
-                  key={question.id}
-                  question={question}
-                  editable={true}
-                  flipped={this.state.flipEm} />
-              </div>)}
-          </div>}
       </div>
     )
   }
