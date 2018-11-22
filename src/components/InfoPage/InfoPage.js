@@ -7,13 +7,35 @@ class InfoPage extends Component {
 
     flipEm: false,
     filterCategory: '1',
-    filterDeck:'1',
+    filterDeck: '1',
+    cards: [],
+    searchText: ''
 
   }
   componentDidMount() {
     this.props.dispatch({ type: 'FETCH_CARDS' });
   }
-  filterCards = (actionType,filterType) => () => {
+  componentDidUpdate(prevProps) {
+    if (this.props.cards.cards !== prevProps.cards.cards) {
+      this.setState({
+        cards: this.props.cards.cards
+      })
+    }
+  }
+  searchFilter = (event) => {
+    let updatedList = this.props.cards.cards;
+    updatedList = updatedList.filter((card => {
+      return card.text.toLowerCase().search(
+        event.target.value.toLowerCase()) !== -1;
+    }));
+    this.setState({
+      cards: updatedList,
+    });
+
+  }
+
+
+  filterCards = (actionType, filterType) => () => {
     this.props.dispatch({ type: actionType, payload: this.state[filterType] })
   }
   clearFilter = () => {
@@ -25,8 +47,8 @@ class InfoPage extends Component {
       [input]: event.target.value,
     })
   }
-  flipEmAll=()=> { 
-    this.setState({flipEm:!this.state.flipEm})
+  flipEmAll = () => {
+    this.setState({ flipEm: !this.state.flipEm })
   }
   render() {
     return (
@@ -47,40 +69,40 @@ class InfoPage extends Component {
             <option value="4">Engage</option>
             <option value="5">Sustain</option>
           </select>
-          <button onClick={this.filterCards('FILTER_CARDS_BY_CATEGORY','filterCategory')}>Filter</button>
+          <button onClick={this.filterCards('FILTER_CARDS_BY_CATEGORY', 'filterCategory')}>Filter</button>
           <label htmlFor="select">Filter By Deck: </label>
           {<select name="select"
             onChange={this.handleChangeFor('filterDeck')}
             selected={this.state.filterDeck}>
-            
-            {this.props.decks.decks.map(deck=>
-            <option value={`${deck.id}`}>{deck.description}</option>)}
-           
+
+            {this.props.decks.decks.map(deck =>
+              <option value={`${deck.id}`}>{deck.description}</option>)}
           </select>}
-          <button onClick={this.filterCards('FETCH_DECK_CARDS','filterDeck')}>Filter</button>
+          <button onClick={this.filterCards('FETCH_DECK_CARDS', 'filterDeck')}>Filter</button>
           <button
             disabled={this.props.cards.originalCards === this.props.cards.cards ? true : false}
             onClick={this.clearFilter}>
             Clear filter
           </button>
+          <input placeholder="search for a card by content" onChange={this.searchFilter}></input>
         </div>
         <div>
           <QuestionForm add={true} />
         </div>
         {!this.props.cards ? null :
           <div className="card-collection">
-            {this.props.cards.cards.map(question =>
-              <div style={{margin:'4px'}}>
-              <Card
-                key={question.id}
-                question={question}
-                editable={true} 
-                flipped={this.state.flipEm}/>
-                </div>)}
+            {this.state.cards.map(question =>
+              <div style={{ margin: '4px' }}>
+                <Card
+                  key={question.id}
+                  question={question}
+                  editable={true}
+                  flipped={this.state.flipEm} />
+              </div>)}
           </div>}
       </div>
     )
   }
 }
-const mapReduxStateToProps = ({ cards,decks }) => ({ cards,decks })
+const mapReduxStateToProps = ({ cards, decks }) => ({ cards, decks })
 export default connect(mapReduxStateToProps)(InfoPage);

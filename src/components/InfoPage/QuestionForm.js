@@ -50,7 +50,6 @@ class QuestionForm extends Component {
   }
   handleSubmit = (event) => {
     event.preventDefault();
-    console.log(this.state.newContent)
     this.props.add ?
       this.props.dispatch({ type: 'ADD_CARD', payload: this.state.newContent }) :
       this.props.dispatch({ type: 'EDIT_CARD', payload: this.state.newContent })
@@ -73,6 +72,7 @@ class QuestionForm extends Component {
           </select>
           <br />
           <label htmlFor="text">Type a question: </label>
+          <br/>
           <textarea name="text" type="text" onChange={this.handleChangeFor('text')} value={this.state.newContent.text} />
         </form>
         <button onClick={this.handleSubmit}>Submit</button>

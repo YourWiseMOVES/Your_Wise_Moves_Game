@@ -7,7 +7,7 @@ const { rejectUnauthenticated } = require('../modules/authentication-middleware'
 
 // GET info on all questions from the card table
 router.get('/', rejectUnauthenticated, isAdmin, (req, res) => {
-    console.log('get card');
+    console.log('get all cards');
     pool.query(`
     SELECT "card"."id",
     "card"."text",
@@ -15,7 +15,8 @@ router.get('/', rejectUnauthenticated, isAdmin, (req, res) => {
     "stage_type"."type" 
     FROM "card"
     JOIN "stage_type"
-    ON "card"."stage_id"="stage_type"."id";`)
+    ON "card"."stage_id"="stage_type"."id"
+    ORDER BY "card"."id";`)
         .then((results) => {
             res.send(results.rows)
         }).catch((error) => {
