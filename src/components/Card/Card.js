@@ -26,16 +26,6 @@ class Card extends Component {
         return 'Engage'
       case '5':
         return 'Sustain'
-      case 1:
-        return 'Map'
-      case 2:
-        return 'Open'
-      case 3:
-        return 'Visualize'
-      case 4:
-        return 'Engage'
-      case 5:
-        return 'Sustain'
       default:
         return prop
     }
@@ -62,22 +52,15 @@ class Card extends Component {
       !this.props.question ? null :
         <div className={`scene ${!this.props.editable ? 'in-game' : null}`} onClick={!this.props.editable ? this.flipCard : null}>
           <div className={`card-wrapper ${this.state.isFlipped ? 'is-flipped' : null}`}>
-            <div className={`card-content card-front ${this.classNameSwitch(this.props.question.stage_id)}`}>
+            <div onClick={() => this.flipCard()} className={`card-content card-front ${this.classNameSwitch(String(this.props.question.stage_id))}`}>
               <div className={`card-header`}>
                 <h6>{this.props.editable ? this.props.question.type : 'Your Intention ' + this.props.question.intention}</h6>
               </div>
               <div>
                 <h5>{this.props.question.text}</h5>
               </div>
-              {this.props.editable ?
-                <div className="edit-buttons">
-                  <button onClick={() => this.flipCard()}>
-                    Edit
-                </button>
-
-                </div> : null}
             </div>
-            <div className={`card-content card-back ${this.classNameSwitch(this.props.question.stage_id)}`}>
+            <div className={`card-content card-back ${this.classNameSwitch(String(this.props.question.stage_id))}`}>
               {
                 this.props.editable ?
                   <div>
