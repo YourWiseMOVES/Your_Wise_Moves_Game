@@ -4,60 +4,74 @@ import Card from '../Card/Card'
 import QuestionForm from './QuestionForm';
 class InfoPage extends Component {
   state = {
-
     flipEm: false,
     cards: [],
-    searchText: '',
-    categorySelected:'0',
-    filterDeck:'0'
+    decks: [],
+    deckSelectOptions: [],
+    filter: {
+      categorySelected: '0',
+      deckSelected: '0',
+      searchText: '',
+    }
 
   }
   componentDidMount() {
     this.props.dispatch({ type: 'FETCH_CARDS' });
+    this.props.dispatch({ type: 'FETCH_DECKS' });
   }
-  componentDidUpdate(prevProps) {
+  componentDidUpdate(prevProps, prevState) {
     if (this.props.cards.cards !== prevProps.cards.cards) {
       this.setState({
         cards: this.props.cards.cards
       })
     }
-  }
-  textFilter = (event) => {
-    let updatedCards = this.props.cards.cards;
-    updatedCards = updatedCards.filter((card => {
-      return card.text.toLowerCase().search(
-        event.target.value.toLowerCase()) !== -1;
-    }));
-    this.setState({
-      cards: updatedCards,
-    });
-  }
-  categoryFilter = (event) => {
-    let updatedCards = this.props.cards.cards;
-    if (event.target.value === '0') {
+    if (this.props.decks.decks !== prevProps.decks.decks) {
       this.setState({
-        cards: updatedCards,
-        categorySelected: event.target.value
+        decks: this.props.decks.decks
       })
+    }
+    if (this.state.filter !== prevState.filter) {
+      this.combinedFilter(this.state.filter)
+    }
+
+  }
+  filterByText = (searchText, updatedCards) => {
+    return updatedCards.filter(
+      (card => {
+        return card.text.toLowerCase().search(searchText.toLowerCase()) !== -1;
+      })
+    );
+  }
+  filterByCategory = (categoryId, updatedCards) => {
+    if (categoryId === '0') {
+      return updatedCards
     } else {
-      updatedCards = updatedCards.filter(card => card.stage_id === Number(event.target.value))
-      this.setState({
-        cards: updatedCards,
-        categorySelected:event.target.value
-      });
+      return updatedCards.filter(card => card.stage_id === Number(categoryId))
     }
   }
-  filterByDeck = () => (event) => {
-    this.setState({categorySelected:'0'})
-    this.props.dispatch({ type: 'FETCH_DECK_CARDS', payload: event.target.value })
+  filterByDeck = (deckId, updatedCards) => {
+    if (deckId === '0') {
+      return updatedCards
+    } else {
+      return updatedCards.filter(card =>
+        this.state.decks.filter(deck =>
+          deck.id === Number(deckId))[0].cards_in_deck.indexOf(card.id) !== -1);
+    }
+  }
+  combinedFilter = (filter) => {
+    this.setState({
+      cards: this.filterByText(filter.searchText, this.filterByCategory(filter.categorySelected, this.filterByDeck(filter.deckSelected, this.props.cards.cards)))
+    })
   }
   clearFilter = () => {
     this.props.dispatch({ type: 'CLEAR_CARD_FILTER' })
   }
   handleChangeFor = (input) => (event) => {
     this.setState({
-      ...this.state,
-      [input]: event.target.value,
+      filter: {
+        ...this.state.filter,
+        [input]: event.target.value,
+      }
     })
   }
   flipEmAll = () => {
@@ -77,9 +91,8 @@ class InfoPage extends Component {
         <div>
           <label htmlFor="select">Filter By Category: </label>
           <select name="select"
-            onChange={this.categoryFilter}
-            value={this.state.categorySelected}
-          >
+            onChange={this.handleChangeFor('categorySelected')}
+            value={this.state.filter.categorySelected}>
             <option value="0">All Categories</option>
             <option value="1">Map</option>
             <option value="2">Open</option>
@@ -89,13 +102,13 @@ class InfoPage extends Component {
           </select>
           <label htmlFor="select">Filter By Deck: </label>
           {<select name="select"
-            onChange={this.filterByDeck()}
-            selected={this.state.filterDeck}>
+            onChange={this.handleChangeFor('deckSelected')}
+            value={this.state.deckSelected}>
             <option value="0">All Cards</option>
             {this.props.decks.decks.map(deck =>
               <option value={`${deck.id}`}>{deck.description}</option>)}
           </select>}
-          <input placeholder="search for a card by content" onChange={this.textFilter}></input>
+          <input placeholder="search for a card by content" onChange={this.handleChangeFor('searchText')}></input>
         </div>
         <div className="card-collection">
           {this.state.cards.map(question =>
