@@ -45,17 +45,21 @@ function* deleteCard(action) {
 }
 
 function* fetchDeckCards(action) {
-    try {
-        const response = yield axios.get(`api/deck/${action.payload}`)
-        yield put({ type: 'FILTER_CARDS_BY_DECK', payload: response.data });
-    } catch (error) {
-        console.log('Error getting cards', error);
+    if (action.payload !== '0') {
+        try {
+            const response = yield axios.get(`api/deck/${action.payload}`)
+            yield put({ type: 'FILTER_CARDS_BY_DECK', payload: response.data });
+        } catch (error) {
+            console.log('Error getting cards', error);
+        }
+    } else {
+        yield put({type:'CLEAR_CARD_FILTER'})
     }
 }
 
 function* cardSaga() {
     yield takeLatest('FETCH_CARDS', fetchCards);
-    yield takeLatest('FETCH_SPECIFIC_CARD',fetchSpecificCard);
+    yield takeLatest('FETCH_SPECIFIC_CARD', fetchSpecificCard);
     yield takeLatest('FETCH_DECK_CARDS', fetchDeckCards);
     yield takeLatest('ADD_CARD', addCard);
     yield takeLatest('EDIT_CARD', editCard);

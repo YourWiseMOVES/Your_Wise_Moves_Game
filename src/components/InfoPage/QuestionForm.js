@@ -33,7 +33,7 @@ class QuestionForm extends Component {
   handleDelete = (id) => {
     swal({
       title: "Are you sure?",
-      text: "You will not be able to recover this file.",
+      text: "You will not be able to recover this card.",
       icon: "warning",
       buttons: true,
       dangerMode: true,
