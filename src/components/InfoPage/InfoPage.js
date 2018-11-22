@@ -5,9 +5,11 @@ import QuestionForm from './QuestionForm';
 class InfoPage extends Component {
   state = {
     flipEm: false,
+    initialCards:[],
     cards: [],
     decks: [],
     deckSelectOptions: [],
+    deckToBeCreated:[],
     filter: {
       categorySelected: '0',
       deckSelected: '0',
@@ -22,7 +24,8 @@ class InfoPage extends Component {
   componentDidUpdate(prevProps, prevState) {
     if (this.props.cards.cards !== prevProps.cards.cards) {
       this.setState({
-        cards: this.props.cards.cards
+        cards: this.props.cards.cards,
+        initialCards: this.props.cards.cards.map(card=>({id:card.id, checked:false}))
       })
     }
     if (this.props.decks.decks !== prevProps.decks.decks) {
@@ -66,7 +69,7 @@ class InfoPage extends Component {
   clearFilter = () => {
     this.props.dispatch({ type: 'CLEAR_CARD_FILTER' })
   }
-  handleChangeFor = (input) => (event) => {
+  handleChangeForFilter = (input) => (event) => {
     this.setState({
       filter: {
         ...this.state.filter,
@@ -74,13 +77,22 @@ class InfoPage extends Component {
       }
     })
   }
+  handleChangeForDeckCheckbox = (id,) => (event) => {
+    let copy = [...this.state.initialCards];
+    let copyIndex = copy.findIndex(card=>card.id===id)
+    let item = {...copy[copyIndex]};
+    item.checked = event.target.checked;
+    copy[copyIndex] = item;
+    this.setState({initialCards:copy});
+    
+  }
   flipEmAll = () => {
     this.setState({ flipEm: !this.state.flipEm })
   }
   render() {
     return (
       <div>
-
+        <pre>{JSON.stringify(this.state.initialCards, null, 2)}</pre>
         <div>
           <h4>Add a new question here:</h4>
           <div>
@@ -91,7 +103,7 @@ class InfoPage extends Component {
         <div>
           <label htmlFor="select">Filter By Category: </label>
           <select name="select"
-            onChange={this.handleChangeFor('categorySelected')}
+            onChange={this.handleChangeForFilter('categorySelected')}
             value={this.state.filter.categorySelected}>
             <option value="0">All Categories</option>
             <option value="1">Map</option>
@@ -102,17 +114,21 @@ class InfoPage extends Component {
           </select>
           <label htmlFor="select">Filter By Deck: </label>
           {<select name="select"
-            onChange={this.handleChangeFor('deckSelected')}
+            onChange={this.handleChangeForFilter('deckSelected')}
             value={this.state.deckSelected}>
             <option value="0">All Cards</option>
             {this.props.decks.decks.map(deck =>
-              <option value={`${deck.id}`}>{deck.description}</option>)}
+              <option key={deck.id} value={`${deck.id}`}>{deck.description}</option>)}
           </select>}
-          <input placeholder="search for a card by content" onChange={this.handleChangeFor('searchText')}></input>
+          <input placeholder="search for a card by content" onChange={this.handleChangeForFilter('searchText')}></input>
         </div>
         <div className="card-collection">
-          {this.state.cards.map(question =>
+          {this.state.cards.map((question) =>
             <div key={question.id} style={{ margin: '4px' }}>
+            {this.state.initialCards===[]?null:
+            <input type="checkbox" className={question.id} onChange={this.handleChangeForDeckCheckbox(question.id)} 
+            checked={this.state.initialCards[this.state.initialCards.findIndex(card=>card.id===question.id)].checked}/>}
+              <br/>
               <Card
                 question={question}
                 editable={true}
