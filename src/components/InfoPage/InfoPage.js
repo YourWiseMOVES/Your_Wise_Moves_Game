@@ -38,6 +38,13 @@ class InfoPage extends Component {
     }
 
   }
+  dispatchDeckToPost=()=>{
+    this.props.dispatch({type:'ADD_DECK', payload:{
+      description:'hard coded description',
+      cards_in_deck: this.state.initialCards.filter(card=>card.checked===true).map(card=>card.id)
+    }
+    })
+  }
   filterByText = (searchText, updatedCards) => {
     return updatedCards.filter(
       (card => {
@@ -65,9 +72,6 @@ class InfoPage extends Component {
     this.setState({
       cards: this.filterByText(filter.searchText, this.filterByCategory(filter.categorySelected, this.filterByDeck(filter.deckSelected, this.props.cards.cards)))
     })
-  }
-  clearFilter = () => {
-    this.props.dispatch({ type: 'CLEAR_CARD_FILTER' })
   }
   handleChangeForFilter = (input) => (event) => {
     this.setState({
@@ -121,6 +125,7 @@ class InfoPage extends Component {
               <option key={deck.id} value={`${deck.id}`}>{deck.description}</option>)}
           </select>}
           <input placeholder="search for a card by content" onChange={this.handleChangeForFilter('searchText')}></input>
+          <button onClick={this.dispatchDeckToPost}>Add checked cards to deck</button>
         </div>
         <div className="card-collection">
           {this.state.cards.map((question) =>
