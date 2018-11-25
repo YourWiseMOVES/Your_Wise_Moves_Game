@@ -2,10 +2,18 @@
     width:350px;
     height:200px;
     border-radius:8px;
-    perspective: 600px;
-    margin:10px;
+    perspective: 700px;
+    // margin:10px;
+ 
 }
-
+.in-game{
+    position: absolute;
+    left: 50vw;
+    margin-left:-175px;
+    z-index: 2;
+    top: 50vh;
+    margin-top:-100px;
+}
 .card-wrapper{ 
     height: 100%;
     width: 100%;
@@ -14,8 +22,6 @@
     transition: transform 1s;
   transform-style: preserve-3d;
   cursor: pointer;
-  position: relative;
-    
 }
 .card-content{
     position: absolute;
@@ -24,11 +30,11 @@
     backface-visibility: hidden;
     border-radius:4px;
     h5{
-        font-size: .75rem
+        font-size: 1rem
     }
 }
 .card-wrapper.is-flipped {
-    transform: rotateY(180deg);
+    transform: rotateX(-180deg);
   }
 
 .card-front {
@@ -36,7 +42,6 @@
     justify-content: flex-start;
     display: flex;
     color: white;
-    padding: 4px;
     text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
   }
 
@@ -46,6 +51,11 @@
     transform: rotateY(180deg);
     justify-content: flex-start;
     flex-direction: column;
+    transform: rotateX(180deg);
+    textarea{
+        width:250px;
+        height:65px;
+    }
 }
 
 .card-back.Map{
@@ -73,6 +83,7 @@
    h6{
         color:white;
         font-size: .75rem;
+        margin-bottom:2px
     };
 }
 .card-front.Map{

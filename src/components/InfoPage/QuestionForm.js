@@ -33,7 +33,7 @@ class QuestionForm extends Component {
   handleDelete = (id) => {
     swal({
       title: "Are you sure?",
-      text: "You will not be able to recover this file.",
+      text: "You will not be able to recover this card.",
       icon: "warning",
       buttons: true,
       dangerMode: true,
@@ -50,9 +50,8 @@ class QuestionForm extends Component {
   }
   handleSubmit = (event) => {
     event.preventDefault();
-    console.log(this.state.newContent)
     this.props.add ?
-      this.props.dispatch({ type: 'ADD_CARD', payload: this.state.newContent }) :
+      this.props.dispatch({ type: 'ADD_CARD', payload: ({...this.state.newContent, decksToAddTo:[]}) }) :
       this.props.dispatch({ type: 'EDIT_CARD', payload: this.state.newContent })
     swal(this.props.add ? 'Card Added' : 'Card Edited');
     if (this.props.flipCard){
@@ -73,9 +72,10 @@ class QuestionForm extends Component {
           </select>
           <br />
           <label htmlFor="text">Type a question: </label>
-          <input name="text" type="text" onChange={this.handleChangeFor('text')} value={this.state.newContent.text} />
-          <button onClick={this.handleSubmit}>Submit</button>
+          <br/>
+          <textarea name="text" type="text" onChange={this.handleChangeFor('text')} value={this.state.newContent.text} />
         </form>
+        <button onClick={this.handleSubmit}>Submit</button>
         {this.state.editing?<button onClick={() => this.handleDelete(this.props.question.id)}>Delete</button>:null}
       </div>
     );
