@@ -8,7 +8,8 @@ const { rejectUnauthenticated } = require('../modules/authentication-middleware'
 
 // GET a list of all decks no need to be protected, it doesn't actually contain any card data
 router.get('/',  (req, res) => {
-    pool.query(`SELECT * FROM "deck";`)
+    pool.query(`SELECT * FROM "deck"
+                ORDER BY "id";`)
         .then((results) => {
             res.send(results.rows)
         }).catch((error) => {

@@ -51,7 +51,7 @@ class QuestionForm extends Component {
   handleSubmit = (event) => {
     event.preventDefault();
     this.props.add ?
-      this.props.dispatch({ type: 'ADD_CARD', payload: this.state.newContent }) :
+      this.props.dispatch({ type: 'ADD_CARD', payload: ({...this.state.newContent, decksToAddTo:[]}) }) :
       this.props.dispatch({ type: 'EDIT_CARD', payload: this.state.newContent })
     swal(this.props.add ? 'Card Added' : 'Card Edited');
     if (this.props.flipCard){

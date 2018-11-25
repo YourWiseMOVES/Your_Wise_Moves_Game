@@ -2,7 +2,7 @@
     width:350px;
     height:200px;
     border-radius:8px;
-    perspective: 600px;
+    perspective: 700px;
     // margin:10px;
  
 }
@@ -34,7 +34,7 @@
     }
 }
 .card-wrapper.is-flipped {
-    transform: rotateY(180deg);
+    transform: rotateX(-180deg);
   }
 
 .card-front {
@@ -51,6 +51,11 @@
     transform: rotateY(180deg);
     justify-content: flex-start;
     flex-direction: column;
+    transform: rotateX(180deg);
+    textarea{
+        width:250px;
+        height:65px;
+    }
 }
 
 .card-back.Map{
