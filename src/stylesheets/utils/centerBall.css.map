@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "AAAA,AAAA,eAAe,CAAC;EACZ,OAAO,EAAE,CAAC;CAUb;;AAXD,AAEI,eAFW,CAEX,EAAE,CAAC;EACC,SAAS,EAAE,MAAM;CACpB;;AAJL,AAKI,eALW,CAKX,EAAE,CAAC;EACC,SAAS,EAAE,IAAI;CAClB;;AAPL,AAQI,eARW,CAQX,EAAE,CAAC;EACC,SAAS,EAAE,MAAM;CACpB",
+    "sources": [
+        "centerBall.scss"
+    ],
+    "names": [],
+    "file": "centerBall.css"
+}
