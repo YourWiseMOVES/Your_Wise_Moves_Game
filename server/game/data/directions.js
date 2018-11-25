@@ -37,14 +37,16 @@ const directions = gameState => {
                 );
             }
         case '3':
+            return '';
         case '4':
-        case '5':
+            return '';
+        case '5': 
+            return '';
         case '6':
+            return '';
+        default:
+            return '';
     }
-}
-
-const subDirections = secondDigit => {
-
 }
 
 

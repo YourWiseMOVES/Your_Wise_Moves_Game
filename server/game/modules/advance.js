@@ -5,7 +5,8 @@
 */
 
 const pool = require('../../modules/pool');
-
+const chat = require('../modules/chat');
+const directions = require('../data/directions');
 //the structure for what a advance action will look like from the client
 const sampleAdvanceAction = {
     type: 'advance',
@@ -18,6 +19,16 @@ const sampleAdvanceAction = {
 
 const advance =  async (action, gameId, socket, config) => {
     console.log(action);
+    if (config.showDirections) {
+        let x = directions(action.data.newGameState)
+        if ( x != ''){
+            chat({
+                message: x,
+                type: 'directions',
+                from: 'guide',
+            }, gameId, socket, config)
+        }
+    }
     try {
         //update the database to reflect the new game state
         await pool.query(`UPDATE "game_state" SET "game_stage"=$1 WHERE "game_id"=$2;`, 
