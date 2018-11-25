@@ -537,7 +537,7 @@ input:focus {
 }
 
 .message {
-  color: white;
+  color: black;
   font-size: 1rem;
 }
 
@@ -589,12 +589,16 @@ input:focus {
   color: white;
 }
 
+.join-game-ball {
+  padding: 0;
+}
+
 .join-game-ball h4 {
   font-size: 1.4rem;
 }
 
 .join-game-ball h5 {
-  font-size: 1.3rem;
+  font-size: 3rem;
 }
 
 .join-game-ball h6 {
