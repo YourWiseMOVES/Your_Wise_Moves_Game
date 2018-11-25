@@ -23,8 +23,9 @@ function* addCard(action) {
     try {
         yield axios.post('api/card', action.payload)
         yield put({ type: 'FETCH_CARDS' });
+        yield put({ type: 'FETCH_DECKS' });
     } catch (error) {
-        console.log('Error updating card: ', error)
+        console.log('Error adding card: ', error)
     }
 }
 function* editCard(action) {
@@ -39,23 +40,28 @@ function* deleteCard(action) {
     try {
         yield axios.delete(`api/card/${action.payload}`);
         yield put({ type: 'FETCH_CARDS' });
+        yield put({ type: 'FETCH_DECKS' });
     } catch (error) {
         console.log('Error deleting card', error);
     }
 }
 
 function* fetchDeckCards(action) {
-    try {
-        const response = yield axios.get(`api/deck/${action.payload}`)
-        yield put({ type: 'FILTER_CARDS_BY_DECK', payload: response.data });
-    } catch (error) {
-        console.log('Error getting cards', error);
+    if (action.payload !== '0') {
+        try {
+            const response = yield axios.get(`api/deck/${action.payload}`)
+            yield put({ type: 'FILTER_CARDS_BY_DECK', payload: response.data });
+        } catch (error) {
+            console.log('Error getting cards', error);
+        }
+    } else {
+        yield put({type:'CLEAR_CARD_FILTER'})
     }
 }
 
 function* cardSaga() {
     yield takeLatest('FETCH_CARDS', fetchCards);
-    yield takeLatest('FETCH_SPECIFIC_CARD',fetchSpecificCard);
+    yield takeLatest('FETCH_SPECIFIC_CARD', fetchSpecificCard);
     yield takeLatest('FETCH_DECK_CARDS', fetchDeckCards);
     yield takeLatest('ADD_CARD', addCard);
     yield takeLatest('EDIT_CARD', editCard);

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Journal from './Journal';
 import FacilitatorSidebar from './FacilitatorSidebar';
-
+import PlayInstructions from './PlayInstructions';
 
 class Sidebar extends Component {
     state = {
@@ -41,6 +41,16 @@ class Sidebar extends Component {
                         <Journal />
                     }
                 </div>
+                {this.props.state.user.userReducer && this.props.state.user.userReducer.is_facilitator ?
+                    <FacilitatorSidebar 
+                        createGame={this.props.createGame}
+                    />
+                    :
+                    this.props.state.game.game && this.props.state.game.game.id ?
+                    <Journal />
+                    :
+                    <PlayInstructions />
+                }
             </div>
         );
     }

@@ -41,15 +41,22 @@ class Chat extends Component {
     }
 
     componentDidMount() {
-        this.scrollToBottom();
+        if (this.props.state.game.game && this.props.state.game.game.id) {
+            this.scrollToBottom();
+        }
     }
 
     componentDidUpdate() {
-        this.scrollToBottom();
+        if (this.props.state.game.game && this.props.state.game.game.id) {
+            this.scrollToBottom();
+        }
     }
+
     render() {
         return (
-            <div>
+
+            this.props.state.game.game && this.props.state.game.game.id ?
+                 <div>
                 <button className="chatPanelButton" onClick={this.triggerChatPanel}>Chat Panel</button>
                 <div className="chatPanel" ref={ref => this.chatPanel = ref}>
                     <h4 className="chatHeader">Game Chat</h4>
@@ -66,6 +73,12 @@ class Chat extends Component {
                         ref={(el) => { this.messagesEnd = el; }}>
                     </div>
                     <form className="messageInput" onSubmit={this.props.sendMessage(this.state.newMessage)}>
+                    <form className="messageInput" onSubmit={() => { 
+                        this.props.sendMessage(this.state.newMessage)
+                        this.setState({
+                            newMessage: '',
+                        })
+                        }}>
                         <input
                             type="text"
                             placeholder="your message here"
@@ -82,6 +95,9 @@ class Chat extends Component {
                     </form>
                 </div>
             </div>
+
+                :
+                null
         );
     }
 }

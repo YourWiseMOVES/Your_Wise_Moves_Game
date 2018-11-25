@@ -20,15 +20,15 @@ class AnswerCard extends Component {
             )}>Next</button>
           </div>
           :
-          <div className="threeContentContainer">
-            <h2>Your Intention: {this.props.state.game.player.intention}</h2>
-            <Card flipped={true} question={{
+          <>
+          <Card flipped={true} question={{
+              intention: this.props.state.game.player.intention,
               stage_id: this.props.state.game.gameState[0],
               text: this.props.state.game.player.current_card
             }} />
-
-          </div>
+         </>   
         }
+        
       </div>
     );
   }

@@ -32,6 +32,17 @@
         color: grey;
         cursor: default;
     };
+
+    .select-container {
+        background-color: rgba(0,0,0, .80);
+        width: 66%;
+        margin-left: auto;
+        margin-right: auto;
+        padding: 3vh;
+        label {
+            color: white;
+        }
+    }
 }
 
 .sidebar:hover {
@@ -90,3 +101,4 @@
         left: 2vw;
     }
 }
+

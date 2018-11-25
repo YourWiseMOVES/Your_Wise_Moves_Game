@@ -13,7 +13,7 @@ class PostGame extends Component {
             <div className="threeContentContainer">
                 {this.props.state.user.userReducer && this.props.state.user.userReducer.is_facilitator &&
                     <button onClick={() => {
-                        this.props.endGame()
+                        this.props.endGame(true)
                         //also clear facilitators redux state later
                     }}>Next</button>
                 }
