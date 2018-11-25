@@ -527,10 +527,14 @@ input:focus {
   color: #1A191A;
 }
 
+.PlayInstructions {
+  font-family: 'Cinzel', serif;
+}
+
 .PlayInstructions.bottomSquare {
+  font-size: .85em;
   background-color: rgba(0, 0, 0, 0.8);
   margin: 2vh;
-  padding-top: 2vh;
   text-align: left;
   color: white;
 }
@@ -557,8 +561,12 @@ input:focus {
 }
 
 .PlayInstructions.topSquare p {
-  font-size: 1.05em;
+  font-size: .85em;
   color: white;
+}
+
+.PlayInstructions h1 {
+  font-size: 1.85em;
 }
 
 button {
