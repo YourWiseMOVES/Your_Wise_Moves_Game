@@ -527,6 +527,40 @@ input:focus {
   color: #1A191A;
 }
 
+.PlayInstructions.bottomSquare {
+  background-color: rgba(0, 0, 0, 0.8);
+  margin: 2vh;
+  padding-top: 2vh;
+  text-align: left;
+  color: white;
+}
+
+.PlayInstructions.bottomSquare li {
+  padding: 1vh;
+}
+
+.PlayInstructions.bottomSquare ul {
+  padding: 0;
+  margin: 0;
+  list-style-type: none;
+}
+
+.PlayInstructions.bottomSquare h2 {
+  margin-left: 2vw;
+}
+
+.PlayInstructions.topSquare {
+  background-color: rgba(0, 0, 0, 0.8);
+  margin: 2vh;
+  text-align: left;
+  color: white;
+}
+
+.PlayInstructions.topSquare p {
+  font-size: 1.05em;
+  color: white;
+}
+
 button {
   border-top: 1px solid #343738;
   border-bottom: 1px solid #1A191A;

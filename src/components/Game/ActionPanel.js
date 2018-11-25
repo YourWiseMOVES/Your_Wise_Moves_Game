@@ -122,8 +122,8 @@ class ActionPanel extends Component {
                             {
                                 this.props.state.user.userType === 'player' &&
                                 <div>
-                                    <h1>Home Screen : not authed</h1>
-                                    <h2>Player Login</h2>
+                                    <h1>Facilitator Log In</h1>
+                                    <h5>You do not need an account to play! Just join a game with a code provided to you by a licensed facilitator.</h5>
                                     <button onClick={() => this.props.dispatch({ type: 'SET_USER_TYPE', payload: 'facilitator' })}>Log in as facilitator</button>
                                 </div>
                             }
