@@ -26,15 +26,19 @@ class InfoPage extends Component {
   componentDidUpdate(prevProps, prevState) {
     if (this.props.cards.cards !== prevProps.cards.cards) {
       this.setState({
+        ...this.state,
         cards: this.props.cards.cards,
         allCardsWithCheckBoxes: this.props.cards.cards.map(card => ({ ...card, checked: false }))
       })
+      this.combinedFilter(this.state.filter)
     }
     if (this.props.decks.decks !== prevProps.decks.decks) {
       this.setState({
+        ...this.state,
         decks: this.props.decks.decks,
         allCardsWithCheckBoxes: this.props.cards.cards.map(card => ({ ...card, checked: false }))
       })
+      this.combinedFilter(this.state.filter)
     }
     if (this.state.filter !== prevState.filter) {
       this.combinedFilter(this.state.filter)
@@ -191,8 +195,7 @@ class InfoPage extends Component {
                 <br />
                 <Card
                   question={question}
-                  editable={true}
-                  flipped={this.state.flipEm} />
+                  editable={true}/>
               </div>) :
             this.state.deckToAdd.cards.map((question) =>
               <div key={question.id} style={{ margin: '4px' }}>
@@ -202,8 +205,7 @@ class InfoPage extends Component {
                 <br />
                 <Card
                   question={question}
-                  editable={true}
-                  flipped={this.state.flipEm} />
+                  editable={true}/>
               </div>)
           }
         </div>

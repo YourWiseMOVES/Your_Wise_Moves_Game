@@ -23,8 +23,9 @@ function* addCard(action) {
     try {
         yield axios.post('api/card', action.payload)
         yield put({ type: 'FETCH_CARDS' });
+        yield put({ type: 'FETCH_DECKS' });
     } catch (error) {
-        console.log('Error updating card: ', error)
+        console.log('Error adding card: ', error)
     }
 }
 function* editCard(action) {
@@ -39,6 +40,7 @@ function* deleteCard(action) {
     try {
         yield axios.delete(`api/card/${action.payload}`);
         yield put({ type: 'FETCH_CARDS' });
+        yield put({ type: 'FETCH_DECKS' });
     } catch (error) {
         console.log('Error deleting card', error);
     }
