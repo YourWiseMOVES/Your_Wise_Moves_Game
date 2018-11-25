@@ -21,7 +21,6 @@
     width: 80vh; 
     max-width: 800px;   
     text-align: center;
-    color: $neutral-text;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -51,7 +50,7 @@
         width: 80vw;
         height: 30%;
         top: 60%;
-        // background-color: green;
+        color: black;
     }
 }
 
@@ -61,6 +60,7 @@
         height: 400px;
         left: 50vw;
         margin-left: -200px;
+        color: $neutral-text;
     }
     .threeContentContainer{
         left: 50vw;
@@ -68,7 +68,7 @@
         width: 400px;
         height: 30%;
         top: 60%;
-        // background-color: red;
+        color: black;
     }
 }
 
@@ -88,7 +88,7 @@
         height: 250px;
         top: 50vh;
         margin-top: -125px;
-        // background-color: orange;
+        color: $neutral-text;
     }
 }
 

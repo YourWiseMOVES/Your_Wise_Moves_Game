@@ -66,3 +66,8 @@ package-lock.json
 
 # ignore database files to prevent data leak of client's questions
 database.sql
+
+
+# SASS dev files to avoid merge conflicts
+main.css
+main.css.map
