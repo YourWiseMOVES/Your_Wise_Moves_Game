@@ -50,7 +50,12 @@ class ActionPanel extends Component {
         });
     }
 
-  
+
+    selectGame = event => {
+        this.props.dispatch({type: 'CLEAR_SELECT_GAME'})
+        this.props.dispatch({type: 'SELECT_GAME', payload: {id: event.target.value, games: this.props.state.games}})
+    }
+
     render() {
         return (
             <div ref={ref => this.actionPanel = ref} className="actionPanel">
@@ -136,7 +141,11 @@ class ActionPanel extends Component {
                                         <div className="ActionPanel-Main">
                                             <h1>Game Management</h1>
                                             <h2>Your Games</h2>
+                                                <div className="select-container">
                                                 <select
+                                                    onChange={
+                                                        this.selectGame
+                                                    }
                                                 >
                                                     <option value={null}>Select a Game</option>
                                                     {this.props.state.games.map(game => {
@@ -147,6 +156,8 @@ class ActionPanel extends Component {
                                                         );
                                                     })}
                                                 </select>
+                                            </div>
+                                            <br></br>
                                             <button
                                                 onClick={() => this.props.history.push('/admin')}
                                             >
