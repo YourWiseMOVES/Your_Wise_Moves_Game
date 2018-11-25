@@ -4,7 +4,6 @@ import Card from '../Card/Card'
 import QuestionForm from './QuestionForm';
 class InfoPage extends Component {
   state = {
-    flipEm: false,
     allCardsWithCheckBoxes: [],
     deckToAdd: {
       description: '',
@@ -13,7 +12,6 @@ class InfoPage extends Component {
     },
     cards: [],
     decks: [],
-    deckSelectOptions: [],
     filter: {
       categorySelected: '0',
       deckSelected: '0',
@@ -55,6 +53,15 @@ class InfoPage extends Component {
           ...this.state.deckToAdd,
           description: '',
           viewing: 'false'
+        }
+      })
+    }
+    if (this.state.deckToAdd.viewing === 'false' && prevState.deckToAdd.viewing === 'true') {
+      this.setState({
+        filter: {
+          categorySelected: '0',
+          deckSelected: '0',
+          searchText: '',
         }
       })
     }
@@ -119,9 +126,6 @@ class InfoPage extends Component {
     this.setState({ allCardsWithCheckBoxes: copy });
 
   }
-  flipEmAll = () => {
-    this.setState({ flipEm: !this.state.flipEm })
-  }
   render() {
     return (
       <div>
@@ -130,29 +134,31 @@ class InfoPage extends Component {
           <div>
             <QuestionForm add={true} />
           </div>
-          <button onClick={this.flipEmAll}>FLIP EM ALL</button>
         </div>
         <div>
-          <label htmlFor="select">Filter By Category: </label>
-          <select name="select"
-            onChange={this.handleChangeFor('categorySelected', 'filter')}
-            value={this.state.filter.categorySelected}>
-            <option value="0">All Categories</option>
-            <option value="1">Map</option>
-            <option value="2">Open</option>
-            <option value="3">Visualize</option>
-            <option value="4">Engage</option>
-            <option value="5">Sustain</option>
-          </select>
-          <label htmlFor="select">Filter By Deck: </label>
-          <select name="select"
-            onChange={this.handleChangeFor('deckSelected', 'filter')}
-            value={this.state.deckSelected}>
-            <option value="0">All Cards</option>
-            {this.props.decks.decks.map(deck =>
-              <option key={deck.id} value={`${deck.id}`}>{deck.description}</option>)}
-          </select>
-          <input placeholder="search for a card by content" onChange={this.handleChangeFor('searchText', 'filter')}></input>
+          {this.state.deckToAdd.viewing === 'true' ? null :
+            <div>
+              <label htmlFor="select">Filter By Category: </label>
+              <select name="select"
+                onChange={this.handleChangeFor('categorySelected', 'filter')}
+                value={this.state.filter.categorySelected}>
+                <option value="0">All Categories</option>
+                <option value="1">Map</option>
+                <option value="2">Open</option>
+                <option value="3">Visualize</option>
+                <option value="4">Engage</option>
+                <option value="5">Sustain</option>
+              </select>
+              <label htmlFor="select">Filter By Deck: </label>
+              <select name="select"
+                onChange={this.handleChangeFor('deckSelected', 'filter')}
+                value={this.state.deckSelected}>
+                <option value="0">All Cards</option>
+                {this.props.decks.decks.map(deck =>
+                  <option key={deck.id} value={`${deck.id}`}>{deck.description}</option>)}
+              </select>
+              <input placeholder="search for a card by content" onChange={this.handleChangeFor('searchText', 'filter')}></input>
+            </div>}
           <br />
           {this.state.deckToAdd.cards.length === 0 ? null :
             <>
