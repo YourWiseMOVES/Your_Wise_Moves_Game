@@ -41,6 +41,7 @@ input {
   width: 60%;
   padding: 5px 5px;
   margin: 2px 0;
+  margin-left: 5px;
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
   border-radius: .2rem;
@@ -71,7 +72,7 @@ body {
   min-height: 900px;
   font-size: 14px;
   text-align: center;
-  overflow-x: hidden;
+  overflow: hidden;
 }
 
 .overflowHidden {
@@ -97,6 +98,8 @@ body {
   border-radius: .4rem;
   -webkit-box-shadow: 10px 10px 50px grey;
           box-shadow: 10px 10px 50px grey;
+  overflow-x: hidden;
+  overflow-y: auto;
 }
 
 .sidebar h3 {
@@ -130,14 +133,14 @@ body {
 .sidebarButton {
   position: absolute;
   top: 1vh;
-  left: 71vw;
+  left: 2vw;
   z-index: 1;
   visibility: hidden;
 }
 
-@media only screen and (max-width: 1000px) {
+@media only screen and (max-width: 1100px) {
   .sidebar {
-    margin-left: -70vw;
+    margin-left: -74vw;
     width: 70vw;
   }
   .showSidebar {
@@ -148,7 +151,7 @@ body {
   .hideSidebar {
     -webkit-transition: .8s;
     transition: .8s;
-    margin-left: -70vw;
+    margin-left: -74vw;
   }
   .sidebarButton {
     visibility: visible;
@@ -157,13 +160,13 @@ body {
     -webkit-transition: .8s;
     transition: .8s;
     top: 1vh;
-    left: 60vw;
+    left: 10vw;
   }
   .moveSidebarButtonBack {
     -webkit-transition: .8s;
     transition: .8s;
     top: 1vh;
-    left: 71vw;
+    left: 2vw;
   }
 }
 
@@ -202,7 +205,7 @@ body {
 }
 
 .card-content h5 {
-  font-size: 1rem;
+  font-size: .75rem;
 }
 
 .card-wrapper.is-flipped {
@@ -215,6 +218,9 @@ body {
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -233,10 +239,9 @@ body {
   display: flex;
   -webkit-transform: rotateY(180deg);
           transform: rotateY(180deg);
-  display: flex;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
   flex-direction: column;
 }
 
@@ -265,9 +270,14 @@ body {
   background-size: 350px 200px;
 }
 
+.card-header {
+  -ms-flex-negative: 1;
+      flex-shrink: 1;
+}
+
 .card-header h6 {
   color: white;
-  font-size: 16px;
+  font-size: .75rem;
 }
 
 .card-front.Map {
@@ -363,6 +373,7 @@ input {
   width: 60%;
   padding: 5px 5px;
   margin: 2px 0;
+  margin-left: 5px;
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
   border-radius: .2rem;
@@ -402,6 +413,7 @@ input:focus {
   text-align: center;
   -webkit-box-shadow: 10px 10px 50px grey;
           box-shadow: 10px 10px 50px grey;
+  overflow-y: auto;
 }
 
 .actionPanel:hover {
@@ -409,15 +421,11 @@ input:focus {
           box-shadow: 12px 12px 75px grey;
 }
 
-.actionPanelButton {
-  visibility: hidden;
-}
-
-@media only screen and (max-width: 1000px) {
+@media only screen and (max-width: 1100px) {
   .actionPanel {
     height: 40vh;
     /* Full-height: remove this if you want "auto" height */
-    width: 30vw;
+    width: 40vw;
     /* Set the width of the sidebar */
     position: absolute;
     /* Fixed Sidebar (stay in place on scroll) */
@@ -425,39 +433,45 @@ input:focus {
     /* Stay on top */
     top: 0;
     /* Stay at the top */
-    right: -30vw;
-    background-color: #23394d;
-    text-align: left;
+    right: -40vw;
+    background-color: #eff6f8;
     border-radius: 0;
     border-bottom-left-radius: 1rem;
   }
   .showActionPanel {
     -webkit-transition: .8s;
     transition: .8s;
-    margin-right: 30vw;
+    margin-right: 40vw;
   }
   .hideActionPanel {
     -webkit-transition: .8s;
     transition: .8s;
-    margin-right: -30vw;
+    margin-right: -40vw;
   }
   .actionPanelButton {
     visibility: visible;
     position: absolute;
+    z-index: 4;
     top: 1vh;
-    right: 33vw;
+    right: 3vw;
   }
   .moveActionPanelButton {
     -webkit-transition: .8s;
     transition: .8s;
     top: 1vh;
-    right: 20vw;
+    right: 43vw;
   }
   .moveActionPanelButtonBack {
     -webkit-transition: .8s;
     transition: .8s;
     top: 1vh;
-    right: 63vw;
+    right: 3vw;
+  }
+}
+
+@media only screen and (min-width: 1100px) {
+  .actionPanelButton {
+    visibility: hidden;
   }
 }
 
@@ -520,6 +534,46 @@ input:focus {
   color: #1A191A;
 }
 
+.chatPanelButton {
+  visibility: hidden;
+}
+
+@media only screen and (max-width: 1100px) {
+  .chatPanel {
+    width: 80vw;
+    right: 10vw;
+    bottom: -44vh;
+  }
+  .showChatPanel {
+    -webkit-transition: .8s;
+    transition: .8s;
+    bottom: 2vh;
+    z-index: 4;
+  }
+  .hideChatPanel {
+    -webkit-transition: .8s;
+    transition: .8s;
+    bottom: -44vh;
+  }
+  .chatPanelButton {
+    visibility: visible;
+    position: absolute;
+    bottom: 2vh;
+    left: 50vw;
+    margin-left: -49px;
+  }
+  .moveChatPanelButton {
+    -webkit-transition: .8s;
+    transition: .8s;
+    bottom: 44vh;
+  }
+  .moveChatPanelButtonBack {
+    -webkit-transition: .8s;
+    transition: .8s;
+    bottom: 2vh;
+  }
+}
+
 button {
   border-top: 1px solid #343738;
   border-bottom: 1px solid #1A191A;
@@ -563,6 +617,7 @@ input {
   width: 60%;
   padding: 5px 5px;
   margin: 2px 0;
+  margin-left: 5px;
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
   border-radius: .2rem;
@@ -620,6 +675,7 @@ input {
   width: 60%;
   padding: 5px 5px;
   margin: 2px 0;
+  margin-left: 5px;
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
   border-radius: .2rem;
@@ -650,7 +706,7 @@ body {
   min-height: 900px;
   font-size: 14px;
   text-align: center;
-  overflow-x: hidden;
+  overflow: hidden;
 }
 
 .overflowHidden {
@@ -744,6 +800,7 @@ input {
   width: 60%;
   padding: 5px 5px;
   margin: 2px 0;
+  margin-left: 5px;
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
   border-radius: .2rem;
@@ -774,7 +831,7 @@ body {
   min-height: 900px;
   font-size: 14px;
   text-align: center;
-  overflow-x: hidden;
+  overflow: hidden;
 }
 
 .overflowHidden {
@@ -826,6 +883,7 @@ input {
   width: 60%;
   padding: 5px 5px;
   margin: 2px 0;
+  margin-left: 5px;
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
   border-radius: .2rem;
@@ -864,7 +922,6 @@ input:focus {
   width: 80vh;
   max-width: 800px;
   text-align: center;
-  color: #eff6f8;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -904,6 +961,7 @@ input:focus {
     width: 80vw;
     height: 30%;
     top: 60%;
+    color: black;
   }
 }
 
@@ -913,6 +971,7 @@ input:focus {
     height: 400px;
     left: 50vw;
     margin-left: -200px;
+    color: #eff6f8;
   }
   .threeContentContainer {
     left: 50vw;
@@ -920,10 +979,11 @@ input:focus {
     width: 400px;
     height: 30%;
     top: 60%;
+    color: black;
   }
 }
 
-@media only screen and (min-width: 1000px) {
+@media only screen and (min-width: 1100px) {
   .myCanvas {
     left: 50vw;
     top: 50vh;
@@ -939,6 +999,7 @@ input:focus {
     height: 250px;
     top: 50vh;
     margin-top: -125px;
+    color: #eff6f8;
   }
 }
 

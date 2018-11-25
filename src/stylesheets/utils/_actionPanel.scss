@@ -21,26 +21,25 @@
     z-index: 3;
     text-align: center;
     box-shadow:10px 10px 50px grey;  
+    overflow-y: auto;
 }
 
 .actionPanel:hover {
     box-shadow:12px 12px 75px grey;  
 }
 
-.actionPanelButton {
- visibility: hidden;
-}
+
 
 @media only screen and (max-width: $medium) {
     .actionPanel {
         height: 40vh; /* Full-height: remove this if you want "auto" height */
-        width: 30vw; /* Set the width of the sidebar */
+        width: 40vw; /* Set the width of the sidebar */
         position: absolute; /* Fixed Sidebar (stay in place on scroll) */
         z-index: 1; /* Stay on top */
         top: 0; /* Stay at the top */
-        right: -30vw;
-        background-color: $neutral-background;
-        text-align: left;
+        right: -40vw;
+        background-color: $neutral-text;
+        // text-align: left;
         border-radius: 0;
         border-bottom-left-radius: 1rem;
     }
@@ -50,7 +49,7 @@
         -ms-transition: .8s;
         -o-transition: .8s;
         transition: .8s;
-        margin-right: 30vw;
+        margin-right: 40vw;
     }
     .hideActionPanel {
         -webkit-transition: .8s;
@@ -58,14 +57,15 @@
         -ms-transition: .8s;
         -o-transition: .8s;
         transition: .8s;
-        margin-right: -30vw;
+        margin-right: -40vw;
     }
 
     .actionPanelButton {
         visibility: visible;
         position: absolute;
-        top:1vh;
-        right: 33vw;
+        z-index: 4;
+        top: 1vh;
+        right: 3vw;
     }
     .moveActionPanelButton {
         -webkit-transition: .8s;
@@ -74,7 +74,7 @@
         -o-transition: .8s;
         transition: .8s;
         top: 1vh;
-        right: 20vw;
+        right: 43vw;
     }
     .moveActionPanelButtonBack {
         -webkit-transition: .8s;
@@ -83,6 +83,12 @@
         -o-transition: .8s;
         transition: .8s;
         top:1vh;
-        right: 63vw;
+        right: 3vw;
+    }
+}
+
+@media only screen and (min-width: $medium) {
+    .actionPanelButton{
+        visibility: hidden;
     }
 }

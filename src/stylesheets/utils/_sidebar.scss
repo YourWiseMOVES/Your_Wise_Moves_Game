@@ -10,7 +10,9 @@
     background-color: $neutral-text;
     text-align: center;
     border-radius: .4rem;
-    box-shadow:10px 10px 50px grey;  
+    box-shadow:10px 10px 50px grey; 
+    overflow-x: hidden; 
+    overflow-y: auto;
     h3 {
         color: black;
         margin-left: .4rem;
@@ -39,14 +41,14 @@
 .sidebarButton {
     position: absolute;
     top: 1vh;
-    left: 71vw;
+    left: 2vw;
     z-index: 1;
     visibility: hidden;
 }
 
 @media only screen and (max-width: $medium) {
     .sidebar {
-        margin-left: -70vw;
+        margin-left: -74vw;
         width: 70vw;
     }
     .showSidebar {
@@ -63,7 +65,7 @@
         -ms-transition: .8s;
         -o-transition: .8s;
         transition: .8s;
-        margin-left: -70vw;
+        margin-left: -74vw;
     }
 
     .sidebarButton {
@@ -76,7 +78,7 @@
         -o-transition: .8s;
         transition: .8s;
         top: 1vh;
-        left: 60vw;
+        left: 10vw;
     }
     .moveSidebarButtonBack {
         -webkit-transition: .8s;
@@ -85,6 +87,6 @@
         -o-transition: .8s;
         transition: .8s;
         top: 1vh;
-        left: 71vw;
+        left: 2vw;
     }
 }
