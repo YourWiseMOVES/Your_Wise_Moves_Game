@@ -1,8 +1,9 @@
 .PlayInstructions {
+    font-family: 'Cinzel', serif;
     &.bottomSquare {
+        font-size: .85em;
         background-color: rgba(0,0,0, .80);
         margin: 2vh;
-        padding-top: 2vh;
         text-align: left;
         color: white;
         li {
@@ -22,10 +23,14 @@
         margin: 2vh;
         text-align: left;
         color: white;
+
         p {
-            font-size: 1.05em;
+            font-size: .85em;
             color: white;
         }
+    }
+    h1 {
+        font-size: 1.85em;
     }
 }
 
