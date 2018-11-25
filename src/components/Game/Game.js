@@ -88,9 +88,17 @@ class Game extends Component {
     this.props.dispatch({ type: 'SET_CODE', payload: game.code })
   }
 
-  endGame = () => { //function triggers game end on server
+  endGame = (boolean) => { //function triggers game end on server
     //emit socket to trigger player redirects
-    socket.emit('end', { done: true });
+    if (boolean) {
+      socket.emit('end', { done: true });
+    }
+    else {
+      setTimeout(() => {
+        this.props.dispatch({ type: 'CLEAR_SELECT_GAME' })
+        this.props.dispatch({ type: 'FETCH_GAMES' })
+      }, 3000)
+    }
     axios({
       method: 'POST',
       data: { id: this.props.state.user.userReducer.id },
@@ -306,7 +314,7 @@ class Game extends Component {
         <Sidebar
           createGame={this.createGame} //function to create a new game as facilitator
         />
-        <ActionPanel 
+        <ActionPanel
           editIntention={this.editIntention} //function allows user to input their intention
           editJournal={this.editJournal} //function for player to input their answers to provided questions
           advanceToDiscussion={this.advanceToDiscussion}//single player can advance from answer stage to discussion phase
@@ -324,6 +332,7 @@ class Game extends Component {
               advanceStage={this.advanceStage} //function to advance the game forward
               joinGame={this.joinGame} //function to join a game as player
               facilitatorJoinGame={this.facilitatorJoinGame}
+              endGame={this.endGame} //function to end the game
             />
             :
             null
@@ -342,7 +351,7 @@ class Game extends Component {
             endGame={this.endGame} //function to end the game
           />
         }
-        <Chat 
+        <Chat
           sendMessage={this.sendMessage}
         />
       </div>
