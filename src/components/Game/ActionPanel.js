@@ -59,7 +59,7 @@ class ActionPanel extends Component {
                     this.props.state.gameCode !== '' ?
                     <div>
                         {this.props.state.game.gameState[1] == '0' &&
-                            <div>
+                            <div className="ActionPanel-Main">
                                 <h1>Game Lobby</h1>
                                 <ol>
                                     {
@@ -75,15 +75,15 @@ class ActionPanel extends Component {
                             </div>
                         }
                         {this.props.state.game.gameState[1] == '1' &&
-                            <div>
+                            <div className="ActionPanel-Main">
                                 <h1>Intention Intro</h1>
                             </div>
                         }
                         {this.props.state.game.gameState[1] == '2' &&
-                            <div>
+                            <div className="ActionPanel-Main">
                                 <h1>Intention Input</h1>
                                 {this.props.state.user.userReducer && this.props.state.user.userReducer.is_facilitator ?
-                                    <div className="facilitator">
+                                    <div className="ActionPanel-Main">
                                         <ol>
                                             {
                                                 this.props.state.game.allPlayers.map(player => {
@@ -96,7 +96,7 @@ class ActionPanel extends Component {
 
                                     </div>
                                     :
-                                    <div>
+                                    <div className="ActionPanel-Main">
                                         <input
                                             type="text"
                                             placeholder="Set your Intention or Question"
@@ -121,7 +121,7 @@ class ActionPanel extends Component {
                             }
                             {
                                 this.props.state.user.userType === 'player' &&
-                                <div>
+                                <div className="ActionPanel-Main">
                                     <h1>Facilitator Log In</h1>
                                     <h5>You do not need an account to play! Just join a game with a code provided to you by a licensed facilitator.</h5>
                                     <button onClick={() => this.props.dispatch({ type: 'SET_USER_TYPE', payload: 'facilitator' })}>Log in as facilitator</button>
@@ -131,7 +131,7 @@ class ActionPanel extends Component {
                                 this.props.state.user.userType === 'facilitator' &&
                                 <div>
                                     {this.props.state.user.userReducer && this.props.state.user.userReducer.is_facilitator ?
-                                        <div>
+                                        <div className="ActionPanel-Main">
                                             <h1>Facilitator Game Management</h1>
                                             <h2>Your Games</h2>
                                             <ol>
@@ -147,7 +147,7 @@ class ActionPanel extends Component {
                                             </ol>
                                         </div>
                                         :
-                                        <div>
+                                        <div className="ActionPanel-Main">
                                             <h1>Facilitator Login</h1>
                                             <form onSubmit={this.login}>
                                                 <h1>Login</h1>
@@ -194,17 +194,17 @@ class ActionPanel extends Component {
                 {this.props.state.game.gameState[0] > 0 && this.props.state.game.gameState[0] < 6 &&
                     <div>
                         {this.props.state.game.gameState[1] == '0' &&
-                            <div>
+                            <div className="ActionPanel-Main">
                                 <h1>Round Intro</h1>
                                 <h2>Round: {this.props.state.game.roundNumber}</h2>
                             </div>
                         }
                         {this.props.state.game.gameState[1] == '1' &&
-                            <div>
+                            <div> 
                                 <h1>Answer Card</h1>
                                 <h2>Round: {this.props.state.game.roundNumber}</h2>
                                 {this.props.state.user.userReducer && this.props.state.user.userReducer.is_facilitator ?
-                                    <div>
+                                    <div className="ActionPanel-Main">
                                         <ol>
                                             {this.props.state.game.allPlayers.map(player => {
                                                 return (
@@ -214,7 +214,7 @@ class ActionPanel extends Component {
                                         </ol>
                                     </div>
                                     :
-                                    <div>
+                                    <div className="ActionPanel-Main">
                                         <input
                                             type="text"
                                             placeholder="Answer the question please"
@@ -238,11 +238,11 @@ class ActionPanel extends Component {
                             </div>
                         }
                         {this.props.state.game.gameState[1] == '2' &&
-                            <div>
+                            <div className="ActionPanel-Main">
                                 <h1>Discussion Phase</h1>
                                 <h2>Round: {this.props.state.game.roundNumber}</h2>
                                 {this.props.state.user.userReducer && this.props.state.user.userReducer.is_facilitator &&
-                                    <ol>
+                                    <ol >
                                         <h5>Select a Player to speak</h5>
                                         {this.props.state.game.allPlayers.map(player => {
                                             if (player.in_discussion && !player.discussed) {
@@ -272,7 +272,7 @@ class ActionPanel extends Component {
                     </div>
                 }
                 {this.props.state.game.gameState[0] == '6' &&
-                    <div>
+                    <div className="ActionPanel-Main">
                         <h1>Final Reflection</h1>
                         {this.props.state.user.userReducer && this.props.state.user.userReducer.is_facilitator &&
                             <LogOutButton />
