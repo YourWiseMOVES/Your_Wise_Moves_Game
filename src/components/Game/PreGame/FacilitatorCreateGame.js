@@ -18,17 +18,13 @@ class FacilitatorCreateGame extends Component {
   render() {
     return (
       <div className="threeContentContainer">
-        <div>
+        <div className="join-game-ball">
           {this.props.state.selectedGame && this.props.state.selectedGame.id &&
             <div>
-              <h3>{this.props.state.selectedGame.name}</h3>
-              <h5>{this.props.state.selectedGame.code}</h5>
-              <ul>
-                <h5>Players</h5>
-                <li>{this.props.state.selectedGame.players}</li>
-                <li>{this.props.state.selectedGame.active}</li>
-                <li><button onClick={() => this.props.facilitatorJoinGame(this.props.state.selectedGame)}>Join</button></li>
-              </ul>
+              <h4 className="join-game-ball">{this.props.state.selectedGame.name}</h4>
+              <h5 className="join-game-ball">{this.props.state.selectedGame.code}</h5>
+              <h6 className="join-game-ball"> Players: {this.props.state.selectedGame.active}</h6>
+              <button onClick={() => this.props.facilitatorJoinGame(this.props.state.selectedGame)}>Join</button>
             </div>
           }
         </div>
