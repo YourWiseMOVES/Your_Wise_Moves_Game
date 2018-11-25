@@ -8,7 +8,8 @@ const { rejectUnauthenticated } = require('../modules/authentication-middleware'
 
 // GET a list of all decks no need to be protected, it doesn't actually contain any card data
 router.get('/',  (req, res) => {
-    pool.query(`SELECT * FROM "deck";`)
+    pool.query(`SELECT * FROM "deck"
+                ORDER BY "id";`)
         .then((results) => {
             res.send(results.rows)
         }).catch((error) => {
@@ -22,7 +23,8 @@ router.get('/:id', rejectUnauthenticated, isFacilitator, (req, res) => {
     SELECT "card"."id","card"."text","stage_id","stage_type"."type" FROM "card"
     JOIN "stage_type"
     ON "card"."stage_id"="stage_type"."id"
-    WHERE "card"."id"=ANY(SELECT unnest("cards_in_deck") FROM "deck" WHERE "id" = $1);`,
+    WHERE "card"."id"=ANY(SELECT unnest("cards_in_deck") FROM "deck" WHERE "id" = $1)
+    ORDER BY "card"."id";`,
     [req.params.id])
         .then((results) => {
             res.send(results.rows)

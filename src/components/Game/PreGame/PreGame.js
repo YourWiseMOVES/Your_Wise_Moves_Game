@@ -21,12 +21,12 @@ class PreGame extends Component {
     componentDidMount() {
         setTimeout(
             () => {
-                if (this.props.state.user.userReducer.is_facilitator) {
+                if (this.props.state.user.userReducer && this.props.state.user.userReducer.is_facilitator) {
                     this.props.dispatch({ type: 'SET_USER_TYPE', payload: 'facilitator' })
                 } else {
                     this.props.dispatch({ type: 'SET_USER_TYPE', payload: 'player' })
                 }
-            }, 100
+            }, 1000
         )
     }
 
@@ -63,6 +63,7 @@ class PreGame extends Component {
                                 //sub component requires 
                                 createGame={this.props.createGame}
                                 facilitatorJoinGame={this.props.facilitatorJoinGame}
+                                endGame={this.props.endGame}
                             />
                             :
                             <FacilitatorLogin
