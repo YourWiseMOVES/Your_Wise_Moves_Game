@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 import LogOutButton from '../LogOutButton/LogOutButton';
 
 class ActionPanel extends Component {
@@ -49,6 +50,12 @@ class ActionPanel extends Component {
         });
     }
 
+
+    selectGame = event => {
+        this.props.dispatch({type: 'CLEAR_SELECT_GAME'})
+        this.props.dispatch({type: 'SELECT_GAME', payload: {id: event.target.value, games: this.props.state.games}})
+    }
+
     render() {
         return (
             <div ref={ref => this.actionPanel = ref} className="actionPanel">
@@ -59,7 +66,7 @@ class ActionPanel extends Component {
                     this.props.state.gameCode !== '' ?
                     <div>
                         {this.props.state.game.gameState[1] == '0' &&
-                            <div>
+                            <div className="ActionPanel-Main">
                                 <h1>Game Lobby</h1>
                                 <ol>
                                     {
@@ -75,15 +82,15 @@ class ActionPanel extends Component {
                             </div>
                         }
                         {this.props.state.game.gameState[1] == '1' &&
-                            <div>
+                            <div className="ActionPanel-Main">
                                 <h1>Intention Intro</h1>
                             </div>
                         }
                         {this.props.state.game.gameState[1] == '2' &&
-                            <div>
+                            <div className="ActionPanel-Main">
                                 <h1>Intention Input</h1>
                                 {this.props.state.user.userReducer && this.props.state.user.userReducer.is_facilitator ?
-                                    <div className="facilitator">
+                                    <div className="ActionPanel-Main">
                                         <ol>
                                             {
                                                 this.props.state.game.allPlayers.map(player => {
@@ -96,7 +103,7 @@ class ActionPanel extends Component {
 
                                     </div>
                                     :
-                                    <div>
+                                    <div className="ActionPanel-Main">
                                         <input
                                             type="text"
                                             placeholder="Set your Intention or Question"
@@ -121,9 +128,9 @@ class ActionPanel extends Component {
                             }
                             {
                                 this.props.state.user.userType === 'player' &&
-                                <div>
-                                    <h1>Home Screen : not authed</h1>
-                                    <h2>Player Login</h2>
+                                <div className="ActionPanel-Main">
+                                    <h1>Facilitator Log In</h1>
+                                    <h5>You do not need an account to play! Just join a game with a code provided to you by a licensed facilitator.</h5>
                                     <button onClick={() => this.props.dispatch({ type: 'SET_USER_TYPE', payload: 'facilitator' })}>Log in as facilitator</button>
                                 </div>
                             }
@@ -131,26 +138,37 @@ class ActionPanel extends Component {
                                 this.props.state.user.userType === 'facilitator' &&
                                 <div>
                                     {this.props.state.user.userReducer && this.props.state.user.userReducer.is_facilitator ?
-                                        <div>
-                                            <h1>Facilitator Game Management</h1>
+                                        <div className="ActionPanel-Main">
+                                            <h1>Game Management</h1>
                                             <h2>Your Games</h2>
-                                            <ol>
-                                                {this.props.state.games.map(game => {
-                                                    return (
-                                                        <li key={game.id} onClick={() => {
-                                                            this.props.dispatch({ type: 'CLEAR_SELECT_GAME' });
-                                                            this.props.dispatch({ type: 'SELECT_GAME', payload: game });
-                                                        }}
-                                                        >{game.name}, {game.code}, {game.players} players, {game.active} active </li>
-                                                    );
-                                                })}
-                                            </ol>
+                                                <div className="select-container">
+                                                <select
+                                                    onChange={
+                                                        this.selectGame
+                                                    }
+                                                >
+                                                    <option value={null}>Select a Game</option>
+                                                    {this.props.state.games.map(game => {
+                                                        return (
+                                                            <option key={game.id}
+                                                                value={game.id}
+                                                            >{game.name} Code: {game.code}</option>
+                                                        );
+                                                    })}
+                                                </select>
+                                            </div>
+                                            <br></br>
+                                            <button
+                                                onClick={() => this.props.history.push('/admin')}
+                                            >
+                                                Admin View
+                                            </button>
+                                            <LogOutButton />
                                         </div>
                                         :
-                                        <div>
+                                        <div className="ActionPanel-Main">
                                             <h1>Facilitator Login</h1>
                                             <form onSubmit={this.login}>
-                                                <h1>Login</h1>
                                                 <div>
                                                     <label htmlFor="username">
                                                         Username:
@@ -194,7 +212,7 @@ class ActionPanel extends Component {
                 {this.props.state.game.gameState[0] > 0 && this.props.state.game.gameState[0] < 6 &&
                     <div>
                         {this.props.state.game.gameState[1] == '0' &&
-                            <div>
+                            <div className="ActionPanel-Main">
                                 <h1>Round Intro</h1>
                                 <h2>Round: {this.props.state.game.roundNumber}</h2>
                             </div>
@@ -204,7 +222,7 @@ class ActionPanel extends Component {
                                 <h1>Answer Card</h1>
                                 <h2>Round: {this.props.state.game.roundNumber}</h2>
                                 {this.props.state.user.userReducer && this.props.state.user.userReducer.is_facilitator ?
-                                    <div>
+                                    <div className="ActionPanel-Main">
                                         <ol>
                                             {this.props.state.game.allPlayers.map(player => {
                                                 return (
@@ -214,7 +232,7 @@ class ActionPanel extends Component {
                                         </ol>
                                     </div>
                                     :
-                                    <div>
+                                    <div className="ActionPanel-Main">
                                         <input
                                             type="text"
                                             placeholder="Answer the question please"
@@ -238,11 +256,11 @@ class ActionPanel extends Component {
                             </div>
                         }
                         {this.props.state.game.gameState[1] == '2' &&
-                            <div>
+                            <div className="ActionPanel-Main">
                                 <h1>Discussion Phase</h1>
                                 <h2>Round: {this.props.state.game.roundNumber}</h2>
                                 {this.props.state.user.userReducer && this.props.state.user.userReducer.is_facilitator &&
-                                    <ol>
+                                    <ol >
                                         <h5>Select a Player to speak</h5>
                                         {this.props.state.game.allPlayers.map(player => {
                                             if (player.in_discussion && !player.discussed) {
@@ -272,7 +290,7 @@ class ActionPanel extends Component {
                     </div>
                 }
                 {this.props.state.game.gameState[0] == '6' &&
-                    <div>
+                    <div className="ActionPanel-Main">
                         <h1>Final Reflection</h1>
                         {this.props.state.user.userReducer && this.props.state.user.userReducer.is_facilitator &&
                             <LogOutButton />
@@ -289,4 +307,4 @@ const mapStateToProps = state => ({
     state,
 });
 
-export default connect(mapStateToProps)(ActionPanel);
+export default withRouter(connect(mapStateToProps)(ActionPanel));
