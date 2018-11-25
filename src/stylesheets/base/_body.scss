@@ -6,7 +6,7 @@ $primary-color: black;
 
 //Screen Sizes
 $small: 500px;
-$medium: 1000px;
+$medium: 1100px;
 $large: 1400px;
 
 #react-root {
@@ -28,7 +28,7 @@ body {
     min-height: 900px;
     font-size: 14px;
     text-align: center;
-    overflow-x: hidden;
+    overflow: hidden;
 }
 
   
