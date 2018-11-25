@@ -72,7 +72,6 @@ class Chat extends Component {
                     <div style={{ float: "left", clear: "both" }}
                         ref={(el) => { this.messagesEnd = el; }}>
                     </div>
-                    <form className="messageInput" onSubmit={this.props.sendMessage(this.state.newMessage)}>
                     <form className="messageInput" onSubmit={() => { 
                         this.props.sendMessage(this.state.newMessage)
                         this.setState({
@@ -91,7 +90,7 @@ class Chat extends Component {
                             className="messageSubmit"
                         >
                             Submit
-                    </button>
+                     </button>
                     </form>
                 </div>
             </div>
