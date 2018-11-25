@@ -45,8 +45,7 @@ class InfoPage extends Component {
       this.setState({
         deckToAdd: {
           ...this.state.deckToAdd,
-          cards: this.state.cards.filter((card) => (this.state.allCardsWithCheckBoxes.filter(card => card.checked === true).map(card => card.id).indexOf(card.id) !== -1)
-          )
+          cards: this.state.allCardsWithCheckBoxes.filter(card => card.checked === true)
         }
       })
     }
@@ -94,8 +93,7 @@ class InfoPage extends Component {
       return updatedCards
     } else {
       return updatedCards.filter(card =>
-        this.state.decks.filter(deck =>
-          deck.id === Number(deckId))[0].cards_in_deck.indexOf(card.id) !== -1);
+        this.state.decks.filter(deck => deck.id === Number(deckId))[0].cards_in_deck.indexOf(card.id) !== -1);
     }
   }
   combinedFilter = (filter) => {
@@ -177,7 +175,6 @@ class InfoPage extends Component {
             </>
           }
         </div>
-        <pre>{JSON.stringify(this.state.deckToAdd.description, null, 2)}</pre>
         <div className="card-collection">
           {this.state.deckToAdd.viewing === 'false' ?
             this.state.cards.map((question) =>
