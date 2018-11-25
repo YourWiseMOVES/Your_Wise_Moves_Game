@@ -18,47 +18,55 @@ class Chat extends Component {
         const height = this.chatBox.clientHeight;
         const maxScrollTop = scrollHeight - height;
         this.chatBox.scrollTop = maxScrollTop > 0 ? maxScrollTop : 0;
-      }
+    }
 
     componentDidMount() {
-        this.scrollToBottom();
+        if (this.props.state.game.game && this.props.state.game.game.id) {
+            this.scrollToBottom();
+        }
     }
 
     componentDidUpdate() {
-        this.scrollToBottom();
+        if (this.props.state.game.game && this.props.state.game.game.id) {
+            this.scrollToBottom();
+        }
     }
+
     render() {
         return (
-            <div className="chatPanel">
-                <h4 className="chatHeader">Game Chat</h4>
-                <ul className="messageHistory" ref={ref => this.chatBox = ref}>
-                    {
-                        this.props.state.chat.map(message => {
-                            return (
-                                <li className="message" key={message.id}>{message.from}: {message.text}</li>
-                            );
-                        })
-                    }
-                </ul>
-                <div style={{ float: "left", clear: "both" }}
-                    ref={(el) => { this.messagesEnd = el; }}>
-                </div>
-                <form className="messageInput" onSubmit={this.props.sendMessage(this.state.newMessage)}>
-                    <input
-                        type="text"
-                        placeholder="your message here"
-                        onChange={this.handleChange}
-                        value={this.state.newMessage}
-                        className="messageText"
-                    />
-                    <button
-                        type="submit"
-                        className="messageSubmit"
-                    >
-                    Submit
+            this.props.state.game.game && this.props.state.game.game.id ?
+                <div className="chatPanel">
+                    <h4 className="chatHeader">Game Chat</h4>
+                    <ul className="messageHistory" ref={ref => this.chatBox = ref}>
+                        {
+                            this.props.state.chat.map(message => {
+                                return (
+                                    <li className="message" key={message.id}>{message.from}: {message.text}</li>
+                                );
+                            })
+                        }
+                    </ul>
+                    <div style={{ float: "left", clear: "both" }}
+                        ref={(el) => { this.messagesEnd = el; }}>
+                    </div>
+                    <form className="messageInput" onSubmit={this.props.sendMessage(this.state.newMessage)}>
+                        <input
+                            type="text"
+                            placeholder="your message here"
+                            onChange={this.handleChange}
+                            value={this.state.newMessage}
+                            className="messageText"
+                        />
+                        <button
+                            type="submit"
+                            className="messageSubmit"
+                        >
+                            Submit
                     </button>
-                </form>
-            </div>
+                    </form>
+                </div>
+                :
+                null
         );
     }
 }
