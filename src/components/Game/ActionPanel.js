@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 import LogOutButton from '../LogOutButton/LogOutButton';
 
 class ActionPanel extends Component {
@@ -49,6 +50,7 @@ class ActionPanel extends Component {
         });
     }
 
+  
     render() {
         return (
             <div ref={ref => this.actionPanel = ref} className="actionPanel">
@@ -132,25 +134,30 @@ class ActionPanel extends Component {
                                 <div>
                                     {this.props.state.user.userReducer && this.props.state.user.userReducer.is_facilitator ?
                                         <div className="ActionPanel-Main">
-                                            <h1>Facilitator Game Management</h1>
+                                            <h1>Game Management</h1>
                                             <h2>Your Games</h2>
-                                            <ol>
-                                                {this.props.state.games.map(game => {
-                                                    return (
-                                                        <li key={game.id} onClick={() => {
-                                                            this.props.dispatch({ type: 'CLEAR_SELECT_GAME' });
-                                                            this.props.dispatch({ type: 'SELECT_GAME', payload: game });
-                                                        }}
-                                                        >{game.name}, {game.code}, {game.players} players, {game.active} active </li>
-                                                    );
-                                                })}
-                                            </ol>
+                                                <select
+                                                >
+                                                    <option value={null}>Select a Game</option>
+                                                    {this.props.state.games.map(game => {
+                                                        return (
+                                                            <option key={game.id}
+                                                                value={game.id}
+                                                            >{game.name} Code: {game.code}</option>
+                                                        );
+                                                    })}
+                                                </select>
+                                            <button
+                                                onClick={() => this.props.history.push('/admin')}
+                                            >
+                                                Admin View
+                                            </button>
+                                            <LogOutButton />
                                         </div>
                                         :
                                         <div className="ActionPanel-Main">
                                             <h1>Facilitator Login</h1>
                                             <form onSubmit={this.login}>
-                                                <h1>Login</h1>
                                                 <div>
                                                     <label htmlFor="username">
                                                         Username:
@@ -200,7 +207,7 @@ class ActionPanel extends Component {
                             </div>
                         }
                         {this.props.state.game.gameState[1] == '1' &&
-                            <div> 
+                            <div>
                                 <h1>Answer Card</h1>
                                 <h2>Round: {this.props.state.game.roundNumber}</h2>
                                 {this.props.state.user.userReducer && this.props.state.user.userReducer.is_facilitator ?
@@ -289,4 +296,4 @@ const mapStateToProps = state => ({
     state,
 });
 
-export default connect(mapStateToProps)(ActionPanel);
+export default withRouter(connect(mapStateToProps)(ActionPanel));
