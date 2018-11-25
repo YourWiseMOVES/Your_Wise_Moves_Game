@@ -117,7 +117,18 @@ class FacilitatorSidebar extends Component {
                         </label>
                         </div>
                         <br></br>
-                        <button onClick={() => this.props.createGame(this.state.gameConfig)}>Create A New Game</button>
+                        <button onClick={() => {
+                            this.props.createGame(this.state.gameConfig) 
+                             this.setState({
+                            gameConfig: {
+                                name: '',
+                                deckId: '',
+                                maxPlayers: '',
+                                canKick: '',
+                                showDirections: '',
+                            },
+                        })
+                    }}>Create A New Game</button>
                     </React.Fragment>
                 }
             </div>

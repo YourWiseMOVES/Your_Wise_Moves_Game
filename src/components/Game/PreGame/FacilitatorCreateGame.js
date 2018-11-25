@@ -25,6 +25,7 @@ class FacilitatorCreateGame extends Component {
               <h5 className="join-game-ball">{this.props.state.selectedGame.code}</h5>
               <h6 className="join-game-ball"> Players: {this.props.state.selectedGame.active}</h6>
               <button onClick={() => this.props.facilitatorJoinGame(this.props.state.selectedGame)}>Join</button>
+              <button onClick={() => this.props.endGame(false)}>End</button>
             </div>
           }
         </div>

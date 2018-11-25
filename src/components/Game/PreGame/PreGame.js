@@ -63,6 +63,7 @@ class PreGame extends Component {
                                 //sub component requires 
                                 createGame={this.props.createGame}
                                 facilitatorJoinGame={this.props.facilitatorJoinGame}
+                                endGame={this.props.endGame}
                             />
                             :
                             <FacilitatorLogin
