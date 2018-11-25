@@ -97,12 +97,6 @@ body {
   border-radius: .4rem;
   -webkit-box-shadow: 10px 10px 50px grey;
           box-shadow: 10px 10px 50px grey;
-  /*the container must be positioned relative:*/
-  /*style the arrow inside the select element:*/
-  /*point the arrow upwards when the select box is open (active):*/
-  /*style the items (options), including the selected item:*/
-  /*style items (options):*/
-  /*hide the items when the select box is closed:*/
 }
 
 .sidebar h3 {
@@ -128,62 +122,16 @@ body {
   cursor: default;
 }
 
-.sidebar .custom-select-sidebar {
-  position: relative;
-  font-family: Arial;
-  width: 80%;
+.sidebar .select-container {
+  background-color: rgba(0, 0, 0, 0.8);
+  width: 66%;
   margin-left: auto;
   margin-right: auto;
+  padding: 3vh;
 }
 
-.sidebar .custom-select-sidebar select {
-  display: none;
-  /*hide original SELECT element:*/
-}
-
-.sidebar .select-selected {
-  background-color: rgba(0, 0, 0, 0.9);
-}
-
-.sidebar .select-selected:after {
-  position: absolute;
-  content: "";
-  top: 14px;
-  right: 10px;
-  width: 0;
-  height: 0;
-  border: 6px solid transparent;
-  border-color: #fff transparent transparent transparent;
-}
-
-.sidebar .select-selected.select-arrow-active:after {
-  border-color: transparent transparent #fff transparent;
-  top: 7px;
-}
-
-.sidebar .select-items div, .sidebar .select-selected {
-  color: #ffffff;
-  padding: 8px 16px;
-  border: 1px solid transparent;
-  border-color: transparent transparent rgba(0, 0, 0, 0.1) transparent;
-  cursor: pointer;
-}
-
-.sidebar .select-items {
-  position: absolute;
-  background-color: rgba(0, 0, 0, 0.9);
-  top: 100%;
-  left: 0;
-  right: 0;
-  z-index: 99;
-}
-
-.sidebar .select-hide {
-  display: none;
-}
-
-.sidebar .select-items div:hover, .sidebar .same-as-selected {
-  background-color: rgba(0, 0, 0, 0.1);
+.sidebar .select-container label {
+  color: white;
 }
 
 .sidebar:hover {
@@ -473,70 +421,14 @@ input:focus {
   text-align: center;
   -webkit-box-shadow: 10px 10px 50px grey;
           box-shadow: 10px 10px 50px grey;
-  /*the container must be positioned relative:*/
-  /*style the arrow inside the select element:*/
-  /*point the arrow upwards when the select box is open (active):*/
-  /*style the items (options), including the selected item:*/
-  /*style items (options):*/
-  /*hide the items when the select box is closed:*/
 }
 
-.actionPanel .custom-select {
-  position: relative;
-  font-family: Arial;
-  width: 80%;
+.actionPanel .select-container {
+  background-color: rgba(0, 0, 0, 0.8);
+  width: 66%;
   margin-left: auto;
   margin-right: auto;
-}
-
-.actionPanel .custom-select select {
-  display: none;
-  /*hide original SELECT element:*/
-}
-
-.actionPanel .select-selected {
-  background-color: rgba(0, 0, 0, 0.9);
-}
-
-.actionPanel .select-selected:after {
-  position: absolute;
-  content: "";
-  top: 14px;
-  right: 10px;
-  width: 0;
-  height: 0;
-  border: 6px solid transparent;
-  border-color: #fff transparent transparent transparent;
-}
-
-.actionPanel .select-selected.select-arrow-active:after {
-  border-color: transparent transparent #fff transparent;
-  top: 7px;
-}
-
-.actionPanel .select-items div, .actionPanel .select-selected {
-  color: #ffffff;
-  padding: 8px 16px;
-  border: 1px solid transparent;
-  border-color: transparent transparent rgba(0, 0, 0, 0.1) transparent;
-  cursor: pointer;
-}
-
-.actionPanel .select-items {
-  position: absolute;
-  background-color: rgba(0, 0, 0, 0.9);
-  top: 100%;
-  left: 0;
-  right: 0;
-  z-index: 99;
-}
-
-.actionPanel .select-hide {
-  display: none;
-}
-
-.actionPanel .select-items div:hover, .actionPanel .same-as-selected {
-  background-color: rgba(0, 0, 0, 0.1);
+  padding: 3vh;
 }
 
 .actionPanel:hover {
@@ -659,6 +551,10 @@ input:focus {
   font-family: 'Cinzel', serif;
 }
 
+.PlayInstructions h1 {
+  font-size: 1.55em;
+}
+
 .PlayInstructions.bottomSquare {
   font-size: .85em;
   background-color: rgba(0, 0, 0, 0.8);
@@ -691,10 +587,6 @@ input:focus {
 .PlayInstructions.topSquare p {
   font-size: .85em;
   color: white;
-}
-
-.PlayInstructions h1 {
-  font-size: 1.85em;
 }
 
 button {

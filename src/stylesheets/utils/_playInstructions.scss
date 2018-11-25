@@ -1,5 +1,8 @@
 .PlayInstructions {
     font-family: 'Cinzel', serif;
+    h1 {
+        font-size: 1.55em;
+    }
     &.bottomSquare {
         font-size: .85em;
         background-color: rgba(0,0,0, .80);
@@ -29,8 +32,7 @@
             color: white;
         }
     }
-    h1 {
-        font-size: 1.85em;
-    }
+  
 }
+
 

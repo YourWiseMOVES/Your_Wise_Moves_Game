@@ -46,9 +46,12 @@ class FacilitatorSidebar extends Component {
                         <h1>Facilitator Sees this stuff</h1>
                         <label>
                             Name your game!
+                            <br></br>
                 <input onChange={this.handleChange} placeholder="Name" name="name" value={this.state.name}></input>
                         </label>
                         <br></br>
+                        <div className="select-container">
+
                         <label>
                             Choose your deck.
                    {/* Will map through saved decks for this select */}
@@ -63,7 +66,10 @@ class FacilitatorSidebar extends Component {
                                 <option value={3}>Fake Option Two</option>
                             </select>
                         </label>
+                        </div>
                         <br></br>
+                        <div className="select-container">
+
                         <label>
                             Set max player count
                     <select
@@ -79,8 +85,9 @@ class FacilitatorSidebar extends Component {
                                 <option value={8}>Eight</option>
                             </select>
                         </label>
+                        </div>
                         <br></br>
-
+                        <div className="select-container">
                         <label>
                             Can a facilitator kick players?
                     <select
@@ -93,8 +100,9 @@ class FacilitatorSidebar extends Component {
                                 <option value={false}>no</option>
                             </select>
                         </label>
+                        </div>
                         <br></br>
-
+                        <div className="select-container">
                         <label>
                             Show directions in chat?
                     <select
@@ -107,6 +115,7 @@ class FacilitatorSidebar extends Component {
                                 <option value={false}>no</option>
                             </select>
                         </label>
+                        </div>
                         <br></br>
                         <button onClick={() => this.props.createGame(this.state.gameConfig)}>Create A New Game</button>
                     </React.Fragment>
