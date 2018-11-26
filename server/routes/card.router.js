@@ -16,7 +16,7 @@ router.get('/', rejectUnauthenticated, isAdmin, (req, res) => {
     FROM "card"
     JOIN "stage_type"
     ON "card"."stage_id"="stage_type"."id"
-    ORDER BY "card"."id";`)
+    ORDER BY "card"."id" DESC;`)
         .then((results) => {
             res.send(results.rows)
         }).catch((error) => {
