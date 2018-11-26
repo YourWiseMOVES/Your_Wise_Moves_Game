@@ -82,7 +82,7 @@ class QuestionForm extends Component {
           <br />
           <label htmlFor="text">Type a question: </label>
           <br />
-          <input type="textarea" name="text" onChange={this.handleChangeFor('text')} value={this.state.newContent.text} />
+          <textarea style={this.props.add?{width:'50%', marginLeft:'0', resize:'none'}:{width:'100%', height:'60px', marginLeft:'0', resize:'none'}} name="text" onChange={this.handleChangeFor('text')} value={this.state.newContent.text} />
         </form>
         <button onClick={this.handleSubmit}>Submit</button>
         {this.state.editing ? <button onClick={() => this.handleDelete(this.props.question.id)}>Delete</button> : null}
