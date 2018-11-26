@@ -32,19 +32,19 @@ class QuestionForm extends Component {
   }
   handleDelete = (id) => {
     swal({
-      title: "Are you sure?",
-      text: "You will not be able to recover this card.",
-      icon: "warning",
+      title: 'Are you sure?',
+      text: 'You will not be able to recover this card.',
+      icon: 'warning',
       buttons: true,
       dangerMode: true,
     }).then((willDelete) => {
       if (willDelete) {
         this.props.dispatch({ type: 'DELETE_CARD', payload: id });
-        swal("Your file has been deleted.", {
-          icon: "success",
+        swal('Your card has been deleted.', {
+          icon: 'success',
         });
       } else {
-        swal("Your card is safe!");
+        swal('Your card is safe!');
       }
     })
   }
@@ -73,7 +73,7 @@ class QuestionForm extends Component {
           <br />
           <label htmlFor="text">Type a question: </label>
           <br/>
-          <textarea name="text" type="text" onChange={this.handleChangeFor('text')} value={this.state.newContent.text} />
+          <input type="textarea" name="text" type="text" onChange={this.handleChangeFor('text')} value={this.state.newContent.text} />
         </form>
         <button onClick={this.handleSubmit}>Submit</button>
         {this.state.editing?<button onClick={() => this.handleDelete(this.props.question.id)}>Delete</button>:null}
