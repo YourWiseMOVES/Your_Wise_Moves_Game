@@ -106,7 +106,7 @@ class ActionPanel extends Component {
                                         </div>
                                         :
                                         <div>
-                                            <input
+                                            <textarea
                                                 type="text"
                                                 placeholder="Set your Intention or Question"
                                                 onChange={this.handleInputChangeFor('intention')}
@@ -235,7 +235,7 @@ class ActionPanel extends Component {
                                         </div>
                                         :
                                         <div>
-                                            <input
+                                            <textarea
                                                 type="text"
                                                 placeholder="Answer the question please"
                                                 onChange={this.handleInputChangeFor('response')}
