@@ -73,9 +73,14 @@ class Chat extends Component {
                         <ul className="messageHistory" ref={ref => this.chatBox = ref}>
                             {
                                 this.props.state.chat.map(message => {
+                                    let classes = 'message' 
+                                    if (message.from === 'guide') {
+                                        classes += ' messageGreen'
+                                    }
                                     return (
-                                        <li className="message" key={message.id}>{message.from}: {message.text}</li>
+                                        <li className={classes} key={message.id}><span className="chatName">{message.from}:</span> {message.text}</li>
                                     );
+                                    
                                 })
                             }
                         </ul>
