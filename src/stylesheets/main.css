@@ -563,6 +563,10 @@ input:focus {
   margin-left: 1rem;
 }
 
+.capitalize {
+  text-transform: capitalize;
+}
+
 .messageGreen {
   color: #138d13;
 }
