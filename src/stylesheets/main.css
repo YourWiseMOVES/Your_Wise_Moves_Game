@@ -72,7 +72,7 @@ body {
   min-height: 900px;
   font-size: 14px;
   text-align: center;
-  overflow: hidden;
+  overflow-x: hidden;
 }
 
 .overflowHidden {
@@ -135,6 +135,14 @@ body {
 
 .sidebar .select-container label {
   color: white;
+}
+
+.sidebar ul {
+  font-size: 1.2rem;
+  text-align: center;
+  list-style-type: none;
+  padding-left: 0;
+  padding-right: 0;
 }
 
 .sidebar:hover {
@@ -339,6 +347,18 @@ body {
       justify-content: space-around;
 }
 
+.card-checkbox {
+  width: 4%;
+  padding: 5px 5px;
+  margin: 2px 0;
+  margin-left: 0px;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  border-radius: 0.2rem;
+  font-size: 1rem;
+  border: 3px solid #343738;
+}
+
 .question-form {
   height: 80%;
   width: 80%;
@@ -448,6 +468,14 @@ input:focus {
   margin-left: auto;
   margin-right: auto;
   padding: 3vh;
+}
+
+.actionPanel ol {
+  font-size: 1.2rem;
+  text-align: center;
+  list-style-type: none;
+  padding-left: 0;
+  padding-right: 0;
 }
 
 .actionPanel:hover {
@@ -830,7 +858,7 @@ body {
   min-height: 900px;
   font-size: 14px;
   text-align: center;
-  overflow: hidden;
+  overflow-x: hidden;
 }
 
 .overflowHidden {
@@ -955,7 +983,7 @@ body {
   min-height: 900px;
   font-size: 14px;
   text-align: center;
-  overflow: hidden;
+  overflow-x: hidden;
 }
 
 .overflowHidden {
