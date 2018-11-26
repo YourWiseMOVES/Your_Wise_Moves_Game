@@ -193,7 +193,7 @@ class CardPage extends Component {
             this.state.cards.map((question) =>
               <div key={question.id} style={{ margin: '4px' }}>
                 {this.state.allCardsWithCheckBoxes === [] ? null :
-                  <input type="checkbox" className={question.id} onChange={this.handleChangeForDeckCheckbox(question.id)}
+                  <input type="checkbox" className="card-checkbox" onChange={this.handleChangeForDeckCheckbox(question.id)}
                     checked={this.state.allCardsWithCheckBoxes[this.state.allCardsWithCheckBoxes.findIndex(card => card.id === question.id)].checked} />}
                 <br />
                 <Card
@@ -202,10 +202,10 @@ class CardPage extends Component {
               </div>) :
             this.state.deckToAdd.cards.map((question) =>
               <div key={question.id} style={{ margin: '4px' }}>
-                {this.state.allCardsWithCheckBoxes === [] ? null :
-                  <input type="checkbox" className={question.id} onChange={this.handleChangeForDeckCheckbox(question.id)}
+              {this.state.allCardsWithCheckBoxes === [] ? null :
+                  <input type="checkbox" className="card-checkbox" onChange={this.handleChangeForDeckCheckbox(question.id)}
                     checked={this.state.allCardsWithCheckBoxes[this.state.allCardsWithCheckBoxes.findIndex(card => card.id === question.id)].checked} />}
-                <br />
+              <br />
                 <Card
                   question={question}
                   editable={true} />
