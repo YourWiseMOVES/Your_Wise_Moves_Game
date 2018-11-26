@@ -14,11 +14,11 @@ class Discussion extends Component {
     return (
       <div className="threeContentContainer">
         {this.props.state.game.selectedPlayer && this.props.state.game.selectedPlayer.id &&
-          <div>
+          <div className="discussion-ball-container">
             <h2>Selected Player</h2>
             <h2>{this.props.state.game.selectedPlayer.name}</h2>
-            <h3>Selected Player Intention: {this.props.state.game.selectedPlayer.intention}</h3>
-            <h3>Selected Player Question: {this.props.state.game.selectedPlayer.current_card}</h3>
+            <h3>Intention: {this.props.state.game.selectedPlayer.intention}</h3>
+            <h3>Question: {this.props.state.game.selectedPlayer.current_card}</h3>
             {this.props.state.user.userReducer && this.props.state.user.userReducer.is_facilitator &&
               <button
                 onClick={() => this.props.markDone(this.props.state.game.selectedPlayer)}
