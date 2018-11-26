@@ -142,6 +142,7 @@ class CardPage extends Component {
             </div>
           </div>
           <div className="card-filter-options">
+          <h2>Filter Options:</h2>
             {this.state.deckToAdd.viewing === 'true' ? null :
               <div>
                 <label htmlFor="select">Filter By Category: </label>
