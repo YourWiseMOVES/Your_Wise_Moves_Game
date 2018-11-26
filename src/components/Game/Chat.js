@@ -10,10 +10,10 @@ class Chat extends Component {
 
     triggerChatPanel = (event) => {
         console.log(this.state.trigger);
-        
+
         if (this.state.trigger === false) {
             this.chatPanel.className = "chatPanel showChatPanel"
-            event.target.className = "chatPanelButton moveChatPanelButton"            
+            event.target.className = "chatPanelButton moveChatPanelButton"
             this.setState({
                 trigger: !this.state.trigger,
             })
@@ -29,7 +29,17 @@ class Chat extends Component {
 
     handleChange = event => {
         this.setState({
+            ...this.state,
             newMessage: event.target.value,
+        })
+    }
+
+    messageSubmit = event => {
+        event.preventDefault();
+        console.log('submit')
+        this.props.sendMessage(this.state.newMessage)
+        this.setState({
+            newMessage: '',
         })
     }
 
@@ -56,28 +66,23 @@ class Chat extends Component {
         return (
 
             this.props.state.game.game && this.props.state.game.game.id ?
-                 <div>
-                <button className="chatPanelButton" onClick={this.triggerChatPanel}>Chat Panel</button>
-                <div className="chatPanel" ref={ref => this.chatPanel = ref}>
-                    <h4 className="chatHeader">Game Chat</h4>
-                    <ul className="messageHistory" ref={ref => this.chatBox = ref}>
-                        {
-                            this.props.state.chat.map(message => {
-                                return (
-                                    <li className="message" key={message.id}>{message.from}: {message.text}</li>
-                                );
-                            })
-                        }
-                    </ul>
-                    <div style={{ float: "left", clear: "both" }}
-                        ref={(el) => { this.messagesEnd = el; }}>
-                    </div>
-                    <form className="messageInput" onSubmit={() => { 
-                        this.props.sendMessage(this.state.newMessage)
-                        this.setState({
-                            newMessage: '',
-                        })
-                        }}>
+                <div>
+                    <button className="chatPanelButton" onClick={this.triggerChatPanel}>Chat Panel</button>
+                    <div className="chatPanel" ref={ref => this.chatPanel = ref}>
+                        <h4 className="chatHeader">Game Chat</h4>
+                        <ul className="messageHistory" ref={ref => this.chatBox = ref}>
+                            {
+                                this.props.state.chat.map(message => {
+                                    return (
+                                        <li className="message" key={message.id}>{message.from}: {message.text}</li>
+                                    );
+                                })
+                            }
+                        </ul>
+                        <div style={{ float: "left", clear: "both" }}
+                            ref={(el) => { this.messagesEnd = el; }}>
+                        </div>
+                        <form className="messageInput" onSubmit={this.messageSubmit}>
                         <input
                             type="text"
                             placeholder="your message here"
@@ -93,10 +98,10 @@ class Chat extends Component {
                      </button>
                     </form>
                 </div>
-            </div>
+            </div >
 
                 :
-                null
+        null
         );
     }
 }

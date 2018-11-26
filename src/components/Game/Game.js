@@ -297,9 +297,7 @@ class Game extends Component {
     window.removeEventListener('beforeunload', this.disconnectSocket)
   }
 
-  sendMessage = message => event => {
-    event.preventDefault();
-    console.log('message sent');
+  sendMessage = message => {
     socket.emit('chat', {
       message,
       type: 'user',
