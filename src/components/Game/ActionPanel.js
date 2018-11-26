@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import {withRouter} from 'react-router-dom'
 import LogOutButton from '../LogOutButton/LogOutButton';
 
 class ActionPanel extends Component {
@@ -309,4 +310,4 @@ const mapStateToProps = state => ({
     state,
 });
 
-export default connect(mapStateToProps)(ActionPanel);
+export default withRouter (connect(mapStateToProps)(ActionPanel));

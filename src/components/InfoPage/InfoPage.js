@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux'
 import Card from '../Card/Card'
 import QuestionForm from './QuestionForm';
-class InfoPage extends Component {
+class CardPage extends Component {
   state = {
     allCardsWithCheckBoxes: [],
     deckToAdd: {
@@ -93,18 +93,20 @@ class InfoPage extends Component {
     );
   }
   filterByCategory = (categoryId, updatedCards) => {
+    let numCategory = Number(categoryId)
     if (categoryId === '0') {
       return updatedCards
     } else {
-      return updatedCards.filter(card => card.stage_id === Number(categoryId))
+      return updatedCards.filter(card => card.stage_id === numCategory)
     }
   }
   filterByDeck = (deckId, updatedCards) => {
+    let numDeck = Number(deckId)
     if (deckId === '0') {
       return updatedCards
     } else {
       return updatedCards.filter(card =>
-        this.state.decks.filter(deck => deck.id === Number(deckId))[0].cards_in_deck.indexOf(card.id) !== -1);
+        this.state.decks.filter(deck => deck.id === numDeck)[0].cards_in_deck.indexOf(card.id) !== -1);
     }
   }
   combinedFilter = (filter) => {
@@ -128,84 +130,85 @@ class InfoPage extends Component {
     item.checked = event.target.checked;
     copy[copyIndex] = item;
     this.setState({ allCardsWithCheckBoxes: copy });
-
   }
   render() {
     return (
       <div>
-        <div>
-          <h4>Add a new question here:</h4>
-          <div>
-            <QuestionForm add={true} />
-          </div>
-        </div>
-        <div>
-          {this.state.deckToAdd.viewing === 'true' ? null :
+        <div className="card-input-boxes">
+          <div className="add-question">
+            <h2>Add a new question here:</h2>
             <div>
-              <label htmlFor="select">Filter By Category: </label>
-              <select name="select"
-                onChange={this.handleChangeFor('categorySelected', 'filter')}
-                value={this.state.filter.categorySelected}>
-                <option value="0">All Categories</option>
-                <option value="1">Map</option>
-                <option value="2">Open</option>
-                <option value="3">Visualize</option>
-                <option value="4">Engage</option>
-                <option value="5">Sustain</option>
-              </select>
-              <label htmlFor="select">Filter By Deck: </label>
-              <select name="select"
-                onChange={this.handleChangeFor('deckSelected', 'filter')}
-                value={this.state.deckSelected}>
-                <option value="0">All Cards</option>
-                {this.props.decks.decks.map(deck =>
-                  <option key={deck.id} value={`${deck.id}`}>{deck.description}</option>)}
-              </select>
-              <input placeholder="search for a card by content" onChange={this.handleChangeFor('searchText', 'filter')}></input>
-            </div>}
-          <br />
-          {this.state.deckToAdd.cards.length === 0 ? null :
-            <>
-              <label htmlFor="cardsToAdd">
-                <input style={{ width: '20px' }} name="cardsToAdd" type="radio" value="true" checked={this.state.deckToAdd.viewing === 'true'} onChange={this.handleChangeFor('viewing', 'deckToAdd')} />
-                see cards in deck to be added
+              <QuestionForm add={true} />
+            </div>
+          </div>
+          <div className="card-filter-options">
+            {this.state.deckToAdd.viewing === 'true' ? null :
+              <div>
+                <label htmlFor="select">Filter By Category: </label>
+                <select name="select"
+                  onChange={this.handleChangeFor('categorySelected', 'filter')}
+                  value={this.state.filter.categorySelected}>
+                  <option value="0">All Categories</option>
+                  <option value="1">Map</option>
+                  <option value="2">Open</option>
+                  <option value="3">Visualize</option>
+                  <option value="4">Engage</option>
+                  <option value="5">Sustain</option>
+                </select>
+                <label htmlFor="select">Filter By Deck: </label>
+                <select name="select"
+                  onChange={this.handleChangeFor('deckSelected', 'filter')}
+                  value={this.state.deckSelected}>
+                  <option value="0">All Cards</option>
+                  {this.props.decks.decks.map(deck =>
+                    <option key={deck.id} value={`${deck.id}`}>{deck.description}</option>)}
+                </select>
+                <input placeholder="search for a card by content" onChange={this.handleChangeFor('searchText', 'filter')}></input>
+              </div>}
+            <br />
+            {this.state.deckToAdd.cards.length === 0 ? null :
+              <>
+                <label htmlFor="cardsToAdd">
+                  <input style={{ width: '20px' }} name="cardsToAdd" type="radio" value="true" checked={this.state.deckToAdd.viewing === 'true'} onChange={this.handleChangeFor('viewing', 'deckToAdd')} />
+                  see cards in deck to be added
               </label>
-              <br />
-              <label htmlFor="allCards">
-                <input style={{ width: '20px' }} name="allCards" type="radio" value="false" checked={this.state.deckToAdd.viewing === 'false'} onChange={this.handleChangeFor('viewing', 'deckToAdd')} />
-                see all cards
+                <br />
+                <label htmlFor="allCards">
+                  <input style={{ width: '20px' }} name="allCards" type="radio" value="false" checked={this.state.deckToAdd.viewing === 'false'} onChange={this.handleChangeFor('viewing', 'deckToAdd')} />
+                  see all cards
               </label>
-              <br />
-              {this.state.deckToAdd.viewing === 'true' ?
-                <>
-                  <input type="text" placeholder="Name the new deck here" onChange={this.handleChangeFor('description', 'deckToAdd')} />
-                  <button onClick={this.dispatchDeckToPost}>Add checked cards to deck</button>
-                </>
-                : null}
-            </>
-          }
+                <br />
+                {this.state.deckToAdd.viewing === 'true' ?
+                  <>
+                    <input type="text" placeholder="Name the new deck here" onChange={this.handleChangeFor('description', 'deckToAdd')} />
+                    <button onClick={this.dispatchDeckToPost}>Add checked cards to deck</button>
+                  </>
+                  : null}
+              </>
+            }
+          </div>
         </div>
         <div className="card-collection">
           {this.state.deckToAdd.viewing === 'false' ?
             this.state.cards.map((question) =>
               <div key={question.id} style={{ margin: '4px' }}>
                 {this.state.allCardsWithCheckBoxes === [] ? null :
-                  <input type="checkbox" className={question.id} onChange={this.handleChangeForDeckCheckbox(question.id)}
-                    checked={this.state.allCardsWithCheckBoxes[this.state.allCardsWithCheckBoxes.findIndex(card => card.id === question.id)].checked} />}
+                  <label htmlFor="addbox"><input name="add-box" type="checkbox" className="card-checkbox" onChange={this.handleChangeForDeckCheckbox(question.id)}
+                    checked={this.state.allCardsWithCheckBoxes[this.state.allCardsWithCheckBoxes.findIndex(card => card.id === question.id)].checked} />Check to add to a new deck</label>}
                 <br />
                 <Card
                   question={question}
-                  editable={true}/>
+                  editable={true} />
               </div>) :
             this.state.deckToAdd.cards.map((question) =>
               <div key={question.id} style={{ margin: '4px' }}>
                 {this.state.allCardsWithCheckBoxes === [] ? null :
-                  <input type="checkbox" className={question.id} onChange={this.handleChangeForDeckCheckbox(question.id)}
-                    checked={this.state.allCardsWithCheckBoxes[this.state.allCardsWithCheckBoxes.findIndex(card => card.id === question.id)].checked} />}
+                  <label htmlFor="addbox"><input name="add-box" type="checkbox" className="card-checkbox" onChange={this.handleChangeForDeckCheckbox(question.id)}
+                    checked={this.state.allCardsWithCheckBoxes[this.state.allCardsWithCheckBoxes.findIndex(card => card.id === question.id)].checked} />Check to remove</label>}
                 <br />
                 <Card
                   question={question}
-                  editable={true}/>
+                  editable={true} />
               </div>)
           }
         </div>
@@ -214,4 +217,4 @@ class InfoPage extends Component {
   }
 }
 const mapReduxStateToProps = ({ cards, decks }) => ({ cards, decks })
-export default connect(mapReduxStateToProps)(InfoPage);
+export default connect(mapReduxStateToProps)(CardPage);
