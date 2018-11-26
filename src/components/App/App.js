@@ -17,7 +17,7 @@ import ProtectedRoute from '../ProtectedRoute/ProtectedRoute'
 
 import AboutPage from '../AboutPage/AboutPage';
 import UserPage from '../UserPage/UserPage';
-import InfoPage from '../InfoPage/InfoPage';
+import CardPage from '../InfoPage/InfoPage';
 import AdminPage from '../AdminPage/AdminPage';
 import ResultsPage from '../ResultsPage/ResultsPage';
 import Game from '../Game/Game';
@@ -36,6 +36,7 @@ class App extends Component {
         <div>
           <Switch>
             <Redirect exact from="/" to="/home/game" />
+            <Redirect exact from="/home" to="/home/game" />
             <Route
               exact
               path="/home/game"
@@ -43,8 +44,8 @@ class App extends Component {
             />
             <Route
               exact
-              path="/info"
-              render={()=> { return (<React.Fragment><Nav /> <InfoPage /> </React.Fragment>);}}
+              path="/cards"
+              render={()=> { return (<React.Fragment><Nav /> <CardPage /> </React.Fragment>);}}
             />
             <Route
               exact

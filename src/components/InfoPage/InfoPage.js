@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux'
 import Card from '../Card/Card'
 import QuestionForm from './QuestionForm';
-class InfoPage extends Component {
+class CardPage extends Component {
   state = {
     allCardsWithCheckBoxes: [],
     deckToAdd: {
@@ -130,7 +130,6 @@ class InfoPage extends Component {
     item.checked = event.target.checked;
     copy[copyIndex] = item;
     this.setState({ allCardsWithCheckBoxes: copy });
-
   }
   render() {
     return (
@@ -216,4 +215,4 @@ class InfoPage extends Component {
   }
 }
 const mapReduxStateToProps = ({ cards, decks }) => ({ cards, decks })
-export default connect(mapReduxStateToProps)(InfoPage);
+export default connect(mapReduxStateToProps)(CardPage);
