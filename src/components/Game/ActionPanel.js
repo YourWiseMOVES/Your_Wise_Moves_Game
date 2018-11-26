@@ -171,7 +171,6 @@ class ActionPanel extends Component {
                                             <div>
                                                 <h1>Facilitator Login</h1>
                                                 <form onSubmit={this.login}>
-                                                    <h1>Login</h1>
                                                     <div>
                                                         <label htmlFor="username">
                                                             Username:

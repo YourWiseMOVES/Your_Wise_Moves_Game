@@ -660,11 +660,28 @@ input:focus {
 
 .join-game-ball h5 {
   font-size: 1.6rem;
-  margin-top: 10px;
+  margin-top: 0px;
 }
 
 .join-game-ball h6 {
   font-size: 1.2rem;
+}
+
+.discussion-ball-container {
+  border-radius: 5%;
+  background: rgba(0, 0, 0, 0.75);
+}
+
+.discussion-ball-container h2 {
+  color: white;
+  margin: 0;
+  font-size: 1.2rem;
+}
+
+.discussion-ball-container h3 {
+  font-size: 1rem;
+  color: white;
+  margin: 0;
 }
 
 button {
