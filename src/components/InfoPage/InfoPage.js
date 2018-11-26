@@ -193,8 +193,8 @@ class CardPage extends Component {
             this.state.cards.map((question) =>
               <div key={question.id} style={{ margin: '4px' }}>
                 {this.state.allCardsWithCheckBoxes === [] ? null :
-                  <input type="checkbox" className="card-checkbox" onChange={this.handleChangeForDeckCheckbox(question.id)}
-                    checked={this.state.allCardsWithCheckBoxes[this.state.allCardsWithCheckBoxes.findIndex(card => card.id === question.id)].checked} />}
+                  <label htmlFor="addbox"><input name="add-box" type="checkbox" className="card-checkbox" onChange={this.handleChangeForDeckCheckbox(question.id)}
+                    checked={this.state.allCardsWithCheckBoxes[this.state.allCardsWithCheckBoxes.findIndex(card => card.id === question.id)].checked} />Check to add to a new deck</label>}
                 <br />
                 <Card
                   question={question}
@@ -202,10 +202,10 @@ class CardPage extends Component {
               </div>) :
             this.state.deckToAdd.cards.map((question) =>
               <div key={question.id} style={{ margin: '4px' }}>
-              {this.state.allCardsWithCheckBoxes === [] ? null :
-                  <input type="checkbox" className="card-checkbox" onChange={this.handleChangeForDeckCheckbox(question.id)}
-                    checked={this.state.allCardsWithCheckBoxes[this.state.allCardsWithCheckBoxes.findIndex(card => card.id === question.id)].checked} />}
-              <br />
+                {this.state.allCardsWithCheckBoxes === [] ? null :
+                  <label htmlFor="addbox"><input name="add-box" type="checkbox" className="card-checkbox" onChange={this.handleChangeForDeckCheckbox(question.id)}
+                    checked={this.state.allCardsWithCheckBoxes[this.state.allCardsWithCheckBoxes.findIndex(card => card.id === question.id)].checked} />Check to remove</label>}
+                <br />
                 <Card
                   question={question}
                   editable={true} />
