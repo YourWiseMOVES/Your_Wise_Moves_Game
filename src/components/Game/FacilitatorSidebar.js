@@ -43,7 +43,7 @@ class FacilitatorSidebar extends Component {
                     </React.Fragment>
                     :
                     <React.Fragment>
-                        <h1>Facilitator Sees this stuff</h1>
+                        <h1>New Game</h1>
                         <label>
                             Name your game!
                             <br></br>
@@ -62,8 +62,8 @@ class FacilitatorSidebar extends Component {
                             >
                                 <option>choose an option</option>
                                 <option value={1}>Default</option>
-                                <option value={2}>Fake Option One</option>
-                                <option value={3}>Fake Option Two</option>
+                                <option value={2}>Corporation</option>
+                                <option value={3}>Family</option>
                             </select>
                         </label>
                         </div>
