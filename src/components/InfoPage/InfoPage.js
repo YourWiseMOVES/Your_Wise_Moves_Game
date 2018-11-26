@@ -93,18 +93,20 @@ class InfoPage extends Component {
     );
   }
   filterByCategory = (categoryId, updatedCards) => {
+    let numCategory = Number(categoryId)
     if (categoryId === '0') {
       return updatedCards
     } else {
-      return updatedCards.filter(card => card.stage_id === Number(categoryId))
+      return updatedCards.filter(card => card.stage_id === numCategory)
     }
   }
   filterByDeck = (deckId, updatedCards) => {
+    let numDeck = Number(deckId)
     if (deckId === '0') {
       return updatedCards
     } else {
       return updatedCards.filter(card =>
-        this.state.decks.filter(deck => deck.id === Number(deckId))[0].cards_in_deck.indexOf(card.id) !== -1);
+        this.state.decks.filter(deck => deck.id === numDeck)[0].cards_in_deck.indexOf(card.id) !== -1);
     }
   }
   combinedFilter = (filter) => {
@@ -195,7 +197,7 @@ class InfoPage extends Component {
                 <br />
                 <Card
                   question={question}
-                  editable={true}/>
+                  editable={true} />
               </div>) :
             this.state.deckToAdd.cards.map((question) =>
               <div key={question.id} style={{ margin: '4px' }}>
@@ -205,7 +207,7 @@ class InfoPage extends Component {
                 <br />
                 <Card
                   question={question}
-                  editable={true}/>
+                  editable={true} />
               </div>)
           }
         </div>
