@@ -470,6 +470,15 @@ input:focus {
   padding: 3vh;
 }
 
+.actionPanel textarea {
+  height: 10vh;
+  font-size: .8rem;
+  width: 16vw;
+  resize: none;
+  overflow-y: auto;
+  margin-bottom: 5px;
+}
+
 .actionPanel ol {
   font-size: 1.2rem;
   text-align: center;
