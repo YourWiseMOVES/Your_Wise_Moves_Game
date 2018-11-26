@@ -1,3 +1,5 @@
+const react = require('react');
+
 const directions = gameState => {
     switch (gameState[0]) {
         case '0':
@@ -16,24 +18,18 @@ const directions = gameState => {
             if (gameState[1] === '0') {
                 return (
                     `
-                        MOVEMENT: Brush yourself off with your hands to release attachments, imitating a metal too, to chip away the past.
+                        Observe where and who you are at this moment. What can you let go? 
+                        Then, brush yourself off with your hands to release attachments, imitating a metal too, to chip away the past.
 
-                        DESCRIPTION: Observe where and who you are at this moment. What can you let go? Metal is the element energy you draw
-                        upon, a refined and pure element, to chip away everything that is not useful.
                     `
                 );
             }
         case '2':
             if (gameState[1] === '0') {
                 return (
-                    `
-                    MOVEMENT: Put one hand on your heart and the other on your stomach. As you breathe in slowly swing your hands open. 
-                    As your breathe out, slowly swing your hands back to your body. Imagine water flowing into you. Repeat movement for
-                    5 breaths with eyes closed.
-
-                    DESCRIPTION: Release resistance, broaden your perspective and increase your creativity. Where do you limit yourself? Open to inspiration.
-                    Water is the element energy you draw upon to connect with the formless and open to the flow of life.
-                `
+                    
+                    "\nMovement: Put one hand on your heart and the other on your stomach. As you breathe in slowly swing your hands open.As your breathe out, slowly swing your hands back to your body. Imagine water flowing into you. Repeat movement for 5 breaths with eyes closed.\r Description: Release resistance, broaden your perspective and increase your creativity. Where do you limit yourself? Open to inspiration. Water is the element energy you draw upon to connect with the formless and open to the flow of life."
+                
                 );
             }
         case '3':
