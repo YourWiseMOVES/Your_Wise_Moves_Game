@@ -50,11 +50,20 @@ class QuestionForm extends Component {
   }
   handleSubmit = (event) => {
     event.preventDefault();
-    this.props.add ?
-      this.props.dispatch({ type: 'ADD_CARD', payload: ({...this.state.newContent, decksToAddTo:[]}) }) :
+    if (this.props.add) {
+      this.props.dispatch({ type: 'ADD_CARD', payload: ({ ...this.state.newContent, decksToAddTo: [] }) })
+      this.setState({
+        newContent: {
+          stage_id: '1',
+          text: ''
+        }
+      })
+    } else {
       this.props.dispatch({ type: 'EDIT_CARD', payload: this.state.newContent })
+    }
     swal(this.props.add ? 'Card Added' : 'Card Edited');
-    if (this.props.flipCard){
+
+    if (this.props.flipCard) {
       this.props.flipCard();
     }
   }
@@ -72,11 +81,11 @@ class QuestionForm extends Component {
           </select>
           <br />
           <label htmlFor="text">Type a question: </label>
-          <br/>
-          <input type="textarea" name="text" type="text" onChange={this.handleChangeFor('text')} value={this.state.newContent.text} />
+          <br />
+          <input type="textarea" name="text" onChange={this.handleChangeFor('text')} value={this.state.newContent.text} />
         </form>
         <button onClick={this.handleSubmit}>Submit</button>
-        {this.state.editing?<button onClick={() => this.handleDelete(this.props.question.id)}>Delete</button>:null}
+        {this.state.editing ? <button onClick={() => this.handleDelete(this.props.question.id)}>Delete</button> : null}
       </div>
     );
   }
