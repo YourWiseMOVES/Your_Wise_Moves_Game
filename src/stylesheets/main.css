@@ -560,6 +560,15 @@ input:focus {
 .message {
   color: black;
   font-size: 1rem;
+  margin-left: 1rem;
+}
+
+.messageGreen {
+  color: #138d13;
+}
+
+.chatName {
+  font-weight: bold;
 }
 
 .chatHeader {
