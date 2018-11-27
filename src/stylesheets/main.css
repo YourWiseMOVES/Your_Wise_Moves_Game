@@ -892,12 +892,32 @@ footer {
 
 .nav {
   overflow: hidden;
-  height: 10vh;
+  height: 7vh;
   width: 100vw;
-  background-image: url("../images/yourwisemovesbanner.jpg");
+  background: #1b1b1b;
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
+  text-align: center;
+}
+
+.nav button {
+  background: none;
+  border: none;
+  -webkit-box-shadow: none;
+          box-shadow: none;
+}
+
+.nav button:hover {
+  background: none;
+}
+
+.nav h2 {
+  text-align: center;
+  padding-left: 0;
+  float: left;
+  margin-left: 4vw;
+  margin-top: 1vh;
 }
 
 .nav-link {
