@@ -17,17 +17,23 @@ class Background extends Component {
 
     componentDidMount() {
 
+        //Counter for moveSphereForward() and moveSphereBack().  It goes up to easedArray.length, which is
+        //determined by speedArchitect(), then goes back down to zero.  This allows each spheres animation 
+        //to use the same counter.  
         let i = 0;
         this.i = i;
 
+        //This determines which background is currently visible.  There are 6 sections in the background, neutral
+        //and the 5 movements.  After the final of round (earth), the background needs to rotate one last time 
+        //so that the game can end on the neutral, blue background.  
         let counter = 1;
         this.counter = counter;
 
+        //This determines in moveSphereForward() and moveSphereBack() when the animation stops.
         let backwards = false;
         this.backwards = backwards;
 
-
-
+        //mount is a ref.  These variables allow the camera to render a proper field of view, or viewing frustum.
         const width = this.mount.clientWidth;
         const height = this.mount.clientHeight;
 
@@ -76,8 +82,7 @@ class Background extends Component {
 
         //------------------------------CLOUDS----------------------------------
         //clouds
-        //Remember, you need a server for images to be loaded!
-        const textureClouds1 = new THREE.TextureLoader().load(require('./images/clouds5.jpg'));
+        const textureClouds1 = new THREE.TextureLoader().load(require('./images/clouds1.jpg'));
 
         const geoClouds1 = new THREE.SphereGeometry(60, 100, 100);
         const matClouds1 = new THREE.MeshPhongMaterial({ alphaMap: textureClouds1 });
@@ -95,6 +100,7 @@ class Background extends Component {
 
 
         //--------------------------SPHERES----------------------------------
+        //Each sphere uses it's loaded texture as both a map and a bumpMap.  
         const textureYinYang = new THREE.TextureLoader().load(require('./images/yinYang.jpg'));
 
         const geoYinYang = new THREE.SphereGeometry(10, 100, 100);
@@ -159,6 +165,10 @@ class Background extends Component {
         //------------------------------END SPHERES----------------------------------
 
         //----------------------------CURVE PATH------------------------------------
+        //These paths are what the spheres follow in moveSphereForward() and moveSphereBack()
+        //The array of points determined in createBezierCurve are the points used in speedArchitect()
+        //to create an eased movement, so of the 1256 points created in the below functions, only 250 or
+        //so of them are actually used.  
         const createBezierCurve = (a, b, c, d) => {
             const curve = new THREE.CubicBezierCurve3(
                 new THREE.Vector3(a.x, a.y, a.z), //starting point
@@ -167,7 +177,6 @@ class Background extends Component {
                 new THREE.Vector3(d.x, d.y, d.z), //ending point
             );
             const points = curve.getPoints(1256);
-
             return points
         }
 
@@ -291,10 +300,14 @@ class Background extends Component {
         }
     }
 
+    //This is to ensure that the animation will terminate on componentWillUnmount()
     stop() {
         cancelAnimationFrame(this.frameId)
     }
 
+
+    //Balls slowly spinning around y axis, camera rotating on z axis, and clouds 
+    //slowly rotating.  
     animate() {
         this.renderScene()
         this.frameId = window.requestAnimationFrame(this.animate)
@@ -310,6 +323,9 @@ class Background extends Component {
         this.wood.rotation.y += 0.001;
     }
 
+    //This function takes in the array of points created above in createBezierCurve and
+    //returns an array of eased points, making the movement of the spheres to front or back
+    //start slowly, speed up, then slow back down before coming to a halt in it's new position.
     speedArchitect = (max, subSteps) => {
         let blueprint = [];
         const speeds = [.01, .02, .04, .07, .12, .15, .18, .15, .12, .07, .04, .02, .01];
@@ -325,14 +341,18 @@ class Background extends Component {
         return blueprint;
     }
 
+    //rotates background 1/6th of it's circumference to reflect current round
     rotateBackground = (numOfSegments) => {
         this.background.rotation.z += (Math.PI / 3) / numOfSegments;
     }
 
     moveSphereForward = (input) => {
+        //these are defined here instead of inputting actual points arrays because this function 
+        //is called from a seperate component, so the path needs to be determined here.  
         let pointsArrayOutside;
         let pointsArrayInside;
         let sphere;
+        //determines which sphere and paths to use
         if (input === 1){
             pointsArrayOutside = this.pointsMetalOutside;
             pointsArrayInside = this.pointsMetalInside;
@@ -354,24 +374,30 @@ class Background extends Component {
             pointsArrayInside = this.pointsEarthInside;
             sphere = this.earth
         }
+        //created eased movemtent to make animation look more natural
         const easedArray = this.speedArchitect(pointsArrayOutside.length, 16)
         
+        //
         if (this.i < easedArray.length - 1 && this.backwards === false) {
-            let bPoint = easedArray[this.i];
-            let b = pointsArrayOutside[bPoint];
-            let ybPoint = easedArray[easedArray.length - (this.i + 1)];
-            let yb = pointsArrayInside[ybPoint];
-            sphere.position.x = b.x
-            sphere.position.y = b.y
-            sphere.position.z = b.z
-            this.yinYang.position.x = yb.x;
-            this.yinYang.position.y = yb.y;
-            this.yinYang.position.z = yb.z;
-
+            let aPoint = easedArray[this.i];
+            let a = pointsArrayOutside[aPoint];
+            let bPoint = easedArray[easedArray.length - (this.i + 1)];
+            let b = pointsArrayInside[bPoint];
+            sphere.position.x = a.x
+            sphere.position.y = a.y
+            sphere.position.z = a.z
+            this.yinYang.position.x = b.x;
+            this.yinYang.position.y = b.y;
+            this.yinYang.position.z = b.z;
+            //calling background rotation this way makes sure that background starts and ends
+            //at same time as sphere animation.
             this.rotateBackground(easedArray.length);
+            //increment this.i for next animation frame
             this.i = this.i + 1;
             requestAnimationFrame(() => this.moveSphereForward(input));
         } else if (this.i === easedArray.length - 1 && this.backwards === false) {
+            //places sphere in it's final position, and sets this.backwards to true 
+            //for moveSphereBack()
             this.backwards = true;
             sphere.position.x = pointsArrayOutside[pointsArrayOutside.length - 1].x;
             sphere.position.y = pointsArrayOutside[pointsArrayOutside.length - 1].y;
@@ -384,7 +410,8 @@ class Background extends Component {
     }
 
     moveSphereBack = (input) => {
-
+        //these are defined here instead of inputting actual points arrays because this function 
+        //is called from a seperate component, so the path needs to be determined here.  
         let pointsArrayOutside;
         let pointsArrayInside;
         let sphere;
@@ -414,16 +441,16 @@ class Background extends Component {
         const easedArray = this.speedArchitect(pointsArrayOutside.length, 16)
 
         if (this.i > 0 && this.backwards === true) {
-            const bPoint = easedArray[this.i];
-            const b = pointsArrayInside[bPoint];
-            const ybPoint = easedArray[easedArray.length - (this.i + 1)];
-            const yb = pointsArrayOutside[ybPoint];
-            sphere.position.x = b.x;
-            sphere.position.y = b.y;
-            sphere.position.z = b.z;
-            this.yinYang.position.x = yb.x;
-            this.yinYang.position.y = yb.y;
-            this.yinYang.position.z = yb.z;
+            const aPoint = easedArray[this.i];
+            const a = pointsArrayInside[aPoint];
+            const bPoint = easedArray[easedArray.length - (this.i + 1)];
+            const b = pointsArrayOutside[bPoint];
+            sphere.position.x = a.x;
+            sphere.position.y = a.y;
+            sphere.position.z = a.z;
+            this.yinYang.position.x = b.x;
+            this.yinYang.position.y = b.y;
+            this.yinYang.position.z = b.z;
             this.i--;
             requestAnimationFrame(() => this.moveSphereBack(input));
         } else if (this.backwards === true && this.i === 0) {
