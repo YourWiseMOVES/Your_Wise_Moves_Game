@@ -5,12 +5,12 @@ Julie Delene is founder and owner of Move As One, a wholistic consulting service
 
 ------------
 ## Your Wise Moves™ Overview
-We created a digital version of the Your Wise Moves™ game. Our goal in creating this app, was to make it possible for Julie to both expand her game to reach a broader audience and, in addition to facilitating the game in-person, eventually facilitate the game remotely to groups in different locations. The digital game version enables Julie add, edit and delete cards in the deck as well as add decks.
+We created a digital version of the Your Wise Moves™ game. Our goal in creating this app, was to make it possible for Julie to both expand her game to reach a broader audience and, in addition to facilitating the game in-person, eventually facilitate the game remotely to groups in different locations. The digital game version enables Julie to add, edit and delete cards in the deck as well as add decks.
 
 ------------
 ## Roles
 
-**Administrator:** The game administrator (Julie) is the only person who has the authority to make any changes to the game. As mentioned above, she will be able to add, edit and delete cards in a deck as well as create new decks. Julie creates an account for each facilitator, giving them access to facilitate games.
+**Administrator:** The game administrator (Julie) is the only person who has the authority to make any changes to the game. As mentioned above, she is able to add, edit and delete cards in a deck as well as create new decks. Julie creates an account for each facilitator, giving them access to facilitate games.
 **Facilitator:** The game facilitator has received extensive training from Julie and has the authority to facilitate games. The facilitator needs to log in to begin a game.
 **Player:** The player does not need an account to play the game
 ### Getting Started
