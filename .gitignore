@@ -71,3 +71,5 @@ database.sql
 # SASS dev files to avoid merge conflicts
 main.css
 main.css.map
+
+app.sql
