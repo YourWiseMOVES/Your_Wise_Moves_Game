@@ -10,7 +10,6 @@ class FacilitatorSidebar extends Component {
             name: '',
             deckId: '',
             maxPlayers: '',
-            canKick: '',
             showDirections: '',
         },
     }
@@ -83,21 +82,6 @@ class FacilitatorSidebar extends Component {
                                 <option value={6}>Six</option>
                                 <option value={7}>Seven</option>
                                 <option value={8}>Eight</option>
-                            </select>
-                        </label>
-                        </div>
-                        <br></br>
-                        <div className="select-container">
-                        <label>
-                            Can a facilitator kick players?
-                    <select
-                                onChange={this.handleChange}
-                                value={this.state.gameConfig.canKick}
-                                name="canKick"
-                            >
-                                <option>choose an option</option>
-                                <option value={true}>yes</option>
-                                <option value={false}>no</option>
                             </select>
                         </label>
                         </div>
