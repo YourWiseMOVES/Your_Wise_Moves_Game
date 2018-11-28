@@ -95,6 +95,7 @@ router.post('/get/results', async (req, res) => {
     let response = resultResponse.rows[0];
     //will then pass the response and req.body.email into mailOptions
     //then dispatch the email with transporter module
+    console.log(response);
     transporter.sendMail(mailOptions(req.body.email, response))
         .then(done => {
             res.sendStatus(201);
