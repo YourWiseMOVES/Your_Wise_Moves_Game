@@ -88,22 +88,20 @@ class Game extends Component {
     this.props.dispatch({ type: 'SET_CODE', payload: game.code })
   }
 
-  endGame = (boolean) => { //function triggers game end on server
+  endGame = async (boolean) => { //function triggers game end on server
     //emit socket to trigger player redirects
     if (boolean) {
       socket.emit('end', { done: true });
     }
-    else {
-      setTimeout(() => {
-        this.props.dispatch({ type: 'CLEAR_SELECT_GAME' })
-        this.props.dispatch({ type: 'FETCH_GAMES' })
-      }, 3000)
-    }
-    axios({
+    await axios({
       method: 'POST',
       data: { id: this.props.state.user.userReducer.id },
       url: '/game/end',
     }) //will later clear all of the appropriate redux store items
+    setTimeout(() => {
+      this.props.dispatch({ type: 'CLEAR_SELECT_GAME' })
+      this.props.dispatch({ type: 'FETCH_GAMES' })
+    }, 1000)
   }
 
   advanceStage = (newGameState, resetDiscussion) => { //function emits an 'advance' action
@@ -285,6 +283,7 @@ class Game extends Component {
 
   componentDidMount() {
     window.addEventListener('beforeunload', this.disconnectSocket);
+    this.props.dispatch({ type: 'FETCH_DECKS' });
   }
 
   disconnectSocket = async event => {

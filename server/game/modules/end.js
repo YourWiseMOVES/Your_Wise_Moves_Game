@@ -16,6 +16,7 @@ const end = async (socket, gameId, link, io, code) => {
             //player id, player name, intention, all qs and as
         let playerResponse = await pool.query('SELECT * FROM "player" WHERE "game_id"=$1;', [gameId]);
         let players = playerResponse.rows;
+        console.log(players);
         for (let player of players) { //insert a results row for each player
             let journalResponse = await pool.query('SELECT * FROM "journal" WHERE "id"=$1;', [player.journal_id])
             journal = journalResponse.rows[0];
@@ -28,7 +29,6 @@ const end = async (socket, gameId, link, io, code) => {
                 journal.question_three, journal.response_three, journal.question_four, journal.response_four, journal.question_five, journal.response_five
             ])
         }
-
         //schedule an action to clear that table in however long
         let deleteResults = gameId => {
             console.log('deleting results');

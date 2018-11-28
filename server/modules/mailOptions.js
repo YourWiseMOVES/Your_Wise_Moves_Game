@@ -14,6 +14,8 @@ const mailOptionsConfig = (userEmail, content) => {
 
     today = mm + '/' + dd + '/' + yyyy;
 
+    console.log(content);
+
     let mailOptions = {
         from: '"Your Wise Moves (dev email)" <yourwisemovesdev@gmail.com>', // sender address
         to: userEmail, // list of receivers

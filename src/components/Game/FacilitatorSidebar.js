@@ -10,7 +10,6 @@ class FacilitatorSidebar extends Component {
             name: '',
             deckId: '',
             maxPlayers: '',
-            canKick: '',
             showDirections: '',
         },
     }
@@ -47,88 +46,74 @@ class FacilitatorSidebar extends Component {
                         <label>
                             Name your game!
                             <br></br>
-                <input onChange={this.handleChange} placeholder="Name" name="name" value={this.state.name}></input>
+                            <input onChange={this.handleChange} placeholder="Name" name="name" value={this.state.name}></input>
                         </label>
                         <br></br>
                         <div className="select-container">
 
-                        <label>
-                            Choose your deck.
+                            <label>
+                                Choose your deck.
                    {/* Will map through saved decks for this select */}
-                            <select
-                                onChange={this.handleChange}
-                                name="deckId"
-                                value={this.state.gameConfig.deckId}
-                            >
-                                <option>choose an option</option>
-                                <option value={1}>Default</option>
-                                <option value={2}>Corporation</option>
-                                <option value={3}>Family</option>
-                            </select>
-                        </label>
+                                <select
+                                    onChange={this.handleChange}
+                                    name="deckId"
+                                    value={this.state.gameConfig.deckId}
+                                >
+                                    <option>choose an option</option>
+                                    {this.props.state.decks.decks.map(deck => {
+                                        return (<option value={deck.id}>{deck.description}</option>
+                                        );
+                                    })}
+                                </select>
+                            </label>
                         </div>
                         <br></br>
                         <div className="select-container">
 
-                        <label>
-                            Set max player count
+                            <label>
+                                Set max player count
                     <select
-                                onChange={this.handleChange}
-                                value={this.state.gameConfig.maxPlayers}
-                                name="maxPlayers"
-                            >
-                                <option>choose an option</option>
-                                <option value={4}>Four</option>
-                                <option value={5}>Five</option>
-                                <option value={6}>Six</option>
-                                <option value={7}>Seven</option>
-                                <option value={8}>Eight</option>
-                            </select>
-                        </label>
+                                    onChange={this.handleChange}
+                                    value={this.state.gameConfig.maxPlayers}
+                                    name="maxPlayers"
+                                >
+                                    <option>choose an option</option>
+                                    <option value={4}>Four</option>
+                                    <option value={5}>Five</option>
+                                    <option value={6}>Six</option>
+                                    <option value={7}>Seven</option>
+                                    <option value={8}>Eight</option>
+                                </select>
+                            </label>
                         </div>
                         <br></br>
                         <div className="select-container">
-                        <label>
-                            Can a facilitator kick players?
+                            <label>
+                                Show directions in chat?
                     <select
-                                onChange={this.handleChange}
-                                value={this.state.gameConfig.canKick}
-                                name="canKick"
-                            >
-                                <option>choose an option</option>
-                                <option value={true}>yes</option>
-                                <option value={false}>no</option>
-                            </select>
-                        </label>
-                        </div>
-                        <br></br>
-                        <div className="select-container">
-                        <label>
-                            Show directions in chat?
-                    <select
-                                onChange={this.handleChange}
-                                value={this.state.gameConfig.showDirections}
-                                name="showDirections"
-                            >
-                                <option>choose an option</option>
-                                <option value={true}>yes</option>
-                                <option value={false}>no</option>
-                            </select>
-                        </label>
+                                    onChange={this.handleChange}
+                                    value={this.state.gameConfig.showDirections}
+                                    name="showDirections"
+                                >
+                                    <option>choose an option</option>
+                                    <option value={true}>yes</option>
+                                    <option value={false}>no</option>
+                                </select>
+                            </label>
                         </div>
                         <br></br>
                         <button onClick={() => {
-                            this.props.createGame(this.state.gameConfig) 
-                             this.setState({
-                            gameConfig: {
-                                name: '',
-                                deckId: '',
-                                maxPlayers: '',
-                                canKick: '',
-                                showDirections: '',
-                            },
-                        })
-                    }}>Create A New Game</button>
+                            this.props.createGame(this.state.gameConfig)
+                            this.setState({
+                                gameConfig: {
+                                    name: '',
+                                    deckId: '',
+                                    maxPlayers: '',
+                                    canKick: '',
+                                    showDirections: '',
+                                },
+                            })
+                        }}>Create A New Game</button>
                     </React.Fragment>
                 }
             </div>
