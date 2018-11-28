@@ -51,8 +51,8 @@ This code is also heavily commented. We recommend reading through the comments, 
 * SASS
 
 ------------
-#Game Logic
-##Overview
+# Game Logic
+## Overview
 * Each game runs on a unique socket connection in the namespace of a randomly generated code.
 * Clients connect to the socket through user input of a player name and the randomly generated code. 
 * Game data is stored in a postgreSQL database while the game is active. All game data is deleted in a cascade at the end of the game. 
@@ -60,10 +60,10 @@ This code is also heavily commented. We recommend reading through the comments, 
 * Socket events created by clients are transmitted to the server where the database is manipulated, then transmitted back to that client and all other connected clients to update their redux state. 
 
 ------------
-##Server Side
+## Server Side
 
-###All of the server side files for the game operation live in /server/game.
-
+### All of the server side files for the game operation live in /server/game.
+ 
 On the server, the game is structured as an exportable node module to be used in the game router. game.js exports functions for creating, rejoining, and ending games. Inside of the /game directory live all of the separate modules needed to run the game. 
 
 The most critical sub module to the game's functionality is receiver.js.
