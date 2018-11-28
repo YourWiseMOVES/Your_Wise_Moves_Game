@@ -63,7 +63,7 @@ class ActionPanel extends Component {
 
                 <div ref={ref => this.actionPanel = ref} className="actionPanel">
 
-                    <p>{this.props.state.game.game.code}</p>
+                    <h4>{this.props.state.game.game.code}</h4>
                     {this.props.state.game.gameState[0] === '0' &&
                         this.props.state.gameCode !== '' ?
                         <div>
