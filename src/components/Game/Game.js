@@ -285,6 +285,7 @@ class Game extends Component {
 
   componentDidMount() {
     window.addEventListener('beforeunload', this.disconnectSocket);
+    this.props.dispatch({type: 'FETCH_DECKS'});
   }
 
   disconnectSocket = async event => {
