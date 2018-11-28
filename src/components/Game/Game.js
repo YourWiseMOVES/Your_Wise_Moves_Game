@@ -93,18 +93,15 @@ class Game extends Component {
     if (boolean) {
       socket.emit('end', { done: true });
     }
-    else {
-       await axios({
-        method: 'POST',
-        data: { id: this.props.state.user.userReducer.id },
-        url: '/game/end',
-      }) //will later clear all of the appropriate redux store items
-      setTimeout(() => {
-        this.props.dispatch({ type: 'CLEAR_SELECT_GAME' })
-        this.props.dispatch({ type: 'FETCH_GAMES' })
-      }, 1000)
-    }
-    
+    await axios({
+      method: 'POST',
+      data: { id: this.props.state.user.userReducer.id },
+      url: '/game/end',
+    }) //will later clear all of the appropriate redux store items
+    setTimeout(() => {
+      this.props.dispatch({ type: 'CLEAR_SELECT_GAME' })
+      this.props.dispatch({ type: 'FETCH_GAMES' })
+    }, 1000)
   }
 
   advanceStage = (newGameState, resetDiscussion) => { //function emits an 'advance' action
@@ -286,7 +283,7 @@ class Game extends Component {
 
   componentDidMount() {
     window.addEventListener('beforeunload', this.disconnectSocket);
-    this.props.dispatch({type: 'FETCH_DECKS'});
+    this.props.dispatch({ type: 'FETCH_DECKS' });
   }
 
   disconnectSocket = async event => {
