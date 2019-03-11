@@ -1,34 +1,40 @@
 .PlayInstructions {
-    font-family: 'Cinzel', serif;
+    font-family: 'Alegreya Sans SC', sans-serif;
     h1 {
-        font-size: 1.55em;
+        font-size: 1.25em;
     }
     &.bottomSquare {
         font-size: .85em;
-        background-color: rgba(0,0,0, .80);
-        margin: 2vh;
+        background-color: rgb(82,101,120);
+        margin: 3vh;
         text-align: left;
         color: white;
+        border-radius: .4rem;
+        padding: 2%;
+
         li {
-            padding: 1vh;
+            padding: 0.5vh;
+            text-align: left;
         }
         ul {
             padding: 0;
             margin: 0;
             list-style-type: none;
         }
-        h2 {
+        h2:not(.Home) {
             margin-left: 2vw;
         }
     }
     &.topSquare {
-        background-color: rgba(0,0,0, .80);
-        margin: 2vh;
+        background-color: rgb(82,101,120);
+        margin: 3vh;
         text-align: left;
         color: white;
+        border-radius: .4rem;
+        padding: 2%;
 
         p {
-            font-size: .85em;
+            font-size: .95em;
             color: white;
         }
     }

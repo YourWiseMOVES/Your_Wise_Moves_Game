@@ -1,10 +1,12 @@
 $neutral-text: rgb(239, 246, 248);
-$neutral-background: rgb(35, 57, 77);
-$neutral-border: #1A191A; 
+$neutral-background: rbg(43, 70, 95);
+$neutral-border: rgb(39, 63, 87); 
 $neutral-text-hover: rgb(230, 233, 233);
 $neutral-background-hover: rgb(52, 55, 56);
 $neutral-border-hover: rgb(8, 6, 20);
-$neutral-gradient-center: rgb(57, 62, 87);
+$neutral-gradient-center: rgb(85,106,126);
+$neutral-shadow-hover: rgba(52, 55, 56, 0.3);
+$brand-med-blue: rgb(41,116,185);
 
 
 button {
@@ -26,21 +28,22 @@ button {
     box-shadow: $neutral-border 0 1px 0;
     text-shadow: $neutral-border 0 1px 0;
     color: $neutral-text;
-    font-size: .8rem;
+    font-size: .9rem;
+    font-weight: 600;
     vertical-align: middle;
     margin: 1px;
-    max-height: 2.2rem;
-    min-height: 1.4rem;
-    min-width: 100px;
+    max-height: 2.6rem;
+    min-height: 1.6rem;
+    min-width: 125px;
     padding: 0;
-    padding-left: 5px;
-    padding-right: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
     overflow: hidden;
     }
  button:hover {
     border-top-color: $neutral-background-hover;
     border-left-color: $neutral-background-hover;
-    background-image: radial-gradient($neutral-gradient-center, $neutral-background-hover, $neutral-border);
+    background-image: radial-gradient($neutral-gradient-center, $neutral-border, $brand-med-blue);
     color: $neutral-text;
     }
  button:active {
@@ -54,16 +57,16 @@ button {
  input{
       width: 60%;
       padding: 5px 5px;
-      margin: 2px 0;
+      margin: 4px 0;
       margin-left: 5px;
       box-sizing: border-box;
       border-radius: .2rem;
       font-size: 1rem;
-      border: 3px solid $neutral-background-hover;
+      border: 1px solid $neutral-background-hover;
   }
 
   input:focus {
-   border: 3px solid $neutral-background-hover;
+   border: 1px solid $neutral-background-hover;
    outline: none;
-   box-shadow: 0 0 3pt 2pt $neutral-background-hover;
+   box-shadow: 0 0 3pt 2pt $neutral-shadow-hover;
 }

@@ -1,8 +1,8 @@
 @import '../themes/neutral';
 
-$font-stack: Helvetica, sans-serif;
+$font-stack: "Quicksand", sans-serif;
 
-$primary-color: black;
+$primary-color: #112A49;
 
 //Screen Sizes
 $small: 500px;
@@ -26,7 +26,7 @@ body {
     background-image: radial-gradient(rgb(245, 254, 255),rgb(182, 235, 240), rgb(113, 162, 167));
     height: 100vh;
     min-height: 900px;
-    font-size: 14px;
+    font-size: 16px;
     text-align: center;
     overflow-x: hidden;
 }
