@@ -33,7 +33,7 @@ class PlayerLogin extends Component {
         <button onClick={() => this.setState({
           ...this.state,
           joinRejoin: !this.state.joinRejoin,
-        })}>{this.state.joinRejoin ? <p>Join Game</p> : <p>Re-Join Game</p>}</button>
+        })}>{this.state.joinRejoin ? <p className="login">Join Game</p> : <p className="login">Re-Join Game</p>}</button>
         <label>
           Player Name
           <input onChange={this.handleChange} placeholder="Name" name="player" value={this.state.player}></input>
