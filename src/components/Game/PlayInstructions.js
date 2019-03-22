@@ -18,7 +18,7 @@ class PlayInstructions extends Component {
                 </div>
                 <div className="PlayInstructions bottomSquare">
                 <ul className="PlayInstructions">
-                    <h2 className="PlayInstructions">
+                    <h2 className="PlayInstructions Home">
                         Are you ready to play the game?
                     </h2>
                     <li>Do you want clarity about your current vision?</li>

@@ -1,11 +1,11 @@
 @import '../base/body';
 
 .sidebar {
-    height: 80vh; /* Full-height: remove this if you want "auto" height */
+    height: 90vh; /* Full-height: remove this if you want "auto" height */
     width: 20vw; /* Set the width of the sidebar */
     position: absolute; /* Fixed Sidebar (stay in place on scroll) */
     z-index: 3; /* Stay on top */
-    top: 10vh; /* Stay at the top */
+    top: 4vh; /* Stay at the top */
     left: 2vw;
     background-color: $neutral-text;
     text-align: center;
