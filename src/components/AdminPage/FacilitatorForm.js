@@ -260,7 +260,7 @@ class FacilitatorForm extends Component {
                     {/* Row 4 */}
                     <div className="row">
                         <div>Facilitator?
-                            <label>
+                            <label>Facilitator?
                                 <Select
                                     // title={"Facilitator"}
                                     name={"is_facilitator"}
