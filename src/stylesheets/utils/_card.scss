@@ -17,7 +17,7 @@
 .card-wrapper{ 
     height: 100%;
     width: 100%;
-    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2); 
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.3); 
     border-radius:4px;
     transition: transform 1s;
   transform-style: preserve-3d;
@@ -80,7 +80,7 @@
     };
 .card-header{
     flex-shrink: 1;
-   h6{
+   h5{
         color:white;
         font-size: .85rem;
         margin-bottom:2px;
