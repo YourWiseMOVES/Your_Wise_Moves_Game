@@ -157,7 +157,7 @@ class CardPage extends Component {
                   <option value="5">Sustain</option>
                 </select></label>
                 <label htmlFor="filterDeck"><h3>Filter By Deck:</h3>
-                <select name="select" id="filterDeck"
+                <select name="select" id="filterDeck" className="form-control"
                   onChange={this.handleChangeFor('deckSelected', 'filter')}
                   value={this.state.deckSelected}>
                   <option value="0">All Cards</option>
