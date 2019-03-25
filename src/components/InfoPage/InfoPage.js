@@ -146,7 +146,7 @@ class CardPage extends Component {
               <div>
                 <div class="filter-group">
                 <label htmlFor="filterOptions"><h3>Filter Options:</h3>
-                <select name="select" id="filterOptions"
+                <select name="select" id="filterOptions" className="form-control"
                   onChange={this.handleChangeFor('categorySelected', 'filter')}
                   value={this.state.filter.categorySelected}>
                   <option value="0">All Categories</option>
