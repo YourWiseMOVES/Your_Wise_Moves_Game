@@ -144,7 +144,8 @@ class CardPage extends Component {
           <div className="card-filter-options">
             {this.state.deckToAdd.viewing === 'true' ? null :
               <div>
-                <label htmlFor="filterOptions"><h2>Filter Options:</h2> </label>
+                <div class="filter-group">
+                <label htmlFor="filterOptions"><h3>Filter Options:</h3>
                 <select name="select" id="filterOptions"
                   onChange={this.handleChangeFor('categorySelected', 'filter')}
                   value={this.state.filter.categorySelected}>
@@ -154,15 +155,16 @@ class CardPage extends Component {
                   <option value="3">Visualize</option>
                   <option value="4">Engage</option>
                   <option value="5">Sustain</option>
-                </select>
-                <label htmlFor="filterDeck"><h2>Filter By Deck:</h2> </label>
+                </select></label>
+                <label htmlFor="filterDeck"><h3>Filter By Deck:</h3>
                 <select name="select" id="filterDeck"
                   onChange={this.handleChangeFor('deckSelected', 'filter')}
                   value={this.state.deckSelected}>
                   <option value="0">All Cards</option>
                   {this.props.decks.decks.map(deck =>
                     <option key={deck.id} value={`${deck.id}`}>{deck.description}</option>)}
-                </select>
+                </select></label>
+                </div>
                 <input placeholder="search for a card by content" onChange={this.handleChangeFor('searchText', 'filter')}></input>
               </div>}
             <br />
