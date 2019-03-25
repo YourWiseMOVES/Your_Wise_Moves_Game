@@ -126,6 +126,7 @@ select {
 }
 
 .filter-group {
-    display: inline-block;
+    display: flex;
+    flex-flow: row nowrap;
     margin: 10px 0;
 }
