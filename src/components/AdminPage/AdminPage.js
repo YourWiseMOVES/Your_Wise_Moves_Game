@@ -70,16 +70,15 @@ console.log('HELLOOOOOO!!!!!!!!!!!!!!!!!!')
 
       <div>
         <div className="preAccordion" >
-          <h4>1. To add a new facilitator to database, complete the form.</h4>
-          <h4>2. To edit a facilitator's status in the database, select a facilitator name below.</h4>
-        </div>
-        <div className="preAccordion">
-            <h4>Add a new facilitator here:</h4>
+          <h3>To add a new facilitator to database, complete the form.</h3>
           </div>
         <div className="accordion">
             <FacilitatorForm
               action="add"  // updates the question form based on this function or edit
             />
+          </div>
+          <div className="preAccordion" >
+          <h3>To edit a facilitator's status in the database, select a facilitator name below.</h3>
           </div>
         <div className="accordion">
           <Accordion>
