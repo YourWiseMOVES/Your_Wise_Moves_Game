@@ -54,7 +54,7 @@ class Card extends Component {
           <div className={`card-wrapper ${this.state.isFlipped ? 'is-flipped' : null}`}>
             <div onClick={() => this.flipCard()} className={`card-content card-front ${this.classNameSwitch(String(this.props.question.stage_id))}`}>
               <div className={`card-header`}>
-                <h6>{this.props.editable ? this.props.question.type : 'Your Intention ' + this.props.question.intention}</h6>
+                <h5>{this.props.editable ? this.props.question.type : 'Your Intention ' + this.props.question.intention}</h5>
               </div>
               <div>
                 <h5>{this.props.question.text}</h5>
