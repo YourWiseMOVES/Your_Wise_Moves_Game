@@ -57,7 +57,7 @@ class Card extends Component {
                 <h5>{this.props.editable ? this.props.question.type : 'Your Intention ' + this.props.question.intention}</h5>
               </div>
               <div>
-                <h5>{this.props.question.text}</h5>
+                <h4>{this.props.question.text}</h4>
               </div>
             </div>
             <div className={`card-content card-back ${this.classNameSwitch(String(this.props.question.stage_id))}`}>
