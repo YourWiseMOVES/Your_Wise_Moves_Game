@@ -233,8 +233,8 @@ p.login {
   border-radius: 4px;
   padding: 0 4px;
 }
-.card-content h4 {
-  font-size: 1.2rem;
+.card-content h5 {
+  font-size: 1.3rem;
 }
 
 .card-wrapper.is-flipped {
@@ -290,7 +290,7 @@ p.login {
 .card-header {
   flex-shrink: 1;
 }
-.card-header h5 {
+.card-header h4 {
   color: white;
   font-size: 0.85rem;
   margin-bottom: 2px;
@@ -337,6 +337,11 @@ p.login {
 
 select {
   margin-right: 3px;
+}
+
+.filter-group {
+  display: inline-block;
+  margin: 10px 0;
 }
 
 .question-form {

@@ -30,8 +30,8 @@
     backface-visibility: hidden;
     border-radius:4px;
     padding: 0 4px;
-    h4{
-        font-size: 1.2rem
+    h5{
+        font-size: 1.3rem
     }
 }
 .card-wrapper.is-flipped {
@@ -81,7 +81,7 @@
     };
 .card-header{
     flex-shrink: 1;
-   h5{
+   h4{
         color:white;
         font-size: .85rem;
         margin-bottom:2px;
@@ -122,4 +122,9 @@
 
 select {
     margin-right: 3px;
+}
+
+.filter-group {
+    display: inline-block;
+    margin: 10px 0;
 }
