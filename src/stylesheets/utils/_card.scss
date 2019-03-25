@@ -125,13 +125,19 @@ select {
     margin-right: 3px;
 }
 
+.card-filter-options {
+    width: 60%;
+    display: flex;
+    flex-flow: column nowrap;
+}
+
 .filter-group {
     display: flex;
     flex-flow: row nowrap;
     justify-content: center;
-    width: 65%;
+    width: 75%;
 }
 
 .filter-label {
-    margin: 15px 0;
+    margin: 0 5%;
 }
