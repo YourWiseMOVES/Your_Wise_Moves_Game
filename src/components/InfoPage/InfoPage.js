@@ -145,7 +145,7 @@ class CardPage extends Component {
             {this.state.deckToAdd.viewing === 'true' ? null :
               <div>
                 <div class="filter-group">
-                <label htmlFor="filterOptions"><h3>Filter Options:</h3>
+                <label htmlFor="filterOptions" className="filter-label"><h3>Filter Options:</h3>
                 <select name="select" id="filterOptions" className="form-control"
                   onChange={this.handleChangeFor('categorySelected', 'filter')}
                   value={this.state.filter.categorySelected}>
@@ -156,7 +156,7 @@ class CardPage extends Component {
                   <option value="4">Engage</option>
                   <option value="5">Sustain</option>
                 </select></label>
-                <label htmlFor="filterDeck"><h3>Filter By Deck:</h3>
+                <label htmlFor="filterDeck" className="filter-label"><h3>Filter By Deck:</h3>
                 <select name="select" id="filterDeck" className="form-control"
                   onChange={this.handleChangeFor('deckSelected', 'filter')}
                   value={this.state.deckSelected}>
