@@ -343,6 +343,7 @@ select {
   display: flex;
   flex-flow: row nowrap;
   justify-content: center;
+  width: 65%;
 }
 
 .filter-label {
