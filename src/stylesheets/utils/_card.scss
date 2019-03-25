@@ -127,6 +127,8 @@ select {
 
 .card-filter-options {
     width: 60%;
+    display: flex;
+    flex-flow: column nowrap;
 }
 
 .filter-group {
