@@ -339,6 +339,10 @@ select {
   margin-right: 3px;
 }
 
+.card-filter-options {
+  width: 60%;
+}
+
 .filter-group {
   display: flex;
   flex-flow: row nowrap;
