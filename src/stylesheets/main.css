@@ -456,7 +456,7 @@ input:focus {
   overflow-y: auto;
 }
 .actionPanel .select-container {
-  background-color: rgba(0, 0, 0, 0.8);
+  background-color: #526578;
   width: 66%;
   margin-left: auto;
   margin-right: auto;
