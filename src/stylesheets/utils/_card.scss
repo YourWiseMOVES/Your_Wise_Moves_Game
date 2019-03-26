@@ -126,7 +126,7 @@ select {
 }
 
 .card-filter-options {
-    width: 60%;
+    width: 100%;
     display: flex;
     flex-flow: column nowrap;
 }
@@ -135,9 +135,14 @@ select {
     display: flex;
     flex-flow: row nowrap;
     justify-content: center;
-    width: 75%;
+    width: 100%;
 }
 
 .filter-label {
     margin: 0 5%;
+}
+
+.filter-select {
+    width: 75%;
+    margin-bottom: 2%;
 }
