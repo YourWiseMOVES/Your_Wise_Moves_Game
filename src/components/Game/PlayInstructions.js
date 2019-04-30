@@ -13,7 +13,7 @@ class PlayInstructions extends Component {
                     <p className="PlayInstructions">
                         The objective of the game is to ignite your wisdom, align your intuition and purpose, and clarify your way forward.
                         This fun, fresh approach brings awareness in the area you choose for enhanced life, work and relationships. Play it to energize
-                        and renew yourself to wisely move forward and est intentions into motion.
+                        and renew yourself to wisely move forward and set intentions into motion.
                 </p>
                 </div>
                 <div className="PlayInstructions bottomSquare">
