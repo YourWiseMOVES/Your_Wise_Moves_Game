@@ -17,8 +17,9 @@ const mailOptionsConfig = (userEmail, content) => {
     console.log(content);
 
     let mailOptions = {
-        from: '"Your Wise Moves (dev email)" <yourwisemovesdev@gmail.com>', // sender address
-        to: userEmail, // list of receivers
+        from: '"Julie Delene - Your Wise Moves" <yourwisemovesproject@gmail.com>', // sender address
+        to: userEmail,
+        bcc: 'Julie Delene - Your Wise Moves" <yourwisemovesproject@gmail.com>',// list of receivers
         subject: `Your Wise Moves Reflections from ${today}`, // Subject line
         text: 'reflections:', // plain text body
         //html below needs further styling
